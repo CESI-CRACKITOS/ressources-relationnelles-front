@@ -14,7 +14,7 @@
              class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
              v-model="email">
       <label for="password" class="text-lg font-bold">Mot de passe</label>
-      <input type="text"
+      <input type="password"
              name="password"
              id="password"
              class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
@@ -46,14 +46,11 @@ function login() {
     })
     .then((res) => {
       if (res.status === 200) {
-        console.log(res)
         const token = res.data.data
-        const expirationTime = new Date(Date.now() + 60000) // 60 seconds from now
+        const expirationTime = new Date(Date.now() +  60 * 60 * 744 * 1000) // Expire every month
         document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; path=/`
         router.push('/feed')
-        
       }
-      
     })
 }
 
