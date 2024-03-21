@@ -6,51 +6,52 @@
     </RouterLink>
   </div>
   <div class="flex flex-col gap-10 px-5 py-3">
-    <form class="flex flex-col gap-4" method="post" @submit.prevent="submit">
+    <div class="flex flex-col gap-4" method="post" >
       <label for="login" class="text-lg font-bold">Identifiant</label>
       <input type="text"
-             name="login"
+             name="email"
              id="login"
              class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
-             v-model="login.login">
+             v-model="email">
       <label for="password" class="text-lg font-bold">Mot de passe</label>
-      <input type="text"
+      <input type="password"
              name="password"
              id="password"
              class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
-             v-model="login.password">
-      <button type="submit" class="px-5 py-2 bg-gouv-blue-500 text-white">
+             v-model="password">
+      <button type="button" @click="login" class="px-5 py-2 bg-gouv-blue-500 text-white">
         Valider
       </button>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 import HeaderComponent from '@/components/shared/HeaderComponent.vue'
 import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
-import axios from "axios";
-import router from '@/router';
-const login = {
-  "login": "",
-  "password": ""
-}
-async function submit() {
+import instanceDev  from '@/config/axios.js'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-  await axios.post("/handleLogin", {
-    "login": login.login,
-    "password": login.password
-  }).then((res)=>{
-    if (res.data === true) {
-      window.location.href="/feed"
-    }
-    // TODO Implement error message here
-    router.push({ path: "/login" })
-  }).catch((err)=>{
-    console.log(err)
-  })
+let email = ref('')
+let password = ref('')
+const router = useRouter()
 
+
+function login() {
+  instanceDev
+    .post('/tokens', {
+      "email": email.value,
+      "password": password.value
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        const token = res.data.data
+        const expirationTime = new Date(Date.now() +  60 * 60 * 744 * 1000) // Expire every month
+        document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; path=/`
+        router.push('/feed')
+      }
+    })
 }
 
 </script>
