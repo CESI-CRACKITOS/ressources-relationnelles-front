@@ -1,4 +1,6 @@
 <template>
+  <div v-if="isRegister" 
+       class="bg-green-700 p-2 text-center text-white">Inscription réussie</div>
   <HeaderComponent/>
   <div class="px-5">
     <RouterLink to="/">
@@ -31,11 +33,12 @@ import HeaderComponent from '@/components/shared/HeaderComponent.vue'
 import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
 import instanceDev  from '@/config/axios.js'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import router from '@/router'
+
+const isRegister = ref(router.currentRoute.value.query.register)
 
 let email = ref('')
 let password = ref('')
-const router = useRouter()
 
 
 function login() {
