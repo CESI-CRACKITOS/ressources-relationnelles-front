@@ -11,6 +11,4 @@
       "path": "./tsconfig.vitest.json"
     }
   ],
-  "noImplicitAny": false,
-  "allowJs": true
 }

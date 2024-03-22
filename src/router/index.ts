@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import FeedView from '@/views/FeedView.vue'
-import UserEntity from '@/composable/Entities/User'
-
-
+import getUserFromToken from '@/composable/Utils/UserUtils'
+import getCookieFromValue from '@/composable/Utils/CookiesUtils'
+import RegisterView from '@/views/RegisterView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +20,11 @@ const router = createRouter({
 			component: LoginView,
 		},
 		{
+			path: '/register',
+			name: 'register',
+			component: RegisterView,
+		},
+		{
 			path: '/feed',
 			name: 'feed',
 			component: FeedView,
@@ -27,15 +32,14 @@ const router = createRouter({
 				requiresAuth: true,
 				requireRole: "U"
 			}
-		}
+		},
 
 	]
 })
  
 router.beforeEach(async (to, from, next) => {
+	const token = getCookieFromValue("token")
 
-	let token: string | undefined = document.cookie.split('; ').find(row => row.startsWith('token='))
-	token = token?.split('=')[1] ?? undefined
 	if (to.meta.requiresAuth) {
 		if (token === undefined) {
 			next("/login")
@@ -47,44 +51,24 @@ router.beforeEach(async (to, from, next) => {
 
 				//TODO Pinia store user
 
-				const roleMap = {
+				const expectedRole: string = to.meta.requireRole as string;
+				const roleMap: { [key: string]: boolean } = {
 					"A": user.isAdmin,
 					"U": user.isUser,
 					"SA": user.isSuperAdmin,
 					"M": user.isModerator
 				};
-			
-				if (!roleMap[to.meta.requireRole]) {
+
+				if (!roleMap[expectedRole]) {
 					next("/");
 				} else {
-					next()
-				} 
+					next();
+				}
 			}
 		} 
 	} else {
 		next()
 	}
 })
-
-
-async function getUserFromToken(tokenValue: string) {
-
-	const res = fetch("http://localhost/api/users/getByToken", {
-		
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		method: 'POST',
-		body: JSON.stringify({
-			tokenValue: tokenValue
-		}),
-	})
-
-	const data = await res.then(response => response.json())
-	
-	const user = new UserEntity(data.data)
-
-	return user
-}
 
 export default router
