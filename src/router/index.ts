@@ -5,6 +5,8 @@ import FeedView from '@/views/FeedView.vue'
 import getUserFromToken from '@/composable/Utils/UserUtils'
 import getCookieFromValue from '@/composable/Utils/CookiesUtils'
 import RegisterView from '@/views/RegisterView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import {useUserStore} from '@/stores/user'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,9 +35,20 @@ const router = createRouter({
 				requireRole: "U"
 			}
 		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: ProfileView,
+			meta: {
+				requiresAuth: true,
+				requireRole: "U"
+			}
+		}
 
 	]
 })
+
+
  
 router.beforeEach(async (to, from, next) => {
 	const token = getCookieFromValue("token")
@@ -50,6 +63,9 @@ router.beforeEach(async (to, from, next) => {
 			} else {
 
 				//TODO Pinia store user
+				const userState = useUserStore();
+				userState.user = user;
+
 
 				const expectedRole: string = to.meta.requireRole as string;
 				const roleMap: { [key: string]: boolean } = {
