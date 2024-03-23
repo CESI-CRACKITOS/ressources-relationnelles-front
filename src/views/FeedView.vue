@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import PostComponent from '@/components/PostComponent.vue'
 import ResourceEntity from '@/composable/Entities/Resource'
-import getResources from '@/composable/Utils/ResourcesUtils'
+import { getResources } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 
 let resources = ref<ResourceEntity[]>([])
