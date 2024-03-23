@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+import getUserFromToken from '@/composable/Utils/UserUtils'
+import { ref } from 'vue'
 const props = defineProps({
   icon: {
     type: String,
@@ -28,19 +30,40 @@ const props = defineProps({
   }
 })
 
-function cta(action: string) {
+async function cta(action: string) {
   switch (action) {
     case 'like':
-      console.log('like', props.contextId)
+      let res
+      switch (action) {
+        case 'like':
+          res = await likeResource()
+          console.log(res)
+          break
+        case 'comment':
+          break
+        case 'retweet':
+          break
+        default:
+      }
+      console.log(res)
       break
     case 'comment':
-      console.log('comment', props.contextId)
       break
     case 'retweet':
-      console.log('retweet', props.contextId)
       break
     default:
-      console.log('default', props.contextId)
   }
+}
+
+async function likeResource() {
+  const user = await getUserFromToken('dc2288f5-3313-4d3f-9097-ee45ba0715f8')
+  const response = await fetch(`http://localhost/api/like/${props.contextId}/${user.id}`, {
+    method: 'PACTH',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  return response
 }
 </script>
