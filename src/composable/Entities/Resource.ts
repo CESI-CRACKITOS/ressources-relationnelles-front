@@ -1,4 +1,5 @@
 import ResourceContentEntity from '@/composable/Entities/ResourceContent'
+import ResourceCommentEntity from '@/composable/Entities/ResourceComment'
 
 class ResourceEntity {
   id: number
@@ -12,6 +13,7 @@ class ResourceEntity {
   created_at: Date
   updated_at: Date
   contents: ResourceContentEntity[] = []
+  comments: ResourceCommentEntity[] = []
 
   constructor(resource: any) {
     this.id = resource.id
@@ -28,6 +30,10 @@ class ResourceEntity {
 
   addContents(content: ResourceContentEntity) {
     this.contents.push(content)
+  }
+
+  addComments(comment: ResourceCommentEntity) {
+    this.comments.push(comment)
   }
 }
 export default ResourceEntity
