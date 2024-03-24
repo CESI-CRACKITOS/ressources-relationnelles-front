@@ -62,10 +62,8 @@ router.beforeEach(async (to, from, next) => {
 				next("/login")
 			} else {
 
-				//TODO Pinia store user
 				const userState = useUserStore();
 				userState.user = user;
-
 
 				const expectedRole: string = to.meta.requireRole as string;
 				const roleMap: { [key: string]: boolean } = {

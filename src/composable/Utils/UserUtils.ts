@@ -14,7 +14,10 @@ async function getUserFromToken(tokenValue: string) {
 	})
 
 	const data = await res.then(response => response.json())
-	
+	if (data.message === "ERROR") {
+		return undefined
+	}
+
 	const user = new UserEntity(data.data)
 
 	return user
