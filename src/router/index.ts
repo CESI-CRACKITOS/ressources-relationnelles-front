@@ -69,27 +69,28 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const token = getCookieFromValue('token')
 
-  if (to.meta.requiresAuth) {
-    if (token === undefined) {
-      next('/login')
-    } else {
-      const user = await getUserFromToken(token)
-      if (user === undefined) {
-        next('/login')
-      } else {
-        //TODO Pinia store user
-        const userState = useUserStore()
-        userState.user = user
+	const token = getCookieFromValue("token")
 
-        const expectedRole: string = to.meta.requireRole as string
-        const roleMap: { [key: string]: boolean } = {
-          A: user.isAdmin,
-          U: user.isUser,
-          SA: user.isSuperAdmin,
-          M: user.isModerator
-        }
+	if (to.meta.requiresAuth) {
+		if (token === undefined) {
+			next("/login")
+		} else {
+			let user = await getUserFromToken(token)
+			if (user === undefined) {
+				next("/login")
+			} else {
+
+				const userState = useUserStore();
+				userState.user = user;
+
+				const expectedRole: string = to.meta.requireRole as string;
+				const roleMap: { [key: string]: boolean } = {
+					"A": user.isAdmin,
+					"U": user.isUser,
+					"SA": user.isSuperAdmin,
+					"M": user.isModerator
+				};
 
         if (!roleMap[expectedRole]) {
           next('/')
