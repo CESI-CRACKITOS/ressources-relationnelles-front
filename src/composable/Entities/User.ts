@@ -5,7 +5,6 @@ class UserEntity  {
 	profilePicture : string;
 
 	email: number;
-	password : string;
 	role : string;
 
 	isActive : boolean;
@@ -26,7 +25,6 @@ class UserEntity  {
 		this.firstname = user.firstname
 		this.profilePicture = user.profilePicture
 		this.email = user.email
-		this.password = user.password
 		this.role = user.role
 		this.isActive = user.isActive
 		this.acceptedCGU = user.acceptedCGU
@@ -34,10 +32,10 @@ class UserEntity  {
 		this.created_at = user.created_at
 		this.updated_at = user.updated_at
 
-		this.isSuperAdmin = this.role === "S" ? true : false
-		this.isAdmin = this.role === "A" || this.isSuperAdmin ? true : false
-		this.isModerator = this.role === "M" || this.isAdmin ? true : false
-		this.isUser = this.role === "U" || this.isModerator ? true : false
+		this.isSuperAdmin = this.role === "S";
+		this.isAdmin = this.role === "A" || this.isSuperAdmin;
+		this.isModerator = this.role === "M" || this.isAdmin;
+		this.isUser = this.role === "U" || this.isModerator;
 	  }
 }
 

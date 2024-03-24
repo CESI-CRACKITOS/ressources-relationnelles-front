@@ -6,51 +6,70 @@ import getUserFromToken from '@/composable/Utils/UserUtils'
 import getCookieFromValue from '@/composable/Utils/CookiesUtils'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import {useUserStore} from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
-	routes: [
-		{
-			path: '/',
-			name: 'home',
-			component: HomeView,
-		},
-		{
-			path: '/login',
-			name: 'login',
-			component: LoginView,
-		},
-		{
-			path: '/register',
-			name: 'register',
-			component: RegisterView,
-		},
-		{
-			path: '/feed',
-			name: 'feed',
-			component: FeedView,
-			meta: {
-				requiresAuth: true,
-				requireRole: "U"
-			}
-		},
-		{
-			path: '/profile',
-			name: 'profile',
-			component: ProfileView,
-			meta: {
-				requiresAuth: true,
-				requireRole: "U"
-			}
-		}
-
-	]
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
+    },
+    {
+      path: '/feed',
+      name: 'feed',
+      component: FeedView,
+      meta: {
+        requiresAuth: true,
+        requireRole: 'U'
+      }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      meta: {
+        requiresAuth: true,
+        requireRole: 'U'
+      }
+    },
+    {
+      path: '/resources',
+      name: 'resources',
+      redirect: '/feed',
+      meta: {
+        requiresAuth: true,
+        requireRole: 'U'
+      },
+      children: [
+        {
+          path: ':id(\\d+)',
+          name: 'resource',
+          component: ResourceDetailsView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          }
+        }
+      ]
+    }
+  ]
 })
 
-
- 
 router.beforeEach(async (to, from, next) => {
+
 	const token = getCookieFromValue("token")
 
 	if (to.meta.requiresAuth) {
@@ -73,16 +92,16 @@ router.beforeEach(async (to, from, next) => {
 					"M": user.isModerator
 				};
 
-				if (!roleMap[expectedRole]) {
-					next("/");
-				} else {
-					next();
-				}
-			}
-		} 
-	} else {
-		next()
-	}
+        if (!roleMap[expectedRole]) {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
