@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-white p-3 border-b border-gray-200 gap-2">
+  <div class="flex bg-white p-3 border-b border-gray-200 gap-2" @click="navigateToResourceDetails(resource.id)">
     <div class="w-12">
       <img src="./1681453032243.jpg" class="rounded-lg" alt="" />
     </div>
@@ -44,6 +44,7 @@
             action="retweet"
             :context-id="resource.id"
             active="true"
+            
           />
         </div>
       </div>
@@ -54,10 +55,16 @@
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
 import IconButtonComponentVue from './shared/buttons/IconButtonComponent.vue'
+import router from '@/router';
+
 const props = defineProps({
   resource: {
     type: ResourceEntity,
     required: true
   }
 })
+
+function navigateToResourceDetails(id: number) {
+  router.push({ name: 'ResourceDetails', params: { id: id } })
+}
 </script>

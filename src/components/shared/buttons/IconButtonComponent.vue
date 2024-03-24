@@ -54,7 +54,7 @@ async function cta(action: string) {
     default:
   }
 }
-
+// todo get user from pinia
 async function likeResource() {
   const user = await getUserFromToken('dc2288f5-3313-4d3f-9097-ee45ba0715f8')
   const response = await fetch(`http://localhost/api/like/${props.contextId}/${user.id}`, {
