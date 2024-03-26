@@ -1,4 +1,4 @@
-import type UserEntity from "./User"
+import type UserEntity from './User'
 
 class ResourceCommentEntity {
   id: number
@@ -6,8 +6,8 @@ class ResourceCommentEntity {
   content: string
   resourceId: number
   isActive: boolean
-  createdAt: Date
-  updatedAt: Date
+  created_at: Date
+  updated_at: Date
   user: UserEntity | null = null
 
   constructor(comment: any) {
@@ -16,10 +16,9 @@ class ResourceCommentEntity {
     this.content = comment.content
     this.resourceId = comment.resourceId
     this.isActive = comment.isActive
-    this.createdAt = comment.created_at
-    this.updatedAt = comment.updated_at
+    this.created_at = comment.created_at
+    this.updated_at = comment.updated_at
   }
-
 
   setUser(user: UserEntity) {
     this.user = user

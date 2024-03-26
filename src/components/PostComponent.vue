@@ -7,7 +7,7 @@
 			<div class="flex flex-row justify-between w-full">
 				<div class="flex flex-row gap-2 items-center">
 					<h3>{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</h3>
-					<span class="text-xs h-fit">{{ tempsDepuisPost }}</span>
+					<span class="text-xs h-fit">{{ timeFromPublish }}</span>
 				</div>
 				<i class="fas fa-ellipsis"></i>
 			</div>
@@ -51,9 +51,9 @@ const props = defineProps({
 		required: true
 	}
 })
-let tempsDepuisPost = ref("")
+let timeFromPublish = ref("")
 onMounted(async() => {
-	tempsDepuisPost.value = await calculateDates(props.resource.created_at)
+	timeFromPublish.value = await calculateDates(props.resource.created_at)
 })
 
 

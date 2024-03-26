@@ -5,7 +5,7 @@
   <div>
     <div class="flex flex-row gap-2 items-center">
 					<h3>{{ comment.user?.firstname + ' ' + comment.user?.lastname }}</h3>
-					<span class="text-xs h-fit">{{ tempsDepuisPost }}</span>
+					<span class="text-xs h-fit">{{ timeFromPublish }}</span>
 				</div>
   <p>{{ comment.content }}</p>
   </div>
@@ -25,9 +25,9 @@ const props = defineProps({
 	}
 })
 
-let tempsDepuisPost = ref("")
+let timeFromPublish = ref("")
 onMounted(async() => {
-	tempsDepuisPost.value = await calculateDates(props.comment.createdAt)
+	timeFromPublish.value = await calculateDates(props.comment.created_at)
 })
 
 </script>
