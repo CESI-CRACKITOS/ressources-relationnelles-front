@@ -2,16 +2,7 @@
   <div>
     <PostComponent :key="resource.id" :resource="resource" />
     <div v-for="comment in resource.comments" :key="comment.id" class="flex bg-white p-3 border-b border-gray-200 gap-2">
-      <div class="w-12">
-        <img :src="comment.user.profilePicture? comment.user.profilePicture: '/img'" alt="">
-      </div>
-      <div>
-        <div class="flex gap-4">
-        <p>{{ comment.user.lastname }}</p>
-        <p>{{ comment.user.firstname }}</p>
-      </div>
-      <p>{{ comment.content }}</p>
-      </div>
+      <CommentComponent :comment="comment" />
     </div>
   </div>
 </template>
@@ -22,6 +13,7 @@ import PostComponent from '@/components/PostComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
+import CommentComponent from '@/components/CommentComponent.vue'
 
 
 let resource = ref<ResourceEntity[]>([])
