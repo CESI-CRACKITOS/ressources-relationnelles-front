@@ -65,6 +65,6 @@ const props = defineProps({
 })
 
 function navigateToResourceDetails(id: number) {
-  router.push({ name: 'ResourceDetails', params: { id: id } })
+  router.push({ name: 'resource', params: { id: id } })
 }
 </script>
