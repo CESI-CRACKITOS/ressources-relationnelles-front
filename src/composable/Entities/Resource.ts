@@ -1,6 +1,6 @@
 import ResourceContentEntity from '@/composable/Entities/ResourceContent'
 import ResourceCommentEntity from '@/composable/Entities/ResourceComment'
-import type UserEntity from '@/composable/Entities/User'
+import UserEntity from '@/composable/Entities/User'
 
 class ResourceEntity {
   id: number
@@ -15,7 +15,7 @@ class ResourceEntity {
   updated_at: Date
   contents: ResourceContentEntity[] = []
   comments: ResourceCommentEntity[] = []
-  user : UserEntity
+  user: UserEntity | null = null
 
   constructor(resource: any) {
     this.id = resource.id
@@ -28,7 +28,6 @@ class ResourceEntity {
     this.isDraft = resource.isDraft
     this.created_at = resource.created_at
     this.updated_at = resource.updated_at
-    this.user = this.setUser(resource.user)
   }
 
   addContents(content: ResourceContentEntity) {
@@ -39,7 +38,7 @@ class ResourceEntity {
     this.comments.push(comment)
   }
   setUser(user: UserEntity) {
-    return user
+    this.user = user
   }
 }
 export default ResourceEntity
