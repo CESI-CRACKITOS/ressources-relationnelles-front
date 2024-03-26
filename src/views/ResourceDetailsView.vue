@@ -23,11 +23,13 @@ import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 
+
 let resource = ref<ResourceEntity[]>([])
 
 let idResource = router.currentRoute.value.params.id
 
 onMounted(async () => {
+
   resource.value = await getResourceById(idResource)
 
   console.log(resource.value)
