@@ -6,7 +6,7 @@ import getUserFromToken from '@/composable/Utils/UserUtils'
 import getCookieFromValue from '@/composable/Utils/CookiesUtils'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from "@/stores/user"
 import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
 
 const router = createRouter({

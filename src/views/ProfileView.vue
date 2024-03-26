@@ -42,7 +42,7 @@
 <script setup lang="ts">
 
 import { useUserStore } from '@/stores/user'
-import formatDate from '@/composable/Utils/DateUtils';
+import {formatDate} from '@/composable/Utils/DateUtils';
 import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue';
 
 const userState = useUserStore()
