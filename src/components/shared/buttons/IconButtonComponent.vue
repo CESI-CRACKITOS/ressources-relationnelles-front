@@ -1,16 +1,14 @@
 <template>
-  <div
-    @click="cta(action)"
-    class="flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2"
-  >
+  <div @click="cta(action)" :class="Class">
     <i :class="icon"></i>
-    <p class="text-sm">12</p>
+    <p v-if="showNumber" class="text-sm">{{ number }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import getUserFromToken from '@/composable/Utils/UserUtils'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+
 const props = defineProps({
   icon: {
     type: String,
@@ -30,28 +28,43 @@ const props = defineProps({
   }
 })
 
+let number = ref(0)
+let showNumber = ref(false)
+let Class = ref('')
+onMounted(() => {
+  switch (props.action) {
+    case 'like':
+      number.value = 10
+      showNumber.value = true
+      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
+      break
+    case 'comment':
+      showNumber.value = true
+
+      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
+      break
+    case 'retweet':
+      showNumber.value = true
+
+      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
+      break
+    default:
+      break
+  }
+})
+
 async function cta(action: string) {
   switch (action) {
     case 'like':
-      let res
-      switch (action) {
-        case 'like':
-          res = await likeResource()
-          console.log(res)
-          break
-        case 'comment':
-          break
-        case 'retweet':
-          break
-        default:
-      }
-      console.log(res)
+      await likeResource()
+      Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
       break
     case 'comment':
       break
     case 'retweet':
       break
     default:
+      break
   }
 }
 // todo get user from pinia
