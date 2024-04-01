@@ -37,7 +37,7 @@
       <CategorieTrendComponentVue
         v-for="trend in Trend"
         :key="trend.CategorieName"
-        :CategorieName="trend.CategorieName"
+        :CategoryName="trend.CategorieName"
         :NumberOfPost="trend.NumberOfPost"
         :TrendRanking="trend.TrendRanking"
       ></CategorieTrendComponentVue>
