@@ -2,7 +2,7 @@
   <div class="flex flex-col w-full hover:bg-gray-300 px-4 py-1">
     <p class="text-sm text-gray-500">{{ TrendRanking }} - Tendance</p>
     <p class="font-semibold">{{ CategoryName }}</p>
-    <p class="text-sm text-gray-500">{{ NumberOfPost }} de resources</p>
+    <p class="text-sm text-gray-500">{{ NumberOfPost }} de ressources</p>
   </div>
 </template>
 
