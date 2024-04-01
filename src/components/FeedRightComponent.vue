@@ -32,15 +32,47 @@
       ></AccountToFollow>
     </div>
 
-    <div class="bg-gray-100 w-full rounded-3xl p-4">
-      <h2 class="text-xl text-black font-bold pb-4">Catégories Tendances</h2>
+    <div class="bg-gray-100 w-full rounded-3xl">
+      <h2 class="text-xl text-black font-bold p-4 pb-4">Catégories Tendances</h2>
+      <CategorieTrendComponentVue
+        v-for="trend in Trend"
+        :key="trend.CategorieName"
+        :CategorieName="trend.CategorieName"
+        :NumberOfPost="trend.NumberOfPost"
+        :TrendRanking="trend.TrendRanking"
+      ></CategorieTrendComponentVue>
+
+      <RouterLink
+        to="/trend"
+        class="text-blue-500 flex w-full hover:bg-gray-300 px-4 py-4 rounded-b-3xl"
+      >
+        Voir plus
+      </RouterLink>
+    </div>
+    <div class="flex flex-wrap gap-2 p-4">
+      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline"
+        >Conditions d'utilisation
+      </RouterLink>
+      <RouterLink to="privacy" class="text-sm text-gray-500 hover:underline"
+        >Politique de Confidentialité</RouterLink
+      >
+      <RouterLink to="cookie" class="text-sm text-gray-500 hover:underline"
+        >Politique relative aux cookies</RouterLink
+      >
+      <RouterLink to="Accessibility" class="text-sm text-gray-500 hover:underline"
+        >Accessibilité</RouterLink
+      >
+      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline"
+        >Informations sur les publicités</RouterLink
+      >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import AccountToFollow from '@/components/AccountToFollow.vue'
-
+import CategorieTrendComponentVue from './CategorieTrendComponent.vue'
+import { RouterLink } from 'vue-router'
 let users = [
   {
     firstname: 'Rocco',
@@ -59,6 +91,34 @@ let users = [
     lastname: 'Sins',
     urlImage:
       'https://ei.phncdn.com/(m=bLWsSeKlbyaT)(mh=wJ_vUY_K5kY83UTt)8463a828-afb9-4e4f-85be-9b568c1a9160.jpg'
+  }
+]
+
+let Trend = [
+  {
+    CategorieName: 'Catégorie',
+    NumberOfPost: 9989898,
+    TrendRanking: 1
+  },
+  {
+    CategorieName: 'Catégorie',
+    NumberOfPost: 9989898,
+    TrendRanking: 2
+  },
+  {
+    CategorieName: 'Catégorie',
+    NumberOfPost: 9989898,
+    TrendRanking: 3
+  },
+  {
+    CategorieName: 'Catégorie',
+    NumberOfPost: 9989898,
+    TrendRanking: 4
+  },
+  {
+    CategorieName: 'Catégorie',
+    NumberOfPost: 9989898,
+    TrendRanking: 5
   }
 ]
 </script>
