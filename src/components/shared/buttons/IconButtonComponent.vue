@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import getUserFromToken from '@/composable/Utils/UserUtils'
+import { getUserFromToken } from '@/composable/Utils/UserUtils'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
