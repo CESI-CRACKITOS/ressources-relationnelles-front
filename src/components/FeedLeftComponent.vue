@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-4 justify-between items-start max-xl:w-14 w-96 max-md:hidden px-8 h-screen overflow-scroll"
+    class="flex flex-col gap-4 justify-between items-start max-xl:w-14 w-96 max-md:hidden px-8 border-r h-screen overflow-scroll"
   >
     <div class="flex gap-2 max-xl:items-center flex-col w-full">
       <img class="max-xl:hidden" src="../assets/logo.svg" alt="" />

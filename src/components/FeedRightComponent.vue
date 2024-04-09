@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col gap-4 items-start w-96 overflow-scroll h-screen max-lg:hidden">
+  <div
+    class="flex flex-col gap-4 items-start w-96 overflow-scroll h-screen max-lg:hidden border-l pl-4"
+  >
     <form class="max-w-md mx-auto w-full pt-2">
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only"
         >Search</label

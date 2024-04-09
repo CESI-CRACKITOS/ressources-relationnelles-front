@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-screen rounded max-w-xl overflow-scroll max-xl:mr-0">
     <PostComponent :key="resource.id" :resource="resource" />
     <div
       v-for="comment in resource.comments"
@@ -22,8 +22,10 @@ import CommentComponent from '@/components/CommentComponent.vue'
 let resource = ref<ResourceEntity[]>([])
 
 let idResource = router.currentRoute.value.params.id
+console.log(idResource)
 
 onMounted(async () => {
   resource.value = await getResourceById(idResource)
+  console.log(resource.value)
 })
 </script>

@@ -6,8 +6,10 @@ import getUserFromToken from '@/composable/Utils/UserUtils'
 import getCookieFromValue from '@/composable/Utils/CookiesUtils'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import { useUserStore } from "@/stores/user"
+import { useUserStore } from '@/stores/user'
 import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
+import AppView from '@/views/AppView.vue'
+import NotificationView from '@/views/NotificationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,36 +30,53 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/feed',
-      name: 'feed',
-      component: FeedView,
-      meta: {
-        requiresAuth: true,
-        requireRole: 'U'
-      }
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileView,
-      meta: {
-        requiresAuth: true,
-        requireRole: 'U'
-      }
-    },
-    {
-      path: '/resources',
-      name: 'resources',
-      redirect: '/feed',
+      path: '',
+      name: 'not-found',
+      component: AppView,
       meta: {
         requiresAuth: true,
         requireRole: 'U'
       },
       children: [
         {
-          path: ':id(\\d+)',
-          name: 'resource',
-          component: ResourceDetailsView,
+          path: '/feed',
+          name: 'feed',
+          component: FeedView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          }
+        },
+        {
+          path: '/resources',
+          name: 'resources',
+          redirect: '/feed',
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          },
+          children: [
+            {
+              path: ':id(\\d+)',
+              name: 'resource',
+              component: ResourceDetailsView,
+              meta: {
+                requiresAuth: true,
+                requireRole: 'U'
+              }
+            }
+          ]
+        },
+        {
+          path: '/notifications',
+          name: 'notifications',
+          component: NotificationView
+        },
+
+        {
+          path: '/profile',
+          name: 'profile',
+          component: ProfileView,
           meta: {
             requiresAuth: true,
             requireRole: 'U'
@@ -69,28 +88,26 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  const token = getCookieFromValue('token')
 
-	const token = getCookieFromValue("token")
+  if (to.meta.requiresAuth) {
+    if (token === undefined) {
+      next('/login')
+    } else {
+      const user = await getUserFromToken(token)
+      if (user === undefined) {
+        next('/login')
+      } else {
+        const userState = useUserStore()
+        userState.user = user
 
-	if (to.meta.requiresAuth) {
-		if (token === undefined) {
-			next("/login")
-		} else {
-			let user = await getUserFromToken(token)
-			if (user === undefined) {
-				next("/login")
-			} else {
-
-				const userState = useUserStore();
-				userState.user = user;
-
-				const expectedRole: string = to.meta.requireRole as string;
-				const roleMap: { [key: string]: boolean } = {
-					"A": user.isAdmin,
-					"U": user.isUser,
-					"SA": user.isSuperAdmin,
-					"M": user.isModerator
-				};
+        const expectedRole: string = to.meta.requireRole as string
+        const roleMap: { [key: string]: boolean } = {
+          A: user.isAdmin,
+          U: user.isUser,
+          SA: user.isSuperAdmin,
+          M: user.isModerator
+        }
 
         if (!roleMap[expectedRole]) {
           next('/')
