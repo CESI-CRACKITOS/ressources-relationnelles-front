@@ -16,7 +16,8 @@
         -button-label="Notifications"
         icon="fa-solid fa-bell"
       ></ButtonLink>
-      <ButtonLink -link-to="/profile" -button-label="Profile" icon="fa-solid fa-user"> </ButtonLink>
+      <ButtonLink :-link-to="'/profile/' + user.id" -button-label="Profile" icon="fa-solid fa-user">
+      </ButtonLink>
 
       <button class="py-4 max-xl:w-12 rounded-full hover:bg-blue-300 bg-blue-200">
         <i class="fa-regular fa-paper-plane max-xl:block hidden"></i>
