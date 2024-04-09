@@ -95,7 +95,6 @@ async function Display(type: string) {
       document.getElementById('post')?.children[1].classList.remove('bg-blue-700')
 
       resources.value = await getLikedResourcesByUserId(idRouter)
-      console.log('like')
       break
     case 'post':
       document.getElementById('post')?.classList.add('text-blue-700')
@@ -105,8 +104,6 @@ async function Display(type: string) {
       document.getElementById('retweet')?.classList.remove('text-blue-700')
       document.getElementById('retweet')?.children[1].classList.remove('bg-blue-700')
       resources.value = await getResourcesByUserId(idRouter)
-
-      console.log('post')
       break
     case 'retweet':
       document.getElementById('retweet')?.classList.add('text-blue-700')
@@ -115,8 +112,6 @@ async function Display(type: string) {
       document.getElementById('like')?.children[1].classList.remove('bg-blue-700')
       document.getElementById('post')?.classList.remove('text-blue-700')
       document.getElementById('post')?.children[1].classList.remove('bg-blue-700')
-
-      console.log('retweet')
       break
     default:
       break
