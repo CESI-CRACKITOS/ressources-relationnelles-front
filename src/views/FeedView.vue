@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row gap-3 w-full justify-center">
+  <div class="flex flex-row w-full justify-center">
     <FeedLeftComponent />
-    <div class="h-screen rounded max-w-xl border overflow-scroll">
+    <div class="h-screen rounded max-w-xl border overflow-scroll max-xl:mr-0 mr-5">
       <!-- Rajouter ici la creation de poste pour computer view -->
       <PostComponent v-for="resource in resources" :key="resource.id" :resource="resource" />
     </div>
