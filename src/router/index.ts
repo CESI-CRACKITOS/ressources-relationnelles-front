@@ -7,7 +7,6 @@ import getCookieFromValue from '@/composable/Utils/CookiesUtils'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import { useUserStore } from '@/stores/user'
-import { useUserStore } from '@/stores/user'
 import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
 import AppView from '@/views/AppView.vue'
 import NotificationView from '@/views/NotificationView.vue'
@@ -90,7 +89,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const token = getCookieFromValue('token')
-  const token = getCookieFromValue('token')
 
   if (to.meta.requiresAuth) {
     if (token === undefined) {
@@ -102,24 +100,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         const userState = useUserStore()
         userState.user = user
-  if (to.meta.requiresAuth) {
-    if (token === undefined) {
-      next('/login')
-    } else {
-      const user = await getUserFromToken(token)
-      if (user === undefined) {
-        next('/login')
-      } else {
-        const userState = useUserStore()
-        userState.user = user
 
-        const expectedRole: string = to.meta.requireRole as string
-        const roleMap: { [key: string]: boolean } = {
-          A: user.isAdmin,
-          U: user.isUser,
-          SA: user.isSuperAdmin,
-          M: user.isModerator
-        }
         const expectedRole: string = to.meta.requireRole as string
         const roleMap: { [key: string]: boolean } = {
           A: user.isAdmin,
