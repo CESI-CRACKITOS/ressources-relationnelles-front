@@ -85,15 +85,16 @@ export async function getLikedResourcesByUserId(userId: number) {
   })
 
   const data = await res.then((response) => response.json())
+
   const resources: ResourceEntity[] = []
-  for (let i = 0; i < data.data.length; i++) {
-    const resourceEntity = new ResourceEntity(data.data[i])
-    data.data[i].contents.forEach((content: any) => {
+
+  for (let i = 0; i < data.length; i++) {
+    const resourceEntity = new ResourceEntity(data[i])
+    data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data.data[i].user)
+      resourceEntity.setUser(data[i].user)
     })
     resources.push(resourceEntity)
   }
-
   return resources
 }

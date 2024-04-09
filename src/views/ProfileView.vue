@@ -17,7 +17,12 @@
             <p class="text-gray-600"><span class="text-black">123</span> Relation</p>
             <p class="text-gray-600"><span class="text-black">123</span> Abonnements</p>
           </div>
-          <ButtonComponent class="w-full">Editer le profil</ButtonComponent>
+          <ButtonComponent :hidden="ShowEditButton" class="w-full"
+            >Editer le profil</ButtonComponent
+          >
+          <ButtonComponent :hidden="!ShowEditButton" class="w-full"
+            >Ajouter une relation</ButtonComponent
+          >
         </div>
       </div>
     </div>
@@ -25,15 +30,25 @@
     <div class="w-full flex">
       <div
         class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700"
+        @click="Display('post')"
+        id="post"
       >
-        <span class="p-2">Post</span>
+        <span class="p-2">Resource</span>
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
-      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center">
+      <div
+        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        @click="Display('like')"
+        id="like"
+      >
         <span class="p-2">J'aime</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
-      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center">
+      <div
+        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        @click="Display('retweet')"
+        id="retweet"
+      >
         <span class="p-2">Repartagé</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
@@ -52,21 +67,59 @@ import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
 import { onMounted, ref } from 'vue'
 import { getUserById } from '@/composable/Utils/UserUtils'
-import { getResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
+import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
-let ShowEditButton = true
+let ShowEditButton = false
 let resources = ref([])
-onMounted(async () => {
-  let idRouter = router.currentRoute.value.params.id
+let idRouter = router.currentRoute.value.params.id
 
-  // if (idRouter != sessionUser.id) {
-  //   user = await getUserById(idRouter)
-  //   ShowEditButton = false
-  // }
+onMounted(async () => {
+  if (idRouter != sessionUser.id) {
+    // user = await getUserById(idRouter)
+    ShowEditButton = true
+  }
   resources.value = await getResourcesByUserId(idRouter)
-  console.log(resources)
 })
+
+async function Display(type: string) {
+  switch (type) {
+    case 'like':
+      document.getElementById('like')?.classList.add('text-blue-700')
+      document.getElementById('like')?.children[1].classList.add('bg-blue-700')
+      document.getElementById('retweet')?.classList.remove('text-blue-700')
+      document.getElementById('retweet')?.children[1].classList.remove('bg-blue-700')
+      document.getElementById('post')?.classList.remove('text-blue-700')
+      document.getElementById('post')?.children[1].classList.remove('bg-blue-700')
+
+      resources.value = await getLikedResourcesByUserId(idRouter)
+      console.log('like')
+      break
+    case 'post':
+      document.getElementById('post')?.classList.add('text-blue-700')
+      document.getElementById('post')?.children[1].classList.add('bg-blue-700')
+      document.getElementById('like')?.classList.remove('text-blue-700')
+      document.getElementById('like')?.children[1].classList.remove('bg-blue-700')
+      document.getElementById('retweet')?.classList.remove('text-blue-700')
+      document.getElementById('retweet')?.children[1].classList.remove('bg-blue-700')
+      resources.value = await getResourcesByUserId(idRouter)
+
+      console.log('post')
+      break
+    case 'retweet':
+      document.getElementById('retweet')?.classList.add('text-blue-700')
+      document.getElementById('retweet')?.children[1].classList.add('bg-blue-700')
+      document.getElementById('like')?.classList.remove('text-blue-700')
+      document.getElementById('like')?.children[1].classList.remove('bg-blue-700')
+      document.getElementById('post')?.classList.remove('text-blue-700')
+      document.getElementById('post')?.children[1].classList.remove('bg-blue-700')
+
+      console.log('retweet')
+      break
+    default:
+      break
+  }
+}
 </script>
