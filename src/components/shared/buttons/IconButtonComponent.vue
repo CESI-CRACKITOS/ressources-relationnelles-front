@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { likeAResource } from '@/composable/Utils/ResourcesUtils'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 
 const userState = useUserStore()
@@ -29,12 +29,25 @@ const props = defineProps({
   active: {
     type: String,
     required: true
+  },
+  numberToshow: {
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 
-let number = ref(0)
+let number = ref(props.numberToshow)
 let showNumber = ref(true)
 let Class = ref('flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2')
+
+onMounted(() => {
+  if (props.active === 'true') {
+    showNumber.value = true
+  } else {
+    showNumber.value = false
+  }
+})
 
 async function cta(action: string) {
   switch (action) {

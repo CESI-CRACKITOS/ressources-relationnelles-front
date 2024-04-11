@@ -35,6 +35,7 @@
             action="like"
             :context-id="resource.id"
             active="true"
+            :numberToshow="resource.numberOfLikes"
           />
           <IconButtonComponentVue
             icon="far fa-comment"
