@@ -22,7 +22,6 @@ import CommentComponent from '@/components/CommentComponent.vue'
 let resource = ref<ResourceEntity[]>([])
 
 let idResource = router.currentRoute.value.params.id
-console.log(idResource)
 
 onMounted(async () => {
   resource.value = await getResourceById(idResource)
