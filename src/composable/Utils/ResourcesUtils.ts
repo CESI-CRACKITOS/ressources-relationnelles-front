@@ -1,6 +1,5 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '../Entities/ResourceContent'
-import ResourceCommentEntity from '../Entities/ResourceComment'
 import UserEntity from '../Entities/User'
 
 export async function getResources() {
