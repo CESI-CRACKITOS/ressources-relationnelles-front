@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-screen rounded max-w-xl overflow-scroll max-xl:mr-0">
     <PostComponent :key="resource.id" :resource="resource" />
     <div
       v-for="comment in resource.comments"

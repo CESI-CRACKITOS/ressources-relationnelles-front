@@ -12,12 +12,14 @@ import ThermsOfServiceView from '@/views/ThermsOfServiceView.vue'
 import PrivacyView from '@/views/PrivacyView.vue'
 import AccessibilityView from '@/views/AccessibilityView.vue'
 import CookieView from '@/views/CookieView.vue'
+import AppView from '@/views/AppView.vue'
+import NotificationView from '@/views/NotificationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: HomeView
     },
@@ -32,46 +34,54 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/feed',
-      name: 'feed',
-      component: FeedView,
-      meta: {
-        requiresAuth: true,
-        requireRole: 'U'
-      }
-    },
-    {
-      path: '/profile',
-      name: 'profile',
+      path: '',
+      name: 'not-found',
+      component: AppView,
+      redirect: '/home',
       meta: {
         requiresAuth: true,
         requireRole: 'U'
       },
       children: [
         {
-          path: ':id(\\d+)',
-          name: 'profileDetails',
-          component: ProfileView,
+          path: '/feed',
+          name: 'feed',
+          component: FeedView,
           meta: {
             requiresAuth: true,
             requireRole: 'U'
           }
-        }
-      ]
-    },
-    {
-      path: '/resources',
-      name: 'resources',
-      redirect: '/feed',
-      meta: {
-        requiresAuth: true,
-        requireRole: 'U'
-      },
-      children: [
+        },
         {
-          path: ':id(\\d+)',
-          name: 'resource',
-          component: ResourceDetailsView,
+          path: '/resources',
+          name: 'resources',
+          redirect: '/feed',
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          },
+          children: [
+            {
+              path: ':id(\\d+)',
+              name: 'resource',
+              component: ResourceDetailsView,
+              meta: {
+                requiresAuth: true,
+                requireRole: 'U'
+              }
+            }
+          ]
+        },
+        {
+          path: '/notifications',
+          name: 'notifications',
+          component: NotificationView
+        },
+
+        {
+          path: '/profile/:id(\\d+)',
+          name: 'profile',
+          component: ProfileView,
           meta: {
             requiresAuth: true,
             requireRole: 'U'

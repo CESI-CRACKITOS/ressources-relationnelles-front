@@ -6,8 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import { getUserFromToken } from '@/composable/Utils/UserUtils'
-import { onMounted, ref } from 'vue'
+import { likeAResource } from '@/composable/Utils/ResourcesUtils'
+import { ref } from 'vue'
+import { useUserStore } from '@/stores/user'
+
+const userState = useUserStore()
+const sessionUser = userState.user
 
 const props = defineProps({
   icon: {
@@ -29,35 +33,26 @@ const props = defineProps({
 })
 
 let number = ref(0)
-let showNumber = ref(false)
-let Class = ref('')
-onMounted(() => {
-  switch (props.action) {
-    case 'like':
-      number.value = 10
-      showNumber.value = true
-      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
-      break
-    case 'comment':
-      showNumber.value = true
-
-      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
-      break
-    case 'retweet':
-      showNumber.value = true
-
-      Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
-      break
-    default:
-      break
-  }
-})
+let showNumber = ref(true)
+let Class = ref('flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2')
 
 async function cta(action: string) {
   switch (action) {
     case 'like':
-      await likeResource()
-      Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+      let res = await likeAResource(props.contextId, sessionUser.id)
+      if (res === 2) {
+        number.value++
+        Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+      }
+      if (res === 1) {
+        number.value--
+        Class.value = 'flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2'
+      }
+      if (res === 0) {
+        number.value = 999
+        Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+      }
+
       break
     case 'comment':
       break
@@ -66,17 +61,5 @@ async function cta(action: string) {
     default:
       break
   }
-}
-// todo get user from pinia
-async function likeResource() {
-  const user = await getUserFromToken('dc2288f5-3313-4d3f-9097-ee45ba0715f8')
-  const response = await fetch(`http://localhost/api/like/${props.contextId}/${user.id}`, {
-    method: 'PACTH',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-
-  return response
 }
 </script>
