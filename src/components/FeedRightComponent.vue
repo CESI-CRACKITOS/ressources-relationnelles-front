@@ -50,20 +50,17 @@
       </RouterLink>
     </div>
     <div class="flex flex-wrap gap-2 p-4">
-      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline"
+      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline" target="_blank"
         >Conditions d'utilisation
       </RouterLink>
-      <RouterLink to="privacy" class="text-sm text-gray-500 hover:underline"
+      <RouterLink to="privacy" class="text-sm text-gray-500 hover:underline" target="_blank"
         >Politique de Confidentialité</RouterLink
       >
-      <RouterLink to="cookie" class="text-sm text-gray-500 hover:underline"
+      <RouterLink to="cookie" class="text-sm text-gray-500 hover:underline" target="_blank"
         >Politique relative aux cookies</RouterLink
       >
-      <RouterLink to="Accessibility" class="text-sm text-gray-500 hover:underline"
+      <RouterLink to="accessibility" class="text-sm text-gray-500 hover:underline" target="_blank"
         >Accessibilité</RouterLink
-      >
-      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline"
-        >Informations sur les publicités</RouterLink
       >
     </div>
   </div>
