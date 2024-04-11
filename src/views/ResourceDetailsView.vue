@@ -25,6 +25,5 @@ let idResource = router.currentRoute.value.params.id
 
 onMounted(async () => {
   resource.value = await getResourceById(idResource)
-  console.log(resource.value)
 })
 </script>
