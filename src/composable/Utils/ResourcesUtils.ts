@@ -35,7 +35,6 @@ export async function getResourceById(id: number) {
   })
 
   const data = await res.then((response) => response.json())
-  console.log(data)
   const resource = new ResourceEntity(data.data)
   resource.user = new UserEntity(data.data.user)
   data.data.contents.forEach((content: any) => {
