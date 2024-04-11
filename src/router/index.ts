@@ -8,6 +8,10 @@ import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import { useUserStore } from '@/stores/user'
 import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
+import ThermsOfServiceView from '@/views/ThermsOfServiceView.vue'
+import PrivacyView from '@/views/PrivacyView.vue'
+import AccessibilityView from '@/views/AccessibilityView.vue'
+import CookieView from '@/views/CookieView.vue'
 import AppView from '@/views/AppView.vue'
 import NotificationView from '@/views/NotificationView.vue'
 
@@ -84,6 +88,27 @@ const router = createRouter({
           }
         }
       ]
+    },
+
+    {
+      path: '/tos',
+      name: 'Terms of Service',
+      component: ThermsOfServiceView
+    },
+    {
+      path: '/privacy',
+      name: 'Privacy Policy',
+      component: PrivacyView
+    },
+    {
+      path: '/accessibility',
+      name: 'Accessibility',
+      component: AccessibilityView
+    },
+    {
+      path: '/cookie',
+      name: 'Cookie Policy',
+      component: CookieView
     }
   ]
 })
