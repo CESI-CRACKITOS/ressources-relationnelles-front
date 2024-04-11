@@ -1,6 +1,5 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '../Entities/ResourceContent'
-import ResourceCommentEntity from '../Entities/ResourceComment'
 import UserEntity from '../Entities/User'
 
 export async function getResources() {
@@ -37,16 +36,15 @@ export async function getResourceById(id: number) {
 
   const data = await res.then((response) => response.json())
   const resource = new ResourceEntity(data.data)
-
   resource.user = new UserEntity(data.data.user)
   data.data.contents.forEach((content: any) => {
     resource.addContents(new ResourceContentEntity(content))
   })
 
-  data.data.comment.forEach((comment: any) => {
-    resource.addComments(new ResourceCommentEntity(comment))
-    resource.comments[resource.comments.length - 1].setUser(comment.user)
-  })
+  // data.data.comment.forEach((comment: any) => {
+  //   resource.addComments(new ResourceCommentEntity(comment))
+  //   resource.comments[resource.comments.length - 1].setUser(comment.user)
+  // })
 
   return resource
 }

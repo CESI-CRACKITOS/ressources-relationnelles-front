@@ -1,29 +1,42 @@
 <template>
-  <div class="flex flex-col gap-4 justify-between items-start w-64">
-    <div class="flex gap-8 flex-col w-full">
-      <img src="../assets/logo.svg" alt="" />
+  <div
+    class="flex flex-col gap-4 justify-between items-start max-xl:w-14 w-96 max-md:hidden px-8 border-r h-screen overflow-scroll"
+  >
+    <div class="flex gap-2 max-xl:items-center flex-col w-full">
+      <img class="max-xl:hidden" src="../assets/logo.svg" alt="" />
       <ButtonLink -link-to="/feed" -button-label="Accueil" icon="fa-solid fa-house"></ButtonLink>
 
       <ButtonLink
-        -link-to="/profil"
+        -link-to="/feed2"
         -button-label="Explorer"
         icon="fa-solid fa-magnifying-glass"
       ></ButtonLink>
-      <button class="py-4 px-20 rounded-full hover:bg-blue-300 bg-blue-200">Poster</button>
+      <ButtonLink
+        -link-to="/notifications"
+        -button-label="Notifications"
+        icon="fa-solid fa-bell"
+      ></ButtonLink>
+      <ButtonLink :-link-to="'/profile/' + user.id" -button-label="Profile" icon="fa-solid fa-user">
+      </ButtonLink>
+
+      <button class="py-4 max-xl:w-12 rounded-full hover:bg-blue-300 bg-blue-200">
+        <i class="fa-regular fa-paper-plane max-xl:block hidden"></i>
+        <p class="max-xl:hidden">Poster</p>
+      </button>
     </div>
     <div
-      class="flex flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full px-4 py-2"
+      class="flex max-xl:flex-col flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full max-xl:p-0 px-4 py-2"
     >
       <div class="flex gap-2 items-center">
         <div class="h-10 w-10 bg-amber-500 rounded-full"></div>
         <img src="" alt="" />
-        <div>
+        <div class="max-xl:hidden">
           <p>{{ user.lastname }}</p>
           <p>{{ user.firstname }}</p>
         </div>
       </div>
 
-      <div>
+      <div class="max-xl:hidden">
         <IconButtonComponent
           action=""
           :context-id="user.id"
