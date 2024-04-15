@@ -43,10 +43,11 @@ export async function getResourceById(id: number) {
     resource.addContents(new ResourceContentEntity(content))
   })
 
-  // data.data.comment.forEach((comment: any) => {
-  //   resource.addComments(new ResourceCommentEntity(comment))
-  //   resource.comments[resource.comments.length - 1].setUser(comment.user)
-  // })
+  data.data.comments.forEach((comment: any) => {
+    resource.addComments(new ResourceCommentEntity(comment))
+    resource.comments[resource.comments.length - 1].setUser(comment.user)
+  })
+
 
   return resource
 }
