@@ -48,6 +48,7 @@ export async function getResourceById(id: number) {
     resource.comments[resource.comments.length - 1].setUser(comment.user)
   })
 
+
   return resource
 }
 
