@@ -17,6 +17,7 @@ class ResourceEntity {
   comments: ResourceCommentEntity[] = []
   user: UserEntity | null = null
   numberOfLikes: number
+  numberOfComments: number
 
   constructor(resource: any) {
     this.id = resource.id
@@ -30,6 +31,7 @@ class ResourceEntity {
     this.created_at = resource.created_at
     this.updated_at = resource.updated_at
     this.numberOfLikes = resource.numberOflikes
+    this.numberOfComments = resource.numberOfComments
   }
 
   addContents(content: ResourceContentEntity) {
