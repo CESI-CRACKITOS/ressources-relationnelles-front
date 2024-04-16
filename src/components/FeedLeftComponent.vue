@@ -24,7 +24,8 @@
         <p class="max-xl:hidden">Poster</p>
       </button>
     </div>
-    <div
+    <router-link
+      :to="'/profile/' + user.id"
       class="flex max-xl:flex-col flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full max-xl:p-0 px-4 py-2"
     >
       <div class="flex gap-2 items-center">
@@ -44,7 +45,7 @@
           icon="fa-solid fa-ellipsis"
         ></IconButtonComponent>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
