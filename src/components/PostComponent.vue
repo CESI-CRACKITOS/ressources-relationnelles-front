@@ -42,6 +42,7 @@
             action="comment"
             :context-id="resource.id"
             active="true"
+            :numberToshow="resource.numberOfComments"
           />
           <IconButtonComponentVue
             icon="fas fa-retweet"
