@@ -38,10 +38,10 @@
       <h2 class="text-xl text-black font-bold p-4 pb-4">Catégories Tendances</h2>
       <CategorieTrendComponentVue
         v-for="trend in Trend"
-        :key="trend.CategorieName"
-        :CategoryName="trend.CategorieName"
-        :NumberOfPost="trend.NumberOfPost"
-        :TrendRanking="trend.TrendRanking"
+        :key="trend.name"
+        :name="trend.name"
+        :NumberOfPost="trend.numberOfPost"
+        :TrendRanking="trend.rank"
       ></CategorieTrendComponentVue>
 
       <RouterLink
@@ -72,6 +72,9 @@
 import AccountToFollow from '@/components/AccountToFollow.vue'
 import CategorieTrendComponentVue from './CategorieTrendComponent.vue'
 import { RouterLink } from 'vue-router'
+import { getTendencies } from '@/composable/Utils/TendencieUtils'
+import { onMounted, ref } from 'vue'
+import type CategoryEntity from '@/composable/Entities/Category'
 let users = [
   {
     firstname: 'Rocco',
@@ -93,31 +96,12 @@ let users = [
   }
 ]
 
-let Trend = [
-  {
-    CategorieName: 'Catégorie',
-    NumberOfPost: 9989898,
-    TrendRanking: 1
-  },
-  {
-    CategorieName: 'Catégorie',
-    NumberOfPost: 9989898,
-    TrendRanking: 2
-  },
-  {
-    CategorieName: 'Catégorie',
-    NumberOfPost: 9989898,
-    TrendRanking: 3
-  },
-  {
-    CategorieName: 'Catégorie',
-    NumberOfPost: 9989898,
-    TrendRanking: 4
-  },
-  {
-    CategorieName: 'Catégorie',
-    NumberOfPost: 9989898,
-    TrendRanking: 5
-  }
-]
+
+let Trend = ref<CategoryEntity[]>([])
+onMounted(async () => {
+  Trend.value = await getTendencies()
+})
+
+
+
 </script>
