@@ -139,3 +139,26 @@ export async function likeAResource(resourceId: number, userId: number) {
   }
   return 0
 }
+
+export async function getResourcesFromCategoryId(id: string) {
+  const res = fetch(`http://localhost/api/categories/${id}/resources`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'GET'
+  })
+
+  const data = await res.then((response) => response.json())
+  const resources: ResourceEntity[] = []
+  for (let i = 0; i < data.data.length; i++) {
+    const resourceEntity = new ResourceEntity(data.data[i])
+    data.data[i].contents.forEach((content: any) => {
+      resourceEntity.addContents(new ResourceContentEntity(content))
+      resourceEntity.setUser(data.data[i].user)
+    })
+    resources.push(resourceEntity)
+  }
+
+  return resources
+}

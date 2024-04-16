@@ -34,7 +34,10 @@
       ></AccountToFollow>
     </div>
 
-    <div class="bg-gray-100 w-full rounded-3xl">
+    <div
+      v-if="router.currentRoute.value.name != 'CategoryList'"
+      class="bg-gray-100 w-full rounded-3xl"
+    >
       <h2 class="text-xl text-black font-bold p-4 pb-4">Catégories Tendances</h2>
       <CategorieTrendComponentVue
         v-for="trend in Trend"
@@ -42,10 +45,11 @@
         :name="trend.name"
         :NumberOfPost="trend.numberOfPost"
         :TrendRanking="trend.rank"
+        :id="trend.id"
       ></CategorieTrendComponentVue>
 
       <RouterLink
-        to="/trend"
+        to="/category"
         class="text-blue-500 flex w-full hover:bg-gray-300 px-4 py-4 rounded-b-3xl"
       >
         Voir plus
@@ -72,9 +76,11 @@
 import AccountToFollow from '@/components/AccountToFollow.vue'
 import CategorieTrendComponentVue from './CategorieTrendComponent.vue'
 import { RouterLink } from 'vue-router'
-import { getTendencies } from '@/composable/Utils/TendencieUtils'
+import { getTendencies } from '@/composable/Utils/CategoryUtils'
 import { onMounted, ref } from 'vue'
 import type CategoryEntity from '@/composable/Entities/Category'
+import router from '@/router'
+
 let users = [
   {
     firstname: 'Rocco',
@@ -96,12 +102,8 @@ let users = [
   }
 ]
 
-
 let Trend = ref<CategoryEntity[]>([])
 onMounted(async () => {
   Trend.value = await getTendencies()
 })
-
-
-
 </script>
