@@ -115,7 +115,7 @@ export default {
       const inputData = {
         title: title.value,
         categoryId: selectedCategory.value,
-        contents: contents.value.map(content => ({ type: content.type, categoryId ,value: content.value, fileExtension: content.fileExtension }))
+        contents: contents.value.map(content => ({ type: content.type ,value: content.value, fileExtension: content.fileExtension }))
       };
       return inputData;
     }
