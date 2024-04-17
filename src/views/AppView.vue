@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-row w-full justify-center" style="scrollbar-width: none items-center">
     <div class="h-screen w-screen flex items-center justify-center bg-black absolute hidden z-10 bg-opacity-50"
-      id="postModal">
+      id="postModal" @click="hideModal">
       <div class="flex flex-col justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
         <div>
-          <h1>Nouvelle ressource</h1>
+          <h1 class="font-bold">Nouvelle ressource</h1>
           <input type="text" v-model="title" class="py-2 px-1 border-gray-300 border"
             placeholder="Titre de la ressource">
           <div v-show="contentOptionsShown" class="flex gap-2 items-center">
@@ -21,10 +21,11 @@
             <button @click="deleteContent(index)">{{ content.value ? 'Delete' : 'Cancel' }}</button>
           </div>
         </div>
-        <button class="bg-amber-700" @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
+        <button class="rounded-full hover:bg-blue-300 bg-blue-500 text-white" @click="showContentOptions"
+          v-show="allInputsFilled && !contentOptionsShown">
           Ajouter un contenu
         </button>
-        <button @click="publish" class="bg-blue-500 text-white">Publier</button>
+        <button @click="publish" class="rounded-full hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
       </div>
     </div>
     <FeedLeftComponent />
@@ -46,7 +47,7 @@ export default {
     ContentButton
   },
   setup() {
-    const hideModel = () => {
+    const hideModal = () => {
       const modal = document.getElementById('postModal');
       modal?.classList.toggle('hidden');
     }
@@ -62,7 +63,19 @@ export default {
     }
 
     const addContent = (type, fileType = null, acceptType = null) => {
-      contents.value.push({ type, fileType, acceptType, value: '' });
+      let fileExtension = '';
+      if (type === 'textarea') {
+        fileExtension = 'text';
+      } else if (acceptType) {
+        if (acceptType === 'application/pdf') {
+          fileExtension = 'pdf';
+        } else if (acceptType === 'image/*') {
+          fileExtension = 'image';
+        } else if (acceptType === 'video/*') {
+          fileExtension = 'link';
+        }
+      }
+      contents.value.push({ type, fileType, acceptType, value: '', fileExtension });
       contentOptionsShown.value = false;
     }
 
@@ -70,12 +83,43 @@ export default {
       contents.value.splice(index, 1);
     }
 
+    const handleFileChange = (event, content) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        content.value = reader.result;
+        content.fileExtension = file.name.split('.').pop();
+      }
+      reader.readAsDataURL(file);
+    }
+
+    const fetchInputs = () => {
+      const inputData = {
+        title: title.value,
+        contents: contents.value.map(content => ({ type: content.type, value: content.value, fileExtension: content.fileExtension}))
+      };
+      console.log(inputData);
+      return inputData;
+    }
+
     const publish = () => {
-      console.log(JSON.stringify({ title: title.value, contents: contents.value }));
+      const inputData = fetchInputs();
+      fetch('https://example.com/api/endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(inputData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          hideModal();
+        })
     }
 
     return {
-      hideModel,
+      hideModal,
       title,
       contents,
       contentOptionsShown,
@@ -83,7 +127,9 @@ export default {
       addContent,
       deleteContent,
       allInputsFilled,
-      publish
+      publish,
+      fetchInputs,
+      handleFileChange
     }
   }
 }
