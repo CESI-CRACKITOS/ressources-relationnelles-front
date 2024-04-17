@@ -7,6 +7,12 @@
           <h1 class="font-bold">Nouvelle ressource</h1>
           <input type="text" v-model="title" class="py-2 px-1 border-gray-300 border"
             placeholder="Titre de la ressource">
+          <select v-model="selectedCategory"
+            class="mt-2 block w-full py-2 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option disabled value="">Sélectionner une catégorie</option>
+            <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}
+            </option>
+          </select>
           <div v-show="contentOptionsShown" class="flex gap-2 items-center">
             <ContentButton type="input" fileType="file" acceptType="application/pdf" icon="fa-file-pdf"
               @add="addContent" />
@@ -39,8 +45,19 @@ import { ref, computed } from 'vue';
 import FeedLeftComponent from '@/components/FeedLeftComponent.vue'
 import FeedRightComponent from '@/components/FeedRightComponent.vue'
 import ContentButton from '@/components/ContentButton.vue'
+import { getCategory } from '@/composable/Utils/CategortUtils'
 
 export default {
+
+  data() {
+    return {
+      categories: [],
+      selectedCategory: '',
+    }
+  },
+  async created() {
+    this.categories = await getCategory()
+  },
   components: {
     FeedLeftComponent,
     FeedRightComponent,
@@ -53,6 +70,7 @@ export default {
     }
 
     const title = ref('');
+    const selectedCategory = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
 
@@ -96,7 +114,8 @@ export default {
     const fetchInputs = () => {
       const inputData = {
         title: title.value,
-        contents: contents.value.map(content => ({ type: content.type, value: content.value, fileExtension: content.fileExtension}))
+        categoryId: selectedCategory.value,
+        contents: contents.value.map(content => ({ type: content.type, categoryId ,value: content.value, fileExtension: content.fileExtension }))
       };
       console.log(inputData);
       return inputData;
@@ -129,7 +148,8 @@ export default {
       allInputsFilled,
       publish,
       fetchInputs,
-      handleFileChange
+      handleFileChange,
+      selectedCategory
     }
   }
 }
