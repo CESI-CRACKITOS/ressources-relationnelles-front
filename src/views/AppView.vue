@@ -45,7 +45,7 @@ import { ref, computed } from 'vue';
 import FeedLeftComponent from '@/components/FeedLeftComponent.vue'
 import FeedRightComponent from '@/components/FeedRightComponent.vue'
 import ContentButton from '@/components/ContentButton.vue'
-import { getCategory } from '@/composable/Utils/CategortUtils'
+import { getCategories } from '@/composable/Utils/CategoryUtils'
 
 export default {
 
@@ -56,7 +56,7 @@ export default {
     }
   },
   async created() {
-    this.categories = await getCategory()
+    this.categories = await getCategories()
   },
   components: {
     FeedLeftComponent,
