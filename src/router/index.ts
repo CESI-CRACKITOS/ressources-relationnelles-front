@@ -14,6 +14,8 @@ import AccessibilityView from '@/views/AccessibilityView.vue'
 import CookieView from '@/views/CookieView.vue'
 import AppView from '@/views/AppView.vue'
 import NotificationView from '@/views/NotificationView.vue'
+import CategoryListView from '@/views/CategoryListView.vue'
+import CategorieResourcesListeView from '@/views/CategorieResourcesListeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +53,33 @@ const router = createRouter({
             requiresAuth: true,
             requireRole: 'U'
           }
+        },
+        {
+          path: '/category',
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          },
+          children: [
+            {
+              path: '',
+              name: 'CategoryList',
+              component: CategoryListView,
+              meta: {
+                requiresAuth: true,
+                requireRole: 'U'
+              }
+            },
+            {
+              path: ':id(\\d+)',
+              name: 'categoryResourcesList',
+              component: CategorieResourcesListeView,
+              meta: {
+                requiresAuth: true,
+                requireRole: 'U'
+              }
+            }
+          ]
         },
         {
           path: '/resources',

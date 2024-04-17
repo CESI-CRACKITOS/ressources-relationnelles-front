@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col px-2 gap-5">
     <div class="flex justify-center">
-      <img src="../feed/1681453032243.jpg" class="rounded-full w-6/12" alt="" />
+      <img src="" class="rounded-full w-6/12" alt="" />
     </div>
     <div class="flex flex-col w-full gap-5">
       <div class="flex flex-col gap-5 justify-around md:flex-row">
