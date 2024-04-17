@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row w-full justify-center items-center">
+  <div class="flex flex-row w-full justify-center" style="scrollbar-width: none items-center">
     <div class="h-screen w-screen flex items-center justify-center bg-black absolute hidden z-10 bg-opacity-50"
       id="postModal">
       <div class="flex flex-col justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
@@ -88,3 +88,9 @@ export default {
   }
 }
 </script>
+
+<style>
+* {
+  scrollbar-width: none;
+}
+</style>

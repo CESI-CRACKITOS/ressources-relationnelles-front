@@ -26,6 +26,29 @@ export async function getResources() {
   return resources
 }
 
+export async function getRestrictedResources() {
+  const res = fetch('http://localhost/api/resources/restricted', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'GET'
+  })
+
+  const data = await res.then((response) => response.json())
+  const resources: ResourceEntity[] = []
+  for (let i = 0; i < data.data.length; i++) {
+    const resourceEntity = new ResourceEntity(data.data[i])
+    data.data[i].contents.forEach((content: any) => {
+      resourceEntity.addContents(new ResourceContentEntity(content))
+      resourceEntity.setUser(data.data[i].user)
+    })
+    resources.push(resourceEntity)
+  }
+
+  return resources
+}
+
 export async function getResourceById(id: number) {
   const res = fetch(`http://localhost/api/resources/${id}`, {
     headers: {
@@ -47,7 +70,6 @@ export async function getResourceById(id: number) {
     resource.addComments(new ResourceCommentEntity(comment))
     resource.comments[resource.comments.length - 1].setUser(comment.user)
   })
-
 
   return resource
 }
