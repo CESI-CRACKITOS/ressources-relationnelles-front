@@ -117,7 +117,6 @@ export default {
         categoryId: selectedCategory.value,
         contents: contents.value.map(content => ({ type: content.type, categoryId ,value: content.value, fileExtension: content.fileExtension }))
       };
-      console.log(inputData);
       return inputData;
     }
 
@@ -132,7 +131,6 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           hideModal();
         })
     }
