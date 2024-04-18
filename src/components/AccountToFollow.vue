@@ -3,8 +3,8 @@
     <div class="flex gap-2 items-center">
       <img class="h-10 w-10 rounded-full object-cover" :src="props.user.profilePicture" alt="" />
       <div>
-        <p>{{ props.user.lastname }}</p>
-        <p>{{ props.user.firstname }}</p>
+        <p class="max-w-80 truncate">{{ props.user.lastname }}</p>
+        <p class="max-w-80 truncate">{{ props.user.firstname }}</p>
       </div>
     </div>
     <div>
@@ -38,7 +38,6 @@ const isFollowing = ref(false)
 
 const toggleFollow = async () => {
   const id = props.user.id
-  console.log(isFollowing.value)
 
   if (isFollowing.value) {
     //await removeRelation(id.toString())
