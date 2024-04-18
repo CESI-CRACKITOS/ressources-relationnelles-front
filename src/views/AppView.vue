@@ -2,36 +2,50 @@
   <div class="flex flex-row w-full justify-center" style="scrollbar-width: none items-center">
     <div class="h-screen w-screen flex items-center justify-center bg-black absolute hidden z-10 bg-opacity-50"
       id="postModal" @click="hideModal">
-      <div class="flex flex-col justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
+      <div class="flex flex-col h-[75%] w-[80%] justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
         <div>
-          <h1 class="font-bold">Nouvelle ressource</h1>
-          <input type="text" v-model="title" class="py-2 px-1 border-gray-300 border"
+          <input type="text" v-model="title" class="py-2 px-1 font-bold w-full text-3xl"
             placeholder="Titre de la ressource">
+          <textarea v-model="descriptionValue"
+            class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            :placeholder="randomSentence"></textarea>
           <select v-model="selectedCategory"
-            class="mt-2 block w-full py-2 px-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option disabled value="">Sélectionner une catégorie</option>
+            class="mt-2 block w-full py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+            <option value="">Sélectionner une catégorie</option>
             <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}
             </option>
           </select>
-          <div v-show="contentOptionsShown" class="flex gap-2 items-center">
+          <div v-show="contentOptionsShown" class="flex gap-4 items-center pt-3">
             <ContentButton type="input" fileType="file" acceptType="application/pdf" icon="fa-file-pdf"
-              @add="addContent" />
-            <ContentButton type="input" fileType="file" acceptType="image/*" icon="fa-image" @add="addContent" />
-            <ContentButton type="input" fileType="file" acceptType="video/*" icon="fa-video" @add="addContent" />
-            <ContentButton type="textarea" icon="fa-font" @add="addContent" />
+              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton type="input" fileType="file" acceptType="image/*" icon="fa-image"
+              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton type="input" fileType="file" acceptType="video/*" icon="fa-video"
+              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
           </div>
-          <div v-for="(content, index) in contents" :key="index" class="flex gap-2 items-center">
-            <input v-if="content.type === 'input'" :type="content.fileType" :accept="content.acceptType"
-              v-model="content.value">
-            <textarea v-else v-model="content.value" class="border border-gray-300"></textarea>
-            <button @click="deleteContent(index)">{{ content.value ? 'Delete' : 'Cancel' }}</button>
+          <div v-for="(content, index) in contents" :key="index" class="flex gap-2 items-center pt-5">
+            <div class="input-wrapper" v-if="content.type === 'input'">
+              <input :id="'fileInput' + index" :type="content.fileType" :accept="content.acceptType"
+                @change="content.value = $event.target.files[0]" class="hidden-input">
+              <label :for="'fileInput' + index" class="visible-label">
+                {{ content.value ? content.value.name : 'Choisissez un fichier' }}
+              </label>
+            </div>
+            <textarea v-else v-model="content.value"
+              class="p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button @click="deleteContent(index)" class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700">
+              <i class="fa-solid fa-delete-left fa-xl"></i>
+            </button>
           </div>
         </div>
-        <button class="rounded-full hover:bg-blue-300 bg-blue-500 text-white" @click="showContentOptions"
-          v-show="allInputsFilled && !contentOptionsShown">
-          Ajouter un contenu
-        </button>
-        <button @click="publish" class="rounded-full hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+        <div class="flex flex-row justify-between items-end">
+          <button class="font-bold py-2 px-4 rounded-full hover:bg-blue-300 bg-blue-500 text-white"
+            @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
+            Ajouter un contenu
+          </button>
+          <button v-if="title" @click="publish"
+            class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+        </div>
       </div>
     </div>
     <FeedLeftComponent />
@@ -48,11 +62,17 @@ import ContentButton from '@/components/ContentButton.vue'
 import { getCategories } from '@/composable/Utils/CategoryUtils'
 
 export default {
-
   data() {
     return {
       categories: [],
       selectedCategory: '',
+      descriptionValue: '',
+      sentences: ['Quoi de neuf ?', 'Comment ça va ?', 'Partagez quelque chose de nouveau !', 'Exprimez-vous !']
+    }
+  },
+  computed: {
+    randomSentence() {
+      return this.sentences[Math.floor(Math.random() * this.sentences.length)];
     }
   },
   async created() {
@@ -73,7 +93,7 @@ export default {
     const selectedCategory = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
-
+    const descriptionValue = ref('');
     const allInputsFilled = computed(() => title.value && contents.value.every(content => content?.value));
 
     const showContentOptions = () => {
@@ -115,7 +135,8 @@ export default {
       const inputData = {
         title: title.value,
         categoryId: selectedCategory.value,
-        contents: contents.value.map(content => ({ type: content.type ,value: content.value, fileExtension: content.fileExtension }))
+        contents: contents.value.map(content => ({ type: content.type, value: content.value, fileExtension: content.fileExtension })),
+        descriptionValue: descriptionValue.value
       };
       return inputData;
     }
@@ -147,7 +168,8 @@ export default {
       publish,
       fetchInputs,
       handleFileChange,
-      selectedCategory
+      selectedCategory,
+      descriptionValue
     }
   }
 }
@@ -156,5 +178,22 @@ export default {
 <style>
 * {
   scrollbar-width: none;
+}
+
+.hidden-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.visible-label {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-wrapper {
+  position: relative;
 }
 </style>
