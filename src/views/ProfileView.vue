@@ -13,12 +13,9 @@
               <i class="fa-solid fa-calendar"></i> A rejoint le {{ formatDate(user.created_at) }}
             </p>
           </div>
-          <div class="flex gap-5 md:justify-center">
+          <div class="">
             <p class="text-gray-600">
-              <span class="text-black">{{ user.relation }}</span> Relation
-            </p>
-            <p class="text-gray-600">
-              <span class="text-black">{{ user.subscriber }}</span> Abonnements
+              <span class="text-black">{{ user.relationNumber }}</span> Relation
             </p>
           </div>
           <ButtonComponent :hidden="ShowEditButton" class="w-full"
@@ -87,11 +84,10 @@ let idRouter = router.currentRoute.value.params.id.toString()
 let res = ref<any>('')
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
-    user = await getUserById(idRouter)
     ShowEditButton = true
   }
-
-  console.log(sessionUser.id, user.id, 1, res.value)
+  user = await getUserById(idRouter)
+  console.log(user)
 
   resources.value = await getResourcesByUserId(idRouter)
 })
