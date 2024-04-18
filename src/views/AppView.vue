@@ -19,6 +19,13 @@
               <option v-for="(relation, index) in relations" :key="index" :value="relation.id">{{ relation.name }}
               </option>
             </select>
+            <select v-model="selectedResourceType"
+              class="mt-2 block w-1/2 py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+              <option value="">Sélectionner un type de ressource</option>
+              <option v-for="(resourceType, index) in resourceTypes" :key="index" :value="resourceType.id">{{
+                resourceType.name }}
+              </option>
+            </select>
           </div>
           <textarea v-model="descriptionValue"
             class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full h-32"
@@ -69,14 +76,17 @@ import FeedRightComponent from '@/components/FeedRightComponent.vue'
 import ContentButton from '@/components/ContentButton.vue'
 import { getCategories } from '@/composable/Utils/CategoryUtils'
 import { getRelations } from '@/composable/Utils/RelationUtils'
+import { getResourceTypes } from '@/composable/Utils/ResourceTypeUtils'
 
 export default {
   data() {
     return {
       categories: [],
       relations: [],
+      resourceTypes: [],
       selectedCategory: '',
       selectedRelation: '',
+      selectedResourceType: '',
       descriptionValue: '',
       sentences: ['Quoi de neuf ?', 'Comment ça va ?', 'Partagez quelque chose de nouveau !', 'Exprimez-vous !']
     }
@@ -89,6 +99,7 @@ export default {
   async created() {
     this.categories = await getCategories()
     this.relations = await getRelations()
+    this.resourceTypes = await getResourceTypes()
   },
   components: {
     FeedLeftComponent,
@@ -104,6 +115,7 @@ export default {
     const title = ref('');
     const selectedCategory = ref('');
     const selectedRelation = ref('');
+    const selectedResourceType = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
     const descriptionValue = ref('');
@@ -164,6 +176,7 @@ export default {
         title: title.value,
         categoryId: selectedCategory.value,
         relationId: selectedRelation.value,
+        resourceTypeId: selectedResourceType.value,
         contents: contents.value
       };
       return inputData;
@@ -202,6 +215,7 @@ export default {
       handleFileChange,
       selectedCategory,
       selectedRelation,
+      selectedResourceType,
       descriptionValue
     }
   }
