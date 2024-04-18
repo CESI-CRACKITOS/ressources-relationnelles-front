@@ -8,17 +8,14 @@
         <div class="h-36 w-36 bg-amber-500 rounded-full"></div>
         <div class="flex flex-col gap-1.5 md:justify-center">
           <div>
-            <h3 class="text-lg">{{ user.firstname + ' ' + user.lastname }}</h3>
+            <h3 class="text-lg max-w-32 truncate">{{ user.firstname + ' ' + user.lastname }}</h3>
             <p class="text-gray-600 text-xs">
               <i class="fa-solid fa-calendar"></i> A rejoint le {{ formatDate(user.created_at) }}
             </p>
           </div>
-          <div class="flex gap-5 md:justify-center">
+          <div class="">
             <p class="text-gray-600">
-              <span class="text-black">{{ user.relation }}</span> Relation
-            </p>
-            <p class="text-gray-600">
-              <span class="text-black">{{ user.subscriber }}</span> Abonnements
+              <span class="text-black">{{ user.relationNumber }}</span> Relation
             </p>
           </div>
           <ButtonComponent :hidden="ShowEditButton" class="w-full"
@@ -87,11 +84,10 @@ let idRouter = router.currentRoute.value.params.id.toString()
 let res = ref<any>('')
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
-    user = await getUserById(idRouter)
     ShowEditButton = true
   }
-
-  console.log(sessionUser.id, user.id, 1, res.value)
+  user = await getUserById(idRouter)
+  console.log(user)
 
   resources.value = await getResourcesByUserId(idRouter)
 })

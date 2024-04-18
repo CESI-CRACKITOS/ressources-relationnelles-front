@@ -6,8 +6,7 @@ class UserEntity {
 
   email: number
   role: string
-  relation: number
-  subscriber: number
+  relationNumber: number
 
   isActive: boolean
   acceptedCGU: boolean
@@ -32,8 +31,9 @@ class UserEntity {
     this.acceptedGDPR = user.acceptedGDPR
     this.created_at = user.created_at
     this.updated_at = user.updated_at
-    this.relation = user.subscribed_to_count
-    this.subscriber = user.subscribers_count
+
+    this.relationNumber = user.numberOfRelation
+
     this.isSuperAdmin = this.role === 'S'
     this.isAdmin = this.role === 'A' || this.isSuperAdmin
     this.isModerator = this.role === 'M' || this.isAdmin
