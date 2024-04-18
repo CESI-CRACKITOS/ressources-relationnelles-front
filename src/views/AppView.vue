@@ -148,25 +148,28 @@ export default {
     }
 
     const handleFileChange = (event, content) => {
-      const file = event.target.files[0];
-      getBase64(file).then(base64 => {
-        content.value = base64;
-        content.fileExtension = file.name.split('.').pop();
+      return new Promise((resolve, reject) => {
+        const file = event.target.files[0];
+        getBase64(file).then(base64 => {
+          content.value = base64;
+          content.fileExtension = file.name.split('.').pop();
+          resolve();
+        }).catch(reject);
       });
     }
 
     const fetchInputs = () => {
+      contents.value.push({ type: 'textarea', value: descriptionValue.value, fileExtension: 'text' });
       const inputData = {
         title: title.value,
         categoryId: selectedCategory.value,
         relationId: selectedRelation.value,
-        contents: contents.value,
-        descriptionValue: descriptionValue.value
+        contents: contents.value
       };
       return inputData;
     }
-
     const publish = async () => {
+      hideModal();
       await Promise.all(contents.value.map(content => {
         if (content.fileType) {
           const fileInput = document.getElementById('fileInput' + contents.value.indexOf(content));
@@ -183,9 +186,6 @@ export default {
         body: JSON.stringify(inputData)
       })
         .then(response => response.json())
-        .then(data => {
-          hideModal();
-        })
     }
 
     return {
