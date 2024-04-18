@@ -32,7 +32,7 @@ const props = defineProps({
   },
   numberToshow: {
     type: Number,
-    required: true,
+    required: false,
     default: 0
   }
 })
