@@ -58,6 +58,8 @@
             @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
             Ajouter un contenu
           </button>
+          <button v-if="title" @click="setDraft"
+            class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Brouillon</button>
           <button v-if="title" @click="publish"
             class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
         </div>
@@ -119,6 +121,7 @@ export default {
     const contents = ref([]);
     const contentOptionsShown = ref(false);
     const descriptionValue = ref('');
+    const isDraft = ref(false);
     const allInputsFilled = computed(() => title.value && contents.value.every(content => content?.value));
 
     const showContentOptions = () => {
@@ -177,10 +180,17 @@ export default {
         categoryId: selectedCategory.value,
         relationId: selectedRelation.value,
         resourceTypeId: selectedResourceType.value,
-        contents: contents.value
+        contents: contents.value,
+        isDraft: isDraft.value
       };
       return inputData;
     }
+
+    const setDraft = () => {
+      isDraft.value = true;
+      publish();
+    }
+
     const publish = async () => {
       hideModal();
       await Promise.all(contents.value.map(content => {
@@ -216,7 +226,8 @@ export default {
       selectedCategory,
       selectedRelation,
       selectedResourceType,
-      descriptionValue
+      descriptionValue,
+      setDraft
     }
   }
 }
