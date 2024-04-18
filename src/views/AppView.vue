@@ -6,9 +6,9 @@
         <div>
           <input type="text" v-model="title" class="py-2 px-1 font-bold w-full text-3xl"
             placeholder="Titre de la ressource">
-          <div class="flex flex-row">
+          <div class="flex flex-row space-x-4">
             <select v-model="selectedCategory"
-              class="mt-2 block w-1/2 py-2 px-4 mr-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+              class="mt-2 block w-1/2 py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
               <option value="">Sélectionner une catégorie</option>
               <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}
               </option>
@@ -24,12 +24,12 @@
             class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full h-32"
             :placeholder="randomSentence"></textarea>
           <div v-show="contentOptionsShown" class="flex gap-4 items-center pt-3">
-            <ContentButton type="input" fileType="file" acceptType="application/pdf" icon="fa-file-pdf"
-              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
-            <ContentButton type="input" fileType="file" acceptType="image/*" icon="fa-image"
-              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
-            <ContentButton type="input" fileType="file" acceptType="video/*" icon="fa-video"
-              class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="application/pdf"
+              icon="fa-file-pdf" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="image/*"
+              icon="fa-image" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="video/*"
+              icon="fa-video" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
           </div>
           <div v-for="(content, index) in contents" :key="index" class="flex gap-2 items-center pt-5">
             <div class="input-wrapper" v-if="content.type === 'input'">
@@ -157,7 +157,7 @@ export default {
 
     const publish = () => {
       const inputData = fetchInputs();
-      fetch('https://example.com/api/endpoint', {
+      fetch('http://localhost/api/resources', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
