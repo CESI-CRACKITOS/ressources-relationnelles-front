@@ -118,7 +118,7 @@ export default {
 
     const title = ref('');
     const selectedCategory = ref('');
-    const selectedRelation = ref('');
+    const selectedRelation = ref([]);
     const selectedResourceType = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
