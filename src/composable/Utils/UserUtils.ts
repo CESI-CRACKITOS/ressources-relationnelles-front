@@ -49,6 +49,18 @@ export async function AddRelation(userId: number, receiverId: number, relationTy
   const data = await res.then((response) => response.json())
   return data
 }
+export async function removeRelation(relationsId: string) {
+  const res = fetch('http://localhost/api/relations' + relationsId, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'DELETE'
+  })
+
+  const data = await res.then((response) => response.json())
+  return data
+}
 
 export async function getPendingRelation() {
   const res = fetch('http://localhost/api/relations/requested', {

@@ -1,14 +1,13 @@
 <template>
   <div class="flex flex-col px-2 gap-5">
-    <div class="flex justify-center">
-      <img src="" class="rounded-full w-6/12" alt="" />
-    </div>
     <div class="flex flex-col w-full gap-5">
-      <div class="flex flex-col gap-5 justify-around md:flex-row">
-        <div class="h-36 w-36 bg-amber-500 rounded-full"></div>
+      <div class="flex flex-col pt-2 gap-5 md:flex-row">
+        <div class="flex justify-center">
+          <img :src="user.profilePicture" class="rounded-full w-6/12" alt="" />
+        </div>
         <div class="flex flex-col gap-1.5 md:justify-center">
           <div>
-            <h3 class="text-lg max-w-32 truncate">{{ user.firstname + ' ' + user.lastname }}</h3>
+            <h3 class="text-lg max-w-80 truncate">{{ user.firstname + ' ' + user.lastname }}</h3>
             <p class="text-gray-600 text-xs">
               <i class="fa-solid fa-calendar"></i> A rejoint le {{ formatDate(user.created_at) }}
             </p>

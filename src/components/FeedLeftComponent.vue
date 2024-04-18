@@ -43,8 +43,7 @@
         <i class="fa-solid fa-angle-down"></i>
       </div>
       <div class="flex gap-2 items-center">
-        <div class="h-10 w-10 bg-amber-500 rounded-full"></div>
-        <img src="" alt="" />
+        <img :src="user.profilePicture" alt="" class="w-10 rounded-full" />
         <div class="max-xl:hidden">
           <p class="max-w-32 truncate">{{ user.lastname }}</p>
           <p class="max-w-32 truncate">{{ user.firstname }}</p>

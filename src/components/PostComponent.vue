@@ -4,7 +4,7 @@
     @click="navigateToResourceDetails(resource.id)"
   >
     <div class="w-12">
-      <img src="" class="rounded-lg" alt="" />
+      <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
     </div>
     <div class="flex flex-col w-full gap-2">
       <div class="flex flex-row justify-between w-full">

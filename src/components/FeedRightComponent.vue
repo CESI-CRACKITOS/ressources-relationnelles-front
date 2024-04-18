@@ -25,13 +25,7 @@
 
     <div class="bg-gray-100 w-full rounded-3xl p-4">
       <h2 class="text-xl text-black font-bold pb-4">Suggestions</h2>
-      <AccountToFollow
-        v-for="user in users"
-        :key="user.firstname"
-        :firstname="user.firstname"
-        :lastname="user.lastname"
-        :urlImage="user.urlImage"
-      ></AccountToFollow>
+      <AccountToFollow v-for="user in users" :key="user.id" :user="user"></AccountToFollow>
     </div>
 
     <div
@@ -78,32 +72,15 @@ import CategorieTrendComponentVue from './CategorieTrendComponent.vue'
 import { RouterLink } from 'vue-router'
 import { getTendencies } from '@/composable/Utils/CategoryUtils'
 import { onMounted, ref } from 'vue'
-import type CategoryEntity from '@/composable/Entities/Category'
+import UserEntity from '@/composable/Entities/User'
+import CategoryEntity from '@/composable/Entities/Category'
 import router from '@/router'
+import { getUserById } from '@/composable/Utils/UserUtils'
 
-let users = [
-  {
-    firstname: 'Rocco',
-    lastname: 'Siffredi',
-    urlImage:
-      'https://upload.wikimedia.org/wikipedia/commons/8/80/Rocco_Siffredi_-_Lucca_Comics_%26_Games_2016.jpg'
-  },
-  {
-    firstname: 'lulu',
-    lastname: 'chu',
-    urlImage:
-      'https://scontent-fra5-1.xx.fbcdn.net/v/t39.30808-6/271762868_128100336345212_3837073184530467647_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=gBGUdOfT3iIAX_dazfm&_nc_ht=scontent-fra5-1.xx&oh=00_AfD5S8C9Gl8cGyuG0mpFT4ao2MCKWROJ-k5p62LdrgF2Lg&oe=660F7068'
-  },
-  {
-    firstname: 'Johnny',
-    lastname: 'Sins',
-    urlImage:
-      'https://ei.phncdn.com/(m=bLWsSeKlbyaT)(mh=wJ_vUY_K5kY83UTt)8463a828-afb9-4e4f-85be-9b568c1a9160.jpg'
-  }
-]
-
+let users = ref<UserEntity>('')
 let Trend = ref<CategoryEntity[]>([])
 onMounted(async () => {
   Trend.value = await getTendencies()
+  users.value = await Promise.all([getUserById('1'), getUserById('2'), getUserById('3')])
 })
 </script>
