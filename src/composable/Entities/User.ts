@@ -24,6 +24,8 @@ class UserEntity {
     this.lastname = user.lastname
     this.firstname = user.firstname
     this.profilePicture = user.profilePicture
+      ? user.profilePicture
+      : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl1xTpw2IFMr1Wn2fRiBYxPvU3D2ML6-pK5qJihvK1FQ&s'
     this.email = user.email
     this.role = user.role
     this.isActive = user.isActive

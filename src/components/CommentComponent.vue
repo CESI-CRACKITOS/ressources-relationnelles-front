@@ -1,6 +1,10 @@
 <template>
   <div class="w-12">
-    <img :src="comment.user?.profilePicture ? comment.user?.profilePicture : '/img'" alt="" />
+    <img
+      class="rounded-lg"
+      :src="props.comment.user?.profilePicture ? comment.user?.profilePicture : '/img'"
+      alt=""
+    />
   </div>
   <div>
     <div class="flex flex-row gap-2 items-center">

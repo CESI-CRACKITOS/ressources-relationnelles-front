@@ -19,6 +19,7 @@ export async function getResources() {
     data.data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
       resourceEntity.setUser(data.data[i].user)
+      console.log(data.data[i].user, resourceEntity.user)
     })
     resources.push(resourceEntity)
   }
@@ -70,7 +71,9 @@ export async function getResourceById(id: number) {
     resource.addComments(new ResourceCommentEntity(comment))
     resource.comments[resource.comments.length - 1].setUser(comment.user)
   })
-  resource.comments.sort((a, b) => { return b.id - a.id })
+  resource.comments.sort((a, b) => {
+    return b.id - a.id
+  })
   return resource
 }
 
