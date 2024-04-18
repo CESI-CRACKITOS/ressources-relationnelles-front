@@ -1,5 +1,10 @@
 <template>
   <div class="flex flex-col">
+    <div
+      class="w-full flex flex-row justify-center items-center text-center relative text-xl py-4">
+      <div class="absolute text-start w-full p-2" @click="back()"><i class="fa-solid fa-arrow-left"></i></div>
+      <div>Notification(s)</div>
+    </div>
     <div v-for="pendingRelation in pendingRelations" :key="pendingRelation.id">
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-row items-center">
@@ -43,6 +48,7 @@ import {
 } from '@/composable/Utils/UserUtils'
 import { onMounted, ref } from 'vue'
 import { formatDate } from '@/composable/Utils/DateUtils'
+import router from '@/router'
 
 let pendingRelations = ref<PendingRelationEntity[]>([])
 onMounted(async () => {
@@ -63,5 +69,8 @@ function refuseRelation(id: number) {
   pendingRelations.value = pendingRelations.value.filter(
     (pendingRelation) => pendingRelation.id !== id
   )
+}
+function back(){
+  router.go(-1)
 }
 </script>

@@ -1,5 +1,10 @@
 <template>
   <div class="h-screen rounded max-w-xl overflow-scroll max-xl:mr-0">
+    <div
+      class="w-full flex flex-row justify-center items-center text-center relative text-xl py-4">
+      <div class="absolute text-start w-full p-2" @click="back()"><i class="fa-solid fa-arrow-left"></i></div>
+      <div>Détail</div>
+    </div>
     <PostComponent :key="resource.id" :resource="resource" />
     <form class="d-flex" @submit.prevent>
       <textarea
@@ -70,5 +75,9 @@ async function addComment() {
     console.error("Une erreur s'est produite lors de l'ajout du commentaire :", error)
   }
 
+}
+
+function back(){
+  router.go(-1)
 }
 </script>
