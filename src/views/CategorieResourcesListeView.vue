@@ -15,6 +15,5 @@ let resources = ref<ResourceEntity[]>([])
 
 onMounted(async () => {
   resources.value = await getResourcesFromCategoryId(router.currentRoute.value.params.id.toString())
-  console.log(resources)
 })
 </script>
