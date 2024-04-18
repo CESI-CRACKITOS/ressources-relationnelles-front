@@ -1,9 +1,9 @@
 <template>
   <div class="h-screen rounded max-w-xl overflow-scroll max-xl:mr-0">
     <!-- Rajouter ici la creation de poste pour computer view -->
-    <div class="w-full flex justify-between px-8">
+    <div class="w-full flex justify-between px-8 text-xl py-4">
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
         @click="Display('Abonnements')"
         id="Abonnements"
       >
@@ -11,7 +11,7 @@
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
         @click="Display('PourVous')"
         id="PourVous"
       >
@@ -33,6 +33,7 @@ import PostComponent from '@/components/PostComponent.vue'
 import ResourceEntity from '@/composable/Entities/Resource'
 import { getResources, getRestrictedResources } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
+import router from '@/router'
 
 let resources = ref<ResourceEntity[]>([])
 
@@ -71,5 +72,8 @@ async function Display(action?: string) {
     default:
       break
   }
+}
+function back(){
+  router.go(-1)
 }
 </script>

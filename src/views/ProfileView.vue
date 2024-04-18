@@ -33,7 +33,7 @@
     <hr />
     <div class="w-full flex">
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700"
+        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
         @click="Display('post')"
         id="post"
       >
@@ -41,15 +41,15 @@
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
         @click="Display('like')"
         id="like"
       >
-        <span class="p-2">J'aime</span>
+        <span class="p-2" >J'aime</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center"
+        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
         @click="Display('retweet')"
         id="retweet"
       >

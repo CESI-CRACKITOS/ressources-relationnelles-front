@@ -1,5 +1,5 @@
 <template>
-  <div @click="cta(action)" :class="Class">
+  <div @click="cta(action)" :class="Class" class="cursor-pointer">
     <i :class="icon"></i>
     <p v-if="showNumber" class="text-sm">{{ number }}</p>
   </div>
