@@ -14,13 +14,21 @@
             </p>
           </div>
           <div class="flex gap-5 md:justify-center">
-            <p class="text-gray-600"><span class="text-black">123</span> Relation</p>
-            <p class="text-gray-600"><span class="text-black">123</span> Abonnements</p>
+            <p class="text-gray-600">
+              <span class="text-black">{{ user.relation }}</span> Relation
+            </p>
+            <p class="text-gray-600">
+              <span class="text-black">{{ user.subscriber }}</span> Abonnements
+            </p>
           </div>
           <ButtonComponent :hidden="ShowEditButton" class="w-full"
             >Editer le profil</ButtonComponent
           >
-          <ButtonComponent :hidden="!ShowEditButton" class="w-full"
+          <ButtonComponent
+            @click="AddRelationShip()"
+            :hidden="!ShowEditButton"
+            class="w-full"
+            :v-if="res.message == 'OK'"
             >Ajouter une relation</ButtonComponent
           >
         </div>
@@ -66,7 +74,7 @@ import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
 import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
 import { onMounted, ref } from 'vue'
-import { getUserById } from '@/composable/Utils/UserUtils'
+import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 
 const userState = useUserStore()
@@ -74,13 +82,17 @@ const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref([])
-let idRouter = router.currentRoute.value.params.id
+let idRouter = router.currentRoute.value.params.id.toString()
 
+let res = ref<any>('')
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
-    // user = await getUserById(idRouter)
+    user = await getUserById(idRouter)
     ShowEditButton = true
   }
+
+  console.log(sessionUser.id, user.id, 1, res.value)
+
   resources.value = await getResourcesByUserId(idRouter)
 })
 
@@ -116,5 +128,8 @@ async function Display(type: string) {
     default:
       break
   }
+}
+async function AddRelationShip() {
+  res.value = await AddRelation(sessionUser.id, user.id, 1)
 }
 </script>
