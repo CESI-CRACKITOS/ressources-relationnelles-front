@@ -134,14 +134,25 @@ export default {
       contents.value.splice(index, 1);
     }
 
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          resolve(reader.result);
+        };
+        reader.onerror = function (error) {
+          reject('Error: ', error);
+        };
+      });
+    }
+
     const handleFileChange = (event, content) => {
       const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        content.value = reader.result;
+      getBase64(file).then(base64 => {
+        content.value = base64;
         content.fileExtension = file.name.split('.').pop();
-      }
-      reader.readAsDataURL(file);
+      });
     }
 
     const fetchInputs = () => {
@@ -149,13 +160,20 @@ export default {
         title: title.value,
         categoryId: selectedCategory.value,
         relationId: selectedRelation.value,
-        contents: contents.value.map(content => ({ type: content.type, value: content.value, fileExtension: content.fileExtension })),
+        contents: contents.value,
         descriptionValue: descriptionValue.value
       };
       return inputData;
     }
 
-    const publish = () => {
+    const publish = async () => {
+      await Promise.all(contents.value.map(content => {
+        if (content.fileType) {
+          const fileInput = document.getElementById('fileInput' + contents.value.indexOf(content));
+          return handleFileChange({ target: fileInput }, content);
+        }
+      }));
+
       const inputData = fetchInputs();
       fetch('http://localhost/api/resources', {
         method: 'POST',
