@@ -9,7 +9,9 @@
     <div class="flex flex-col w-full gap-2">
       <div class="flex flex-row justify-between w-full">
         <div class="flex flex-row gap-2 items-center">
-          <h3>{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</h3>
+          <h3 class="max-w-80 truncate">
+            {{ resource.user?.firstname + ' ' + resource.user?.lastname }}
+          </h3>
           <span class="text-xs h-fit">{{ timeFromPublish }}</span>
         </div>
         <i class="fas fa-ellipsis"></i>

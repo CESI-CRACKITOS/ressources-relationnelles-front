@@ -86,7 +86,6 @@ onMounted(async () => {
     ShowEditButton = true
   }
   user = await getUserById(idRouter)
-  console.log(user)
 
   resources.value = await getResourcesByUserId(idRouter)
 })

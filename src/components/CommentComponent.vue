@@ -8,7 +8,9 @@
   </div>
   <div>
     <div class="flex flex-row gap-2 items-center">
-      <h3>{{ comment.user?.firstname + ' ' + comment.user?.lastname }}</h3>
+      <h3 class="max-w-80 truncate">
+        {{ comment.user?.firstname + ' ' + comment.user?.lastname }}
+      </h3>
       <span class="text-xs h-fit">{{ timeFromPublish }}</span>
     </div>
     <p>{{ comment.content }}</p>
