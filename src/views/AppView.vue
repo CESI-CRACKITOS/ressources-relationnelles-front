@@ -53,20 +53,24 @@
             </button>
           </div>
         </div>
-        <div class="flex flex-row justify-between items-end">
+        <div class="flex flex-row justify-between">
           <button class="font-bold py-2 px-4 rounded-full hover:bg-blue-300 bg-blue-500 text-white"
             @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
             Ajouter un contenu
           </button>
-          <button v-if="title" @click="publish"
-            class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+          <div class="items-end">
+            <button v-if="title" @click="setDraft"
+              class="rounded-full font-bold py-2 px-4 mr-2 hover:bg-blue-300 bg-blue-500 text-white">Brouillon</button>
+            <button v-if="title" @click="publish"
+              class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+          </div>
         </div>
       </div>
     </div>
-    <FeedLeftComponent />
-    <router-view class="w-[575px]"></router-view>
-    <FeedRightComponent />
   </div>
+  <FeedLeftComponent />
+  <router-view class="w-[575px]"></router-view>
+  <FeedRightComponent />
 </template>
 
 <script>
@@ -114,11 +118,12 @@ export default {
 
     const title = ref('');
     const selectedCategory = ref('');
-    const selectedRelation = ref('');
+    const selectedRelation = ref([]);
     const selectedResourceType = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
     const descriptionValue = ref('');
+    const isDraft = ref(false);
     const allInputsFilled = computed(() => title.value && contents.value.every(content => content?.value));
 
     const showContentOptions = () => {
@@ -177,10 +182,17 @@ export default {
         categoryId: selectedCategory.value,
         relationId: selectedRelation.value,
         resourceTypeId: selectedResourceType.value,
-        contents: contents.value
+        contents: contents.value,
+        isDraft: isDraft.value
       };
       return inputData;
     }
+
+    const setDraft = () => {
+      isDraft.value = true;
+      publish();
+    }
+
     const publish = async () => {
       hideModal();
       await Promise.all(contents.value.map(content => {
@@ -196,6 +208,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(inputData)
       })
         .then(response => response.json())
@@ -216,7 +229,8 @@ export default {
       selectedCategory,
       selectedRelation,
       selectedResourceType,
-      descriptionValue
+      descriptionValue,
+      setDraft
     }
   }
 }
