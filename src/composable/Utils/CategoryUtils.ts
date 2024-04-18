@@ -36,7 +36,5 @@ export async function getCategories() {
     categoryEntity.rank = i + 1
     category.push(categoryEntity)
   }
-  console.log(category)
-
   return category
 }
