@@ -70,7 +70,7 @@ export async function getResourceById(id: number) {
     resource.addComments(new ResourceCommentEntity(comment))
     resource.comments[resource.comments.length - 1].setUser(comment.user)
   })
-
+  resource.comments.sort((a, b) => { return b.id - a.id })
   return resource
 }
 
