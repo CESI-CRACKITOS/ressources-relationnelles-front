@@ -32,7 +32,7 @@ class UserEntity {
     this.created_at = user.created_at
     this.updated_at = user.updated_at
 
-    this.relationNumber = user.subscribed_to_count //TODO change this to the correct field
+    this.relationNumber = user.numberOfRelation
 
     this.isSuperAdmin = this.role === 'S'
     this.isAdmin = this.role === 'A' || this.isSuperAdmin
