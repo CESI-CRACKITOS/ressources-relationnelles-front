@@ -6,15 +6,23 @@
         <div>
           <input type="text" v-model="title" class="py-2 px-1 font-bold w-full text-3xl"
             placeholder="Titre de la ressource">
+          <div class="flex flex-row">
+            <select v-model="selectedCategory"
+              class="mt-2 block w-1/2 py-2 px-4 mr-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+              <option value="">Sélectionner une catégorie</option>
+              <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}
+              </option>
+            </select>
+            <select v-model="selectedRelation"
+              class="mt-2 block w-1/2 py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+              <option value="">Sélectionner une relation</option>
+              <option v-for="(relation, index) in relations" :key="index" :value="relation.id">{{ relation.name }}
+              </option>
+            </select>
+          </div>
           <textarea v-model="descriptionValue"
-            class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full h-32"
             :placeholder="randomSentence"></textarea>
-          <select v-model="selectedCategory"
-            class="mt-2 block w-full py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
-            <option value="">Sélectionner une catégorie</option>
-            <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.name }}
-            </option>
-          </select>
           <div v-show="contentOptionsShown" class="flex gap-4 items-center pt-3">
             <ContentButton type="input" fileType="file" acceptType="application/pdf" icon="fa-file-pdf"
               class="py-2 px-4 text-lg rounded-full" @add="addContent" />
@@ -60,12 +68,15 @@ import FeedLeftComponent from '@/components/FeedLeftComponent.vue'
 import FeedRightComponent from '@/components/FeedRightComponent.vue'
 import ContentButton from '@/components/ContentButton.vue'
 import { getCategories } from '@/composable/Utils/CategoryUtils'
+import { getRelations } from '@/composable/Utils/RelationUtils'
 
 export default {
   data() {
     return {
       categories: [],
+      relations: [],
       selectedCategory: '',
+      selectedRelation: '',
       descriptionValue: '',
       sentences: ['Quoi de neuf ?', 'Comment ça va ?', 'Partagez quelque chose de nouveau !', 'Exprimez-vous !']
     }
@@ -77,6 +88,7 @@ export default {
   },
   async created() {
     this.categories = await getCategories()
+    this.relations = await getRelations()
   },
   components: {
     FeedLeftComponent,
@@ -91,6 +103,7 @@ export default {
 
     const title = ref('');
     const selectedCategory = ref('');
+    const selectedRelation = ref('');
     const contents = ref([]);
     const contentOptionsShown = ref(false);
     const descriptionValue = ref('');
@@ -135,6 +148,7 @@ export default {
       const inputData = {
         title: title.value,
         categoryId: selectedCategory.value,
+        relationId: selectedRelation.value,
         contents: contents.value.map(content => ({ type: content.type, value: content.value, fileExtension: content.fileExtension })),
         descriptionValue: descriptionValue.value
       };
@@ -169,6 +183,7 @@ export default {
       fetchInputs,
       handleFileChange,
       selectedCategory,
+      selectedRelation,
       descriptionValue
     }
   }
