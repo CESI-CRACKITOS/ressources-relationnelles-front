@@ -53,22 +53,24 @@
             </button>
           </div>
         </div>
-        <div class="flex flex-row justify-between items-end">
+        <div class="flex flex-row justify-between">
           <button class="font-bold py-2 px-4 rounded-full hover:bg-blue-300 bg-blue-500 text-white"
             @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
             Ajouter un contenu
           </button>
-          <button v-if="title" @click="setDraft"
-            class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Brouillon</button>
-          <button v-if="title" @click="publish"
-            class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+          <div class="items-end">
+            <button v-if="title" @click="setDraft"
+              class="rounded-full font-bold py-2 px-4 mr-2 hover:bg-blue-300 bg-blue-500 text-white">Brouillon</button>
+            <button v-if="title" @click="publish"
+              class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">Publier</button>
+          </div>
         </div>
       </div>
     </div>
-    <FeedLeftComponent />
-    <router-view class="w-[575px]"></router-view>
-    <FeedRightComponent />
   </div>
+  <FeedLeftComponent />
+  <router-view class="w-[575px]"></router-view>
+  <FeedRightComponent />
 </template>
 
 <script>
@@ -206,6 +208,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(inputData)
       })
         .then(response => response.json())
