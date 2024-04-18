@@ -3,11 +3,7 @@
     class="flex flex-col gap-4 justify-between items-start max-xl:w-14 w-96 max-md:hidden px-8 border-r h-screen overflow-scroll"
   >
     <div class="flex gap-2 max-xl:items-center flex-col w-full">
-      <img
-        class="bg-black w-14 object-cover rounded-full flex items-center justify-center"
-        src="../assets/logo.png"
-        alt=""
-      />
+      <img class="max-xl:hidden" src="../assets/logo.svg" alt="" />
       <ButtonLink -link-to="/feed" -button-label="Accueil" icon="fa-solid fa-house"></ButtonLink>
 
       <ButtonLink
@@ -31,16 +27,27 @@
         <p class="max-xl:hidden">Poster</p>
       </button>
     </div>
-    <router-link
-      :to="'/profile/' + user.id"
-      class="flex max-xl:flex-col flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full max-xl:p-0 px-4 py-2"
+
+    <div
+      @click="openDropDown()"
+      class="flex relative max-xl:flex-col flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full max-xl:p-0 px-4 py-2"
     >
+      <div
+        id="logOut"
+        class="absolute w-full -top-10 left-0 hidden flex-col justify-center items-center"
+      >
+        <button @click="logOut()" class="w-full border flex items-center gap-3">
+          <i class="fa-solid fa-sign-out"></i>
+          <p>Deconnexion</p>
+        </button>
+        <i class="fa-solid fa-angle-down"></i>
+      </div>
       <div class="flex gap-2 items-center">
         <div class="h-10 w-10 bg-amber-500 rounded-full"></div>
         <img src="" alt="" />
         <div class="max-xl:hidden">
-          <p>{{ user.lastname }}</p>
-          <p>{{ user.firstname }}</p>
+          <p class="max-w-32 truncate">{{ user.lastname }}</p>
+          <p class="max-w-32 truncate">{{ user.firstname }}</p>
         </div>
       </div>
 
@@ -53,7 +60,7 @@
         >
         </IconButtonComponent>
       </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -68,5 +75,15 @@ const user = userState.user
 const openModal = () => {
   const modal = document.getElementById('postModal')
   modal?.classList.toggle('hidden')
+}
+function openDropDown() {
+  const dropDown = document.getElementById('logOut')
+  dropDown?.classList.toggle('hidden')
+  dropDown?.classList.toggle('flex')
+}
+
+function logOut() {
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+  window.location.href = '/login'
 }
 </script>
