@@ -32,11 +32,8 @@ class UserEntity {
     this.acceptedGDPR = user.acceptedGDPR
     this.created_at = user.created_at
     this.updated_at = user.updated_at
-
-    //todo Recup les data de l'api
-    this.relation = 123
-    this.subscriber = 25
-
+    this.relation = user.subscribed_to_count
+    this.subscriber = user.subscribers_count
     this.isSuperAdmin = this.role === 'S'
     this.isAdmin = this.role === 'A' || this.isSuperAdmin
     this.isModerator = this.role === 'M' || this.isAdmin
