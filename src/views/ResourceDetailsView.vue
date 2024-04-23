@@ -32,7 +32,6 @@ import { onMounted, ref } from 'vue'
 import router from '@/router'
 import CommentComponent from '@/components/CommentComponent.vue'
 import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
-import { comment } from 'postcss'
 
 let resource = ref<ResourceEntity[]>([])
 let commentText = ref('')
@@ -42,18 +41,16 @@ onMounted(async () => {
   resource.value = await getResourceById(idResource)
 })
 
-
 async function addComment() {
   try {
     // Vérifiez d'abord si le texte du commentaire n'est pas vide
     if (!commentText.value.trim()) {
-      console.error("Le texte du commentaire ne peut pas être vide.")
       return
     }
 
     // Préparez les données du commentaire
     const newComment = {
-      text: commentText.value,
+      text: commentText.value
       // Vous pouvez ajouter d'autres champs du commentaire ici si nécessaire
     }
 
@@ -64,17 +61,15 @@ async function addComment() {
       },
       credentials: 'include',
       method: 'POST',
-      body: JSON.stringify({content: commentText.value, resourceId: idResource})
+      body: JSON.stringify({ content: commentText.value, resourceId: idResource })
     })
 
     resource.value = await getResourceById(idResource)
     commentText = ref('')
     // Assurez-vous que la réponse de l'API indique que le commentaire a été ajouté avec succès
-
   } catch (error) {
-    console.error("Une erreur s'est produite lors de l'ajout du commentaire :", error)
+    // Gérez les erreurs ici
   }
-
 }
 
 function back(){

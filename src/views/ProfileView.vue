@@ -5,17 +5,45 @@
         <div class="flex justify-center">
           <img :src="user.profilePicture" class="rounded-full w-6/12" alt="" />
         </div>
-        <div class="flex flex-col gap-1.5 md:justify-center">
+        <div class="flex relative flex-col gap-1.5 md:justify-center">
           <div>
             <h3 class="text-lg max-w-80 truncate">{{ user.firstname + ' ' + user.lastname }}</h3>
             <p class="text-gray-600 text-xs">
               <i class="fa-solid fa-calendar"></i> A rejoint le {{ formatDate(user.created_at) }}
             </p>
           </div>
-          <div class="">
+          <div class="w-full flex justify-between">
             <p class="text-gray-600">
               <span class="text-black">{{ user.relationNumber }}</span> Relation
             </p>
+            <div @click="userDropDown()">
+              <i class="fas fa-ellipsis"></i>
+            </div>
+            <div id="userDropDown" class="z-50 hidden absolute right-0 top-20">
+              <ul class="bg-white border rounded-md shadow-md">
+                <li
+                  v-if="user.id == sessionUser.id"
+                  @click="Update()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
+                  Modifier
+                </li>
+                <li
+                  v-if="user.id == sessionUser.id"
+                  @click="Delete()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
+                  Suprimer
+                </li>
+                <li
+                  v-if="user.id != sessionUser.id"
+                  @click="Report()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
+                  Signaler
+                </li>
+              </ul>
+            </div>
           </div>
           <ButtonComponent :hidden="ShowEditButton" class="w-full"
             >Editer le profil</ButtonComponent
@@ -61,6 +89,8 @@
       <PostComponent v-for="resource in resources" :key="resource.id" :resource="resource" />
     </div>
   </div>
+
+  <ReportModalComponent report="User" :id="parseInt(idRouter)" v-if="show" />
 </template>
 
 <script setup lang="ts">
@@ -69,10 +99,12 @@ import { formatDate } from '@/composable/Utils/DateUtils'
 import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
 import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
+
+import ReportModalComponent from '@/components/ReportModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
-
+import { reportUser } from '@/composable/Utils/ReportUtils'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
@@ -125,5 +157,24 @@ async function Display(type: string) {
 }
 async function AddRelationShip() {
   res.value = await AddRelation(sessionUser.id, user.id, 1)
+}
+
+function userDropDown() {
+  let dropDown = document.getElementById('userDropDown')
+  if (dropDown?.classList.contains('hidden')) {
+    dropDown?.classList.remove('hidden')
+  } else {
+    dropDown?.classList.add('hidden')
+  }
+}
+
+function Update() {
+  router.push({ name: 'UpdateProfile', params: { id: user.id } })
+}
+
+function Delete() {}
+let show = ref(false)
+async function Report(id: number) {
+  show.value = true
 }
 </script>

@@ -1,8 +1,6 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '../Entities/ResourceContent'
-import UserEntity from '../Entities/User'
 import ResourceCommentEntity from '../Entities/ResourceComment'
-
 export async function getResources() {
   const res = fetch('http://localhost/api/resources', {
     headers: {
@@ -19,7 +17,6 @@ export async function getResources() {
     data.data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
       resourceEntity.setUser(data.data[i].user)
-      console.log(data.data[i].user, resourceEntity.user)
     })
     resources.push(resourceEntity)
   }
