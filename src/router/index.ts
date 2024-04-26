@@ -136,6 +136,11 @@ const router = createRouter({
       path: '/cookie',
       name: 'Cookie Policy',
       component: CookieView
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: LoginView
     }
   ]
 })
