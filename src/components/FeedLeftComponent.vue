@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full items-center justify-evenly border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 xl:min-w-64">
-    <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-house" />
+    <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-thumbs-up" />
     <ButtonLink linkTo="/notifications" buttonLabel="Notifications" icon="fa-solid fa-bell" />
     <ButtonLink :linkTo="'/profile/' + user.id" buttonLabel="Profile" icon="fa-solid fa-user" />
     <button
