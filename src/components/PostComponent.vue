@@ -1,8 +1,10 @@
 <template>
   <div class="flex bg-white p-3 border-b border-gray-200 gap-2">
-    <div class="w-12">
-      <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
-    </div>
+    <a :href="`profile/${resource.user?.id}`" class="h-fit w-fit">
+      <div class="w-12 h-fit">
+        <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
+      </div>
+    </a>
     <div class="flex flex-col w-full gap-2">
       <div class="flex flex-row justify-between w-full relative">
         <div class="flex flex-row gap-2 items-center">
