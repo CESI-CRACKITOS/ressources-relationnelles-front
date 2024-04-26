@@ -1,7 +1,10 @@
 <template>
   <div class="flex justify-between">
     <div class="flex gap-2 items-center">
-      <img class="h-10 w-10 rounded-full object-cover" :src="props.user.profilePicture" alt="" />
+      <a :href="`/profile/${props.user.id}`">
+        <img class="h-10 w-10 rounded-full object-cover" :src="props.user.profilePicture" alt="" />
+      </a>
+
       <div>
         <p class="max-w-80 truncate">{{ props.user.lastname }}</p>
         <p class="max-w-80 truncate">{{ props.user.firstname }}</p>

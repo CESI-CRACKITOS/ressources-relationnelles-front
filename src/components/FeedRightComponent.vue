@@ -25,7 +25,7 @@
 
     <div class="bg-gray-100 w-full rounded-3xl p-4">
       <h2 class="text-xl text-black font-bold pb-4">Suggestions</h2>
-      <AccountToFollow v-for="user in users" :key="user.id" :user="user"></AccountToFollow>
+      <AccountToFollow v-for="user in users" :key="user.id" :user="user" />
     </div>
 
     <div
