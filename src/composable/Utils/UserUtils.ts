@@ -19,6 +19,27 @@ export async function getUserFromToken(tokenValue: string) {
   return user
 }
 
+export async function getSuggestedUsers() {
+  const res = await fetch('http://localhost/api/users/suggested', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+  })
+
+  const users :UserEntity[] = [];
+  const data = await res.json()
+
+  if (data.data.length > 0) {
+    data.data.forEach((user: UserEntity) => {
+      users.push(new UserEntity(user));
+    })
+  }
+
+  return users;
+
+}
+
 export async function getUserById(IdUser: string) {
   const res = fetch('http://localhost/api/users/' + IdUser, {
     method: 'GET',
