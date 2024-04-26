@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen rounded max-w-xl overflow-scroll max-xl:mr-0">
+  <div class="h-screen rounded w-full overflow-scroll">
     <div
       class="w-full flex flex-row justify-center items-center text-center relative text-xl py-4">
       <div class="absolute text-start w-full p-2" @click="back()"><i class="fa-solid fa-arrow-left"></i></div>

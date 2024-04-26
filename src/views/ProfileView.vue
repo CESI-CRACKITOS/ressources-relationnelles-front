@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col px-2 gap-5">
+  <div class="h-full w-full flex flex-col px-2 gap-5">
     <div class="flex flex-col w-full gap-5">
       <div class="flex flex-col pt-2 gap-5 md:flex-row">
         <div class="flex justify-center">
@@ -59,7 +59,7 @@
       </div>
     </div>
     <hr />
-    <div class="w-full flex">
+    <div class="w-full flex ">
       <div
         class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
         @click="Display('post')"
@@ -85,12 +85,13 @@
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
     </div>
-    <div class="w-full flex flex-col">
+    <div class="w-full flex flex-col overflow-scroll">
       <PostComponent v-for="resource in resources" :key="resource.id" :resource="resource" />
     </div>
+    <ReportModalComponent report="User" :id="parseInt(idRouter)" v-if="show" />
   </div>
 
-  <ReportModalComponent report="User" :id="parseInt(idRouter)" v-if="show" />
+
 </template>
 
 <script setup lang="ts">
@@ -105,11 +106,12 @@ import { onMounted, ref } from 'vue'
 import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 import { reportUser } from '@/composable/Utils/ReportUtils'
+import type ResourceEntity from '@/composable/Entities/Resource'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
-let resources = ref([])
+let resources = ref<ResourceEntity[]>([])
 let idRouter = router.currentRoute.value.params.id.toString()
 
 let res = ref<any>('')

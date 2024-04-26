@@ -43,9 +43,11 @@ class ResourceEntity {
   }
   setUser(user: UserEntity) {
     this.user = user
-    this.user.profilePicture = user.profilePicture
-      ? user.profilePicture
-      : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl1xTpw2IFMr1Wn2fRiBYxPvU3D2ML6-pK5qJihvK1FQ&s'
+    if (this.user) {
+      this.user.profilePicture = user.profilePicture
+        ? user.profilePicture
+        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl1xTpw2IFMr1Wn2fRiBYxPvU3D2ML6-pK5qJihvK1FQ&s'
+    }
   }
 }
 export default ResourceEntity

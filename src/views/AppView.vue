@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row w-full justify-center" style="scrollbar-width: none items-center">
+  <div class="h-screen justify-between flex flex-col-reverse md:flex-row w-full items-center overflow-hidden">
     <div class="h-screen w-screen flex items-center justify-center bg-black absolute hidden z-10 bg-opacity-50"
       id="postModal" @click="hideModal">
       <div class="flex flex-col h-[75%] w-[80%] justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
@@ -67,10 +67,11 @@
         </div>
       </div>
     </div>
+    <FeedLeftComponent />
+    <router-view class="w-full md:border-x " />
+    <FeedRightComponent class="hidden lg:flex" />
   </div>
-  <FeedLeftComponent />
-  <router-view class="w-[575px]"></router-view>
-  <FeedRightComponent />
+
 </template>
 
 <script>

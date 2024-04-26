@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-4 items-start w-96 overflow-scroll h-screen max-lg:hidden border-l pl-4"
+    class="flex-col gap-4 items-start h-screen px-4 min-w-72"
   >
     <form class="max-w-md mx-auto w-full pt-2">
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -50,18 +50,10 @@
       </RouterLink>
     </div>
     <div class="flex flex-wrap gap-2 p-4">
-      <RouterLink to="tos" class="text-sm text-gray-500 hover:underline" target="_blank"
-        >Conditions d'utilisation
-      </RouterLink>
-      <RouterLink to="privacy" class="text-sm text-gray-500 hover:underline" target="_blank"
-        >Politique de Confidentialité</RouterLink
-      >
-      <RouterLink to="cookie" class="text-sm text-gray-500 hover:underline" target="_blank"
-        >Politique relative aux cookies</RouterLink
-      >
-      <RouterLink to="accessibility" class="text-sm text-gray-500 hover:underline" target="_blank"
-        >Accessibilité</RouterLink
-      >
+      <RouterLink to="/tos" class="text-sm text-gray-500 hover:underline" target="_blank">Conditions d'utilisation</RouterLink>
+      <RouterLink to="/privacy" class="text-sm text-gray-500 hover:underline" target="_blank">Politique de Confidentialité</RouterLink>
+      <RouterLink to="/cookie" class="text-sm text-gray-500 hover:underline" target="_blank">Politique relative aux cookies</RouterLink>
+      <RouterLink to="/accessibility" class="text-sm text-gray-500 hover:underline" target="_blank">Accessibilité</RouterLink>
     </div>
   </div>
 </template>

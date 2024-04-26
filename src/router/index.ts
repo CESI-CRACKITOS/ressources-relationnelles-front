@@ -106,7 +106,6 @@ const router = createRouter({
           name: 'notifications',
           component: NotificationView
         },
-
         {
           path: '/profile/:id(\\d+)',
           name: 'profile',
@@ -115,10 +114,9 @@ const router = createRouter({
             requiresAuth: true,
             requireRole: 'U'
           }
-        }
+        },
       ]
     },
-
     {
       path: '/tos',
       name: 'Terms of Service',

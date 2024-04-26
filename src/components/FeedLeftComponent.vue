@@ -1,65 +1,15 @@
 <template>
-  <div
-    class="flex flex-col gap-4 justify-between items-start max-xl:w-14 w-96 max-md:hidden px-8 border-r h-screen overflow-scroll"
-  >
-    <div class="flex gap-2 max-xl:items-center flex-col w-full">
-      <img class="max-xl:hidden" src="../assets/logo.svg" alt="" />
-      <ButtonLink -link-to="/feed" -button-label="Accueil" icon="fa-solid fa-house"></ButtonLink>
-
-      <ButtonLink
-        -link-to="/feed2"
-        -button-label="Explorer"
-        icon="fa-solid fa-magnifying-glass"
-      ></ButtonLink>
-      <ButtonLink
-        -link-to="/notifications"
-        -button-label="Notifications"
-        icon="fa-solid fa-bell"
-      ></ButtonLink>
-      <ButtonLink :-link-to="'/profile/' + user.id" -button-label="Profile" icon="fa-solid fa-user">
-      </ButtonLink>
-
-      <button
-        class="py-4 max-xl:w-12 rounded-full hover:bg-blue-300 bg-blue-200"
-        @click="openModal"
-      >
-        <i class="fa-regular fa-paper-plane max-xl:block hidden"></i>
-        <p class="max-xl:hidden">Poster</p>
-      </button>
-    </div>
-
-    <div
-      @click="openDropDown()"
-      class="flex relative max-xl:flex-col flex-row items-center justify-between w-full mb-8 hover:bg-gray-200 rounded-full max-xl:p-0 px-4 py-2"
+  <div class="flex w-full items-center justify-evenly border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 xl:min-w-64">
+    <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-house" />
+    <ButtonLink linkTo="/notifications" buttonLabel="Notifications" icon="fa-solid fa-bell" />
+    <ButtonLink :linkTo="'/profile/' + user.id" buttonLabel="Profile" icon="fa-solid fa-user" />
+    <button
+      class="p-4 w-fit rounded-full hover:bg-blue-300 bg-blue-200 md:w-full"
+      @click="openModal"
     >
-      <div
-        id="logOut"
-        class="absolute w-full -top-10 left-0 hidden flex-col justify-center items-center"
-      >
-        <button @click="logOut()" class="w-full border flex items-center gap-3">
-          <i class="fa-solid fa-sign-out"></i>
-          <p>Deconnexion</p>
-        </button>
-        <i class="fa-solid fa-angle-down"></i>
-      </div>
-      <div class="flex gap-2 items-center">
-        <img :src="user.profilePicture" alt="" class="w-10 rounded-full" />
-        <div class="max-xl:hidden">
-          <p class="max-w-32 truncate">{{ user.lastname }}</p>
-          <p class="max-w-32 truncate">{{ user.firstname }}</p>
-        </div>
-      </div>
-
-      <div class="max-xl:hidden">
-        <IconButtonComponent
-          action=""
-          :context-id="user.id"
-          active="false"
-          icon="fa-solid fa-ellipsis"
-        >
-        </IconButtonComponent>
-      </div>
-    </div>
+      <i class="fa-regular fa-paper-plane block xl:hidden"></i>
+      <p class="max-xl:hidden">Poster</p>
+    </button>
   </div>
 </template>
 
