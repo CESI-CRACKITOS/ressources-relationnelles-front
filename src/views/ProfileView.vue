@@ -97,7 +97,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { formatDate } from '@/composable/Utils/DateUtils'
-import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
 

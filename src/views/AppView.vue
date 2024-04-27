@@ -181,7 +181,7 @@ export default {
       const inputData = {
         title: title.value,
         categoryId: selectedCategory.value,
-        relationId: selectedRelation.value,
+        relationId: [selectedRelation.value],
         resourceTypeId: selectedResourceType.value,
         contents: contents.value,
         isDraft: isDraft.value

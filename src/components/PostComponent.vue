@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
 import ReportModalComponent from '@/components/ReportModalComponent.vue'
-import IconButtonComponentVue from './shared/buttons/IconButtonComponent.vue'
+import IconButtonComponentVue from '@/components/Shared/buttons/IconButtonComponent.vue'
 import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'
 import { onMounted, ref } from 'vue'

@@ -31,7 +31,7 @@ import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 import CommentComponent from '@/components/CommentComponent.vue'
-import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 
 let resource = ref<ResourceEntity[]>([])
 let commentText = ref('')

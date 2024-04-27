@@ -20,12 +20,12 @@ export async function calculateDates(date: Date) {
   const years = Math.floor(secondsBetweenDates / 31556952)
 
   const timeUnits = [
-    formatTime(years, 'an'),
-    formatTime(months, 'mois'),
-    formatTime(days, 'jour'),
-    formatTime(hours, 'heure'),
-    formatTime(minutes, 'minute'),
-    formatTime(seconds, 'seconde')
+    formatTime(years, 'a'),
+    formatTime(months, 'm'),
+    formatTime(days, 'j'),
+    formatTime(hours, 'h'),
+    formatTime(minutes, 'min'),
+    formatTime(seconds, 's')
   ]
 
   let tempsDepuisCreation = timeUnits
@@ -40,5 +40,5 @@ export async function calculateDates(date: Date) {
 }
 
 function formatTime(value, unit) {
-  return value > 0 ? `${parseFloat(value).toFixed(0)} ${unit}${value > 1 ? 's' : ''}, ` : ''
+  return value > 0 ? `${parseFloat(value).toFixed(0)}${unit}  ` : ''
 }

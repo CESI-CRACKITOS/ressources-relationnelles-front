@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import ButtonLink from '@/components/shared/buttons/ButtonLink.vue'
-import IconButtonComponent from '@/components/shared/buttons/IconButtonComponent.vue'
+import ButtonLink from '@/components/Shared/buttons/ButtonLink.vue'
+import IconButtonComponent from '@/components/Shared/buttons/IconButtonComponent.vue'
 import { useUserStore } from '@/stores/user'
 
 const userState = useUserStore()

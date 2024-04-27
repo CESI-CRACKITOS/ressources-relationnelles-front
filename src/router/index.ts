@@ -16,6 +16,8 @@ import AppView from '@/views/AppView.vue'
 import NotificationView from '@/views/NotificationView.vue'
 import CategoryListView from '@/views/CategoryListView.vue'
 import CategorieResourcesListeView from '@/views/CategorieResourcesListeView.vue'
+import ResourceView from '@/views/Admin/ResourceView.vue'
+import ResourceCategoryView from '@/views/Admin/ResourceCategoryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +36,24 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView
+    },
+    {
+      path: '/admin/resources',
+      name: 'admin-resources',
+      component: ResourceView,
+      meta: {
+        requiresAuth: true,
+        requireRole: 'A'
+      }
+    },
+    {
+      path: '/admin/resourceCategories',
+      name: 'admin-resource-categories',
+      component: ResourceCategoryView,
+      meta: {
+        requiresAuth: true,
+        requireRole: 'A'
+      }
     },
     {
       path: '',
