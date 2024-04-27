@@ -1,7 +1,10 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between" :id="`suggestion-${props.user.id}`">
     <div class="flex gap-2 items-center">
-      <img class="h-10 w-10 rounded-full object-cover" :src="props.user.profilePicture" alt="" />
+      <a :href="`/profile/${props.user.id}`">
+        <img class="h-10 w-10 rounded-full object-cover" :src="props.user.profilePicture" alt="" />
+      </a>
+
       <div>
         <p class="max-w-80 truncate">{{ props.user.lastname }}</p>
         <p class="max-w-80 truncate">{{ props.user.firstname }}</p>
@@ -9,41 +12,40 @@
     </div>
     <div>
       <button
-        @click="toggleFollow"
-        :class="{
-          'bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800': !isFollowing,
-          'bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-black': isFollowing
-        }"
+        @click="follow"
+        class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-black"
       >
-        {{ isFollowing ? 'Unfollow' : 'Follow' }}
+        Ajouter
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import UserEntity from '@/composable/Entities/User'
 import { AddRelation, removeRelation } from '@/composable/Utils/UserUtils'
 import { useUserStore } from '@/stores/user'
+import { defineEmits } from "vue";
+
+const emit = defineEmits(['deleted'])
 
 const userState = useUserStore()
 const user = userState.user
 
 const props = defineProps<{
-  user: UserEntity
+  user: UserEntity,
 }>()
 
-const isFollowing = ref(false)
-
-const toggleFollow = async () => {
+const follow = async () => {
   const id = props.user.id
 
-  if (isFollowing.value) {
-    //await removeRelation(id.toString())
-  } else {
-    await AddRelation(id.toString(), user.id.toString(), '1')
-  }
-  isFollowing.value = !isFollowing.value
+  await AddRelation(user.id.toString(), id, 1);
+
+  const node = document.getElementById(`suggestion-${id}`)
+
+  node?.remove();
+
+  emit('deleted', props.user.id)
+
 }
 </script>

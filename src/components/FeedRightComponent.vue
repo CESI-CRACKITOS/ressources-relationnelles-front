@@ -23,9 +23,9 @@
       </div>
     </form>
 
-    <div class="bg-gray-100 w-full rounded-3xl p-4">
+    <div class="bg-gray-100 w-full rounded-3xl p-4" id="suggestions" v-if="users.length > 0">
       <h2 class="text-xl text-black font-bold pb-4">Suggestions</h2>
-      <AccountToFollow v-for="user in users" :key="user.id" :user="user"></AccountToFollow>
+      <AccountToFollow v-for="user in users" :key="user.id" :user="user" @deleted="(id) => deleteUser(id)" />
     </div>
 
     <div
@@ -67,12 +67,17 @@ import { onMounted, ref } from 'vue'
 import UserEntity from '@/composable/Entities/User'
 import CategoryEntity from '@/composable/Entities/Category'
 import router from '@/router'
-import { getUserById } from '@/composable/Utils/UserUtils'
+import { getSuggestedUsers } from '@/composable/Utils/UserUtils'
 
-let users = ref<UserEntity>('')
+let users = ref<UserEntity[]>([])
 let Trend = ref<CategoryEntity[]>([])
 onMounted(async () => {
   Trend.value = await getTendencies()
-  users.value = await Promise.all([getUserById('1'), getUserById('2'), getUserById('3')])
+  users.value = await getSuggestedUsers();
 })
+
+
+function deleteUser(id: number): void {
+  users.value = users.value.filter((user) => user.id !== id)
+}
 </script>

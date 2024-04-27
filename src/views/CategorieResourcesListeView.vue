@@ -15,10 +15,15 @@ import { getResourcesFromCategoryId } from '@/composable/Utils/ResourcesUtils'
 import router from '@/router'
 import PostComponent from '@/components/PostComponent.vue'
 import { onMounted, ref } from 'vue'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 let resources = ref<ResourceEntity[]>([])
 
 onMounted(async () => {
+  resources.value = await getResourcesFromCategoryId(router.currentRoute.value.params.id.toString())
+})
+
+onBeforeRouteUpdate(async () => {
   resources.value = await getResourcesFromCategoryId(router.currentRoute.value.params.id.toString())
 })
 </script>

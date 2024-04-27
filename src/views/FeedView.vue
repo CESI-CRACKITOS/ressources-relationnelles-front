@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full overflow-hidden">
+  <div class="h-full overflow-hidden pb-24">
     <div class="rounded">
       <div class="w-full flex justify-between px-8 text-xl py-4">
         <div

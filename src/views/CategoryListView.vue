@@ -7,7 +7,7 @@
       :id="category.id"
       v-for="category in categories"
       :key="category.id"
-    ></CategorieTrendComponent>
+    />
   </div>
 </template>
 
