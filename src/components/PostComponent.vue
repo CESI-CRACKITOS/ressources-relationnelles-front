@@ -74,6 +74,7 @@
             :context-id="resource.id"
             active="true"
             :numberToshow="resource.numberOfLikes"
+            cursor="cursor-pointer"
           />
           <IconButtonComponentVue
             icon="far fa-comment"
@@ -81,12 +82,6 @@
             :context-id="resource.id"
             active="true"
             :numberToshow="resource.numberOfComments"
-          />
-          <IconButtonComponentVue
-            icon="fas fa-retweet"
-            action="retweet"
-            :context-id="resource.id"
-            active="true"
           />
         </div>
       </div>

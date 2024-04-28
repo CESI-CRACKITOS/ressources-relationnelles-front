@@ -1,5 +1,5 @@
 <template>
-  <div @click="cta(action)" :class="Class" class="cursor-pointer">
+  <div @click="cta(action)" :class="Class + ' ' + cursor">
     <i :class="icon"></i>
     <p v-if="showNumber" class="text-sm">{{ number }}</p>
   </div>
@@ -34,6 +34,11 @@ const props = defineProps({
     type: Number,
     required: false,
     default: 0
+  },
+  cursor: {
+    type: String,
+    required: false,
+    default: "cursor-default"
   }
 })
 
