@@ -41,6 +41,8 @@ onMounted(async () => {
   resource.value = await getResourceById(idResource)
 })
 
+
+
 async function addComment() {
   try {
     // Vérifiez d'abord si le texte du commentaire n'est pas vide

@@ -58,7 +58,6 @@ export async function getResourceById(id: number) {
 
   const data = await res.then((response) => response.json())
   const resource = new ResourceEntity(data.data)
-
   resource.setUser(data.data.user)
   data.data.contents.forEach((content: any) => {
     resource.addContents(new ResourceContentEntity(content))

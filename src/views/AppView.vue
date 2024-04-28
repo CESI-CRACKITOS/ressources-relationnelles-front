@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-screen overflow-scroll">
+  <div class="h-screen justify-between flex flex-col-reverse md:flex-row w-full items-center overflow-hidden">
     <FeedLeftComponent />
     <router-view class="w-full md:border-x" />
     <FeedRightComponent class="hidden lg:flex" />
