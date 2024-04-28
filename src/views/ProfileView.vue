@@ -16,45 +16,32 @@
             <p class="text-gray-600">
               <span class="text-black">{{ user.relationNumber }}</span> Relation
             </p>
-            <div @click="userDropDown()">
-              <i class="fas fa-ellipsis"></i>
+            <div class="flex">
+              <div @click="userDropDown()">
+                <i class="fas fa-ellipsis"></i>
+              </div>
+              <div v-if="user.id == sessionUser.id" @click="copyRegisterLink()" class="px-4">
+                <i v-if="copied" class="fa-solid fa-check"></i>
+                <i v-else class="fa-solid fa-share"></i>
+              </div>
             </div>
             <div id="userDropDown" class="z-50 hidden absolute right-0 top-20">
               <ul class="bg-white border rounded-md shadow-md">
-                <li
-                  v-if="user.id == sessionUser.id"
-                  @click="Update()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
+                <li v-if="user.id == sessionUser.id" @click="Update()" class="py-2 px-4 hover:bg-gray-100">
                   Modifier
                 </li>
-                <li
-                  v-if="user.id == sessionUser.id"
-                  @click="Delete()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
-                  Suprimer
+                <li v-if="user.id == sessionUser.id" @click="Delete()" class="py-2 px-4 hover:bg-gray-100">
+                  Supprimer
                 </li>
-                <li
-                  v-if="user.id != sessionUser.id"
-                  @click="Report()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
+                <li v-if="user.id != sessionUser.id" @click="Report()" class="py-2 px-4 hover:bg-gray-100">
                   Signaler
                 </li>
               </ul>
             </div>
           </div>
-          <ButtonComponent :hidden="ShowEditButton" class="w-full"
-            >Editer le profil</ButtonComponent
-          >
-          <ButtonComponent
-            @click="AddRelationShip()"
-            :hidden="!ShowEditButton"
-            class="w-full"
-            :v-if="res.message == 'OK'"
-            >Ajouter une relation</ButtonComponent
-          >
+          <ButtonComponent :hidden="ShowEditButton" class="w-full">Editer le profil</ButtonComponent>
+          <ButtonComponent @click="AddRelationShip()" :hidden="!ShowEditButton" class="w-full"
+            :v-if="res.message == 'OK'">Ajouter une relation</ButtonComponent>
         </div>
       </div>
     </div>
@@ -62,25 +49,17 @@
     <div class="w-full flex ">
       <div
         class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
-        @click="Display('post')"
-        id="post"
-      >
+        @click="Display('post')" id="post">
         <span class="p-2">Resource</span>
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
-      <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
-        @click="Display('like')"
-        id="like"
-      >
-        <span class="p-2" >J'aime</span>
+      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
+        @click="Display('like')" id="like">
+        <span class="p-2">J'aime</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
-      <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
-        @click="Display('retweet')"
-        id="retweet"
-      >
+      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
+        @click="Display('retweet')" id="retweet">
         <span class="p-2">Repartagé</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
@@ -174,9 +153,20 @@ function Update() {
   router.push({ name: 'UpdateProfile', params: { id: user.id } })
 }
 
-function Delete() {}
+function Delete() { }
 let show = ref(false)
 async function Report(id: number) {
   show.value = true
+}
+
+let copied = ref(false)
+
+function copyRegisterLink() {
+  const registerUrl = `${window.location.origin}/home`;
+  navigator.clipboard.writeText(registerUrl).then(() => {
+    copied.value = true
+  }).catch(err => {
+    console.error('Could not copy text: ', err);
+  });
 }
 </script>
