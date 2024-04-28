@@ -1,6 +1,6 @@
 <template>
   <div class="flex bg-white p-3 border-b border-gray-200 gap-2">
-    <a :href="`profile/${resource.user?.id}`" class="h-fit w-fit">
+    <a :href="`/profile/${resource.user?.id}`" class="h-fit w-fit">
       <div class="w-12 h-fit">
         <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
       </div>

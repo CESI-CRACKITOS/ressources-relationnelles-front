@@ -84,17 +84,26 @@ import ReportModalComponent from '@/components/ReportModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
-import { reportUser } from '@/composable/Utils/ReportUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
-let idRouter = router.currentRoute.value.params.id.toString()
+let idRouter = router.currentRoute.value.params.id
+import { onBeforeRouteUpdate } from 'vue-router'
 
 let res = ref<any>('')
 onMounted(async () => {
+  if (idRouter != sessionUser.id) {
+    ShowEditButton = true
+  }
+  user = await getUserById(idRouter)
+
+  resources.value = await getResourcesByUserId(idRouter)
+})
+
+onBeforeRouteUpdate(async () => {
   if (idRouter != sessionUser.id) {
     ShowEditButton = true
   }
