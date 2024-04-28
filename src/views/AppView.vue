@@ -1,7 +1,7 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full h-screen overflow-scroll">
     <FeedLeftComponent />
-    <router-view class="w-full md:border-x " />
+    <router-view class="w-full md:border-x" />
     <FeedRightComponent class="hidden lg:flex" />
   </div>
 </template>
