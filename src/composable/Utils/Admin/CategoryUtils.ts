@@ -21,3 +21,29 @@ export async function destroy(id: number) {
     method: 'DELETE'
   })
 }
+
+export async function insert(category: CategoryEntity) {
+
+  await fetch(`http://localhost/api/admin/categories/`, {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify(category),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
+export async function update(category: CategoryEntity) {
+
+  console.log(JSON.stringify(category))
+
+  await fetch(`http://localhost/api/admin/categories/${category.id}`, {
+    credentials: 'include',
+    method: 'PUT',
+    body: JSON.stringify(category),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+}
