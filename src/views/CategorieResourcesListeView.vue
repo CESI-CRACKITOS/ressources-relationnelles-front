@@ -26,4 +26,8 @@ onMounted(async () => {
 onBeforeRouteUpdate(async () => {
   resources.value = await getResourcesFromCategoryId(router.currentRoute.value.params.id.toString())
 })
+
+function back(){
+  router.go(-1)
+}
 </script>
