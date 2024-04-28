@@ -11,14 +11,15 @@
       <i class="fa-regular fa-paper-plane block xl:hidden"></i>
       <p class="max-xl:hidden">Poster</p>
     </button>
+    <PostModalComponent :openModal="openModal" class="w-full h-full"/>
   </div>
-
 </template>
 
 <script setup lang="ts">
 import ButtonLink from '@/components/Shared/buttons/ButtonLink.vue'
 import IconButtonComponent from '@/components/Shared/buttons/IconButtonComponent.vue'
 import { useUserStore } from '@/stores/user'
+import PostModalComponent from '@/components/PostModalComponent.vue'
 
 const userState = useUserStore()
 const user = userState.user
@@ -26,11 +27,6 @@ const user = userState.user
 const openModal = () => {
   const modal = document.getElementById('postModal')
   modal?.classList.toggle('hidden')
-}
-function openDropDown() {
-  const dropDown = document.getElementById('logOut')
-  dropDown?.classList.toggle('hidden')
-  dropDown?.classList.toggle('flex')
 }
 
 function logOut() {
