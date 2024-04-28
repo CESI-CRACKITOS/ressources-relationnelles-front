@@ -1,144 +1,80 @@
 <template>
   <Teleport to="body">
-    <div
-      class="h-screen w-screen hidden flex items-center justify-center fixed inset-0 bg-black bg-opacity-50 z-50"
-      id="postModal"
-      @click="hideModal"
-    >
-      <div
-        class="flex flex-col h-[75%] w-[80%] justify-between gap-2 p-5 bg-white rounded-lg shadow"
-        @click.stop
-      >
+    <div class="h-screen w-screen hidden flex items-center justify-center fixed inset-0 bg-black bg-opacity-50 z-50"
+      id="postModal" @click="hideModal">
+      <div class="flex flex-col h-[75%] w-[80%] justify-between gap-2 p-5 bg-white rounded-lg shadow" @click.stop>
         <div>
-          <input
-            type="text"
-            v-model="title"
-            class="py-2 px-1 font-bold w-full text-3xl"
-            placeholder="Titre de la ressource"
-          />
-          <div class="flex flex-row w-full">
-            <div>
+          <input type="text" v-model="title" class="py-2 px-1 font-bold w-full text-3xl"
+            placeholder="Titre de la ressource" />
+          <div class="flex flex-row w-full justify-between">
+            <div class="w-3/4 mr-4">
               <div class="flex flex-row space-x-4">
-                <select
-                  v-model="selectedCategory"
-                  id="categorySelect"
-                  class="mt-2 block w-1/2 py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
-                >
+                <select v-model="selectedCategory" id="categorySelect"
+                  class="mt-2 block w-full py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
                   <option value="">Sélectionner une catégorie</option>
                   <option v-for="(category, index) in categories" :key="index" :value="category.id">
                     {{ category.name }}
                   </option>
                 </select>
-                <select
-                  id="resourceTypeSelect"
-                  v-model="selectedResourceType"
-                  class="mt-2 block w-1/2 py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
-                >
+                <select id="resourceTypeSelect" v-model="selectedResourceType"
+                  class="mt-2 block w-full py-2 px-4 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
                   <option value="">Sélectionner un type de ressource</option>
-                  <option
-                    v-for="(resourceType, index) in resourceTypes"
-                    :key="index"
-                    :value="resourceType.id"
-                  >
+                  <option v-for="(resourceType, index) in resourceTypes" :key="index" :value="resourceType.id">
                     {{ resourceType.name }}
                   </option>
                 </select>
               </div>
 
-              <textarea
-                v-model="descriptionValue"
+              <textarea v-model="descriptionValue"
                 class="mt-2 p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full h-32"
-                :placeholder="randomSentence"
-              ></textarea>
+                :placeholder="randomSentence"></textarea>
             </div>
-            <select id="relationSelect" v-model="selectedRelation" name="relationSelect" multiple>
-              <option value="0">Sélectionner une relation</option>
-              <option v-for="relation in relations" :key="relation.id" :value="relation.id">
-                {{ relation.name }}
-              </option>
-            </select>
+            <div class="w-1/4 flex flex-col justify-center items-center">
+              <h3 class="font-bold p-3 text-center w-full">Partager votre ressource</h3>
+              <select id="relationSelect" v-model="selectedRelation" name="relationSelect" :size="relations.length"
+                class="w-full border border-gray-300 rounded-lg" multiple>
+                <option v-for="relation in relations" :key="relation.id" :value="relation.id">
+                  {{ relation.name }}
+                </option>
+              </select>
+            </div>
           </div>
 
           <div v-show="contentOptionsShown" class="flex gap-4 items-center pt-3">
-            <ContentButton
-              enctype="multipart/form-data"
-              type="input"
-              fileType="file"
-              acceptType="application/pdf"
-              icon="fa-file-pdf"
-              class="py-2 px-4 text-lg rounded-full"
-              @add="addContent"
-            />
-            <ContentButton
-              enctype="multipart/form-data"
-              type="input"
-              fileType="file"
-              acceptType="image/*"
-              icon="fa-image"
-              class="py-2 px-4 text-lg rounded-full"
-              @add="addContent"
-            />
-            <ContentButton
-              enctype="multipart/form-data"
-              type="input"
-              fileType="file"
-              acceptType="video/*"
-              icon="fa-video"
-              class="py-2 px-4 text-lg rounded-full"
-              @add="addContent"
-            />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="application/pdf"
+              icon="fa-file-pdf" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="image/*"
+              icon="fa-image" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
+            <ContentButton enctype="multipart/form-data" type="input" fileType="file" acceptType="video/*"
+              icon="fa-video" class="py-2 px-4 text-lg rounded-full" @add="addContent" />
           </div>
-          <div
-            v-for="(content, index) in contents"
-            :key="index"
-            class="flex gap-2 items-center pt-5"
-          >
+          <div v-for="(content, index) in contents" :key="index" class="flex gap-2 items-center pt-5">
             <div class="input-wrapper" v-if="content.type === 'input'">
-              <input
-                :id="'fileInput' + index"
-                :type="content.fileType"
-                :accept="content.acceptType"
-                @change="content.value = $event.target.files[0]"
-                class="hidden-input"
-              />
+              <input :id="'fileInput' + index" :type="content.fileType" :accept="content.acceptType"
+                @change="content.value = $event.target.files[0]" class="hidden-input" />
               <label :for="'fileInput' + index" class="visible-label">
                 {{ content.value ? content.value.name : 'Choisissez un fichier' }}
               </label>
             </div>
-            <textarea
-              v-else
-              v-model="content.value"
-              class="p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
-            <button
-              @click="deleteContent(index)"
-              class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700"
-            >
+            <textarea v-else v-model="content.value"
+              class="p-2 rounded-lg border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <button @click="deleteContent(index)" class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-700">
               <i class="fa-solid fa-delete-left fa-xl"></i>
             </button>
           </div>
         </div>
         <div class="flex flex-row justify-between">
-          <button
-            class="font-bold py-2 px-4 rounded-full hover:bg-blue-300 bg-blue-500 text-white"
-            @click="showContentOptions"
-            v-show="allInputsFilled && !contentOptionsShown"
-          >
+          <button class="font-bold py-2 px-4 rounded-full hover:bg-blue-300 bg-blue-500 text-white"
+            @click="showContentOptions" v-show="allInputsFilled && !contentOptionsShown">
             Ajouter un contenu
           </button>
           <div class="items-end">
-            <button
-              v-if="title"
-              @click="setDraft"
-              class="rounded-full font-bold py-2 px-4 mr-2 hover:bg-blue-300 bg-blue-500 text-white"
-            >
+            <button v-if="title" @click="setDraft"
+              class="rounded-full font-bold py-2 px-4 mr-2 hover:bg-blue-300 bg-blue-500 text-white">
               Brouillon
             </button>
-            <button
-              v-if="title"
-              @click="publish"
-              class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white"
-            >
+            <button v-if="title" @click="publish"
+              class="rounded-full font-bold py-2 px-4 hover:bg-blue-300 bg-blue-500 text-white">
               Publier
             </button>
           </div>
