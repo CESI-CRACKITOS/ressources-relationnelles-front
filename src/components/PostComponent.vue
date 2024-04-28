@@ -57,14 +57,11 @@
           <p>
            <span class="bg-gray-200 p-2 rounded-md">{{ resource.title }}</span>
           </p>
-          <p v-for="content in resource.contents" :key="content.id">
-            {{ content.text }}
-          </p>
-        </div>
-
-        <div class="w-full flex flex-wrap">
-          <div class="w-full h-56 flex items-center justify-center border rounded-xl">
-            le gros jeu de débille
+          <div v-for="content in resource.contents" :key="content.id" @click.stop class="flex flex-col gap-5">
+            <p v-if="!content.base64">{{ content.text }}</p>
+            <img v-bind:src="`${content.base64}`" v-if="content.base64 && content.base64.startsWith('data:image/')" />
+            <a class="bg-blue-600 py-1.5 px-3 text-white w-fit rounded-md hover:bg-blue-800" :download="`${content.text}`" v-bind:href="`${content.base64}`" v-if="content.base64 && content.base64.startsWith('data:application/pdf')">{{ content?.text }}</a>
+            <iframe :src="content.base64" class="h-[500px] w-full hidden lg:block" v-if="content.base64 && content.base64.startsWith('data:application/pdf')"></iframe>
           </div>
         </div>
       </div>

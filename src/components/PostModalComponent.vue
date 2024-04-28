@@ -226,6 +226,7 @@ export default {
       } else if (acceptType) {
         if (acceptType === 'application/pdf') {
           fileExtension = 'pdf'
+          console.log(fileType);
         } else if (acceptType === 'image/*') {
           fileExtension = 'image'
         } else if (acceptType === 'video/*') {
@@ -260,6 +261,7 @@ export default {
           .then((base64) => {
             content.value = base64
             content.fileExtension = file.name.split('.').pop()
+            content.text = file.name
             resolve()
           })
           .catch(reject)
@@ -281,7 +283,6 @@ export default {
         contents: contents.value,
         isDraft: isDraft.value
       }
-      console.log(inputData)
       return inputData
     }
 
