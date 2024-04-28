@@ -14,9 +14,9 @@ export async function getResources() {
   const resources: ResourceEntity[] = []
   for (let i = 0; i < data.data.length; i++) {
     const resourceEntity = new ResourceEntity(data.data[i])
+    resourceEntity.setUser(data.data[i].user)
     data.data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data.data[i].user)
     })
     resources.push(resourceEntity)
   }
@@ -37,9 +37,9 @@ export async function getRestrictedResources() {
   const resources: ResourceEntity[] = []
   for (let i = 0; i < data.data.length; i++) {
     const resourceEntity = new ResourceEntity(data.data[i])
+    resourceEntity.setUser(data.data[i].user)
     data.data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data.data[i].user)
     })
     resources.push(resourceEntity)
   }
@@ -89,9 +89,9 @@ export async function getResourcesByUserId(userId: number) {
 
   for (let i = 0; i < data.length; i++) {
     const resourceEntity = new ResourceEntity(data[i])
+    resourceEntity.setUser(data[i].user)
     data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data[i].user)
     })
     resources.push(resourceEntity)
   }
@@ -113,9 +113,9 @@ export async function getLikedResourcesByUserId(userId: number) {
 
   for (let i = 0; i < data.length; i++) {
     const resourceEntity = new ResourceEntity(data[i])
+    resourceEntity.setUser(data[i].user)
     data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data[i].user)
     })
     resources.push(resourceEntity)
   }
@@ -153,9 +153,9 @@ export async function getResourcesFromCategoryId(id: string) {
   const resources: ResourceEntity[] = []
   for (let i = 0; i < data.data.length; i++) {
     const resourceEntity = new ResourceEntity(data.data[i])
+    resourceEntity.setUser(data.data[i].user)
     data.data[i].contents.forEach((content: any) => {
       resourceEntity.addContents(new ResourceContentEntity(content))
-      resourceEntity.setUser(data.data[i].user)
     })
     resources.push(resourceEntity)
   }
