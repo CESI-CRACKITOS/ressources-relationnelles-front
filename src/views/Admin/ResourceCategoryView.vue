@@ -9,7 +9,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="category in categories" :key="category.id" class="border-b-gray-200 border-b">
+      <tr v-for="category in categories" :key="category.id" class="border-b-gray-200 border-b" :id="`category-${category.id}`">
         <td class="px-6 py-1.5 lg:py-3 text-black">{{ category.name }}</td>
         <td class="px-6 py-1.5 lg:py-3 text-black text-end">
           <ButtonComponent btnStyle="danger" @click="deleteCategory(category.id)">
@@ -32,6 +32,8 @@ onMounted(async () => {
 })
 const deleteCategory = (id) => {
   destroy(id)
-  window.location.reload()
+  categories.value.filter((c) => c.id !== id);
+  const node = document.getElementById(`category-${id}`)
+  node.remove();
 }
 </script>
