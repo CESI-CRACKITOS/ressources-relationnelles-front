@@ -36,7 +36,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import ResourceEntity from '@/composable/Entities/Resource'
-import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 import { accept, refuse } from '@/composable/Utils/Admin/ResourceUtils.ts'
 import LinkComponent from '@/components/Shared/Links/LinkComponent.vue'
 const props = defineProps({

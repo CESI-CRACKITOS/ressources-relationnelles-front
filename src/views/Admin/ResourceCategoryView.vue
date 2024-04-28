@@ -25,7 +25,7 @@
 <script setup>
 import { index, destroy } from '@/composable/Utils/Admin/CategoryUtils.ts'
 import { onMounted, ref } from 'vue'
-import ButtonComponent from '@/components/shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 const categories = ref([]);
 onMounted(async () => {
   categories.value = await index()
