@@ -15,10 +15,10 @@
             </div>
             <div class="flex gap-1 flex-wrap">
               <span v-for="relationType in resource.relationTypes" class="bg-green-200 rounded-lg px-2">
-                {{ relationType.name }}
+                {{ relationType?.name }}
               </span>
-              <a :href="`/category/${resource.category.id}`" class="flex items-center bg-blue-100 w-fit px-2 rounded-md text-sm">
-                Catégorie: {{ resource.category.name }}
+              <a :href="`/category/${resource.category?.id}`" class="flex items-center bg-blue-100 w-fit px-2 rounded-md text-sm">
+                Catégorie: {{ resource.category?.name }}
               </a>
             </div>
           </div>
