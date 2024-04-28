@@ -1,6 +1,7 @@
 import ResourceContentEntity from '@/composable/Entities/ResourceContent'
 import ResourceCommentEntity from '@/composable/Entities/ResourceComment'
 import UserEntity from '@/composable/Entities/User'
+import type CategoryEntity from '@/composable/Entities/Category'
 
 class ResourceEntity {
   id: number
@@ -18,6 +19,8 @@ class ResourceEntity {
   user: UserEntity | null = null
   numberOfLikes: number
   numberOfComments: number
+  category: CategoryEntity | null = null
+  relationTypes = []
 
   constructor(resource: any) {
     this.id = resource.id
@@ -32,6 +35,8 @@ class ResourceEntity {
     this.updated_at = resource.updated_at
     this.numberOfLikes = resource.numberOflikes
     this.numberOfComments = resource.numberOfComments
+    this.category = resource.category
+    this.relationTypes = resource.relation_types
   }
 
   addContents(content: ResourceContentEntity) {

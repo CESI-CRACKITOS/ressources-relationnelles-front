@@ -7,11 +7,21 @@
     </a>
     <div class="flex flex-col w-full gap-2">
       <div class="flex flex-row justify-between w-full relative">
-        <div class="flex flex-row gap-2 items-center">
-          <h3 class="max-w-80 truncate">
-            {{ resource.user?.firstname + ' ' + resource.user?.lastname }}
-          </h3>
-          <span class="text-xs h-fit">{{ timeFromPublish }}</span>
+        <div class="flex flex-row items-start">
+          <div>
+            <div>
+              <span class="me-1.5">{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</span>
+              <span class="text-xs h-fit">{{ timeFromPublish }}</span>
+            </div>
+            <div class="flex gap-1 flex-wrap">
+              <span v-for="relationType in resource.relationTypes" class="bg-green-200 rounded-lg px-2">
+                {{ relationType.name }}
+              </span>
+              <a :href="`/category/${resource.category.id}`" class="flex items-center bg-blue-100 w-fit px-2 rounded-md text-sm">
+                Catégorie: {{ resource.category.name }}
+              </a>
+            </div>
+          </div>
         </div>
         <div @click="postDropDown(resource.id)">
           <i class="fas fa-ellipsis"></i>
@@ -43,9 +53,9 @@
         </div>
       </div>
       <div @click="navigateToResourceDetails(resource.id)">
-        <div>
+        <div class="flex flex-col gap-2">
           <p>
-            {{ resource.title }}
+           <span class="bg-gray-200 p-2 rounded-md">{{ resource.title }}</span>
           </p>
           <p v-for="content in resource.contents" :key="content.id">
             {{ content.text }}
@@ -126,4 +136,6 @@ let show = ref(false)
 async function Report(id: number) {
   show.value = true
 }
+
+
 </script>
