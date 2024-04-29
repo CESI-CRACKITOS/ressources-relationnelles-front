@@ -2,10 +2,15 @@
   <div class="flex flex-col h-full w-full">
     <div
       class="w-full flex flex-row justify-center items-center text-center relative text-xl p-4">
-      <div class="absolute text-start w-full p-2" @click="back()"><i class="fa-solid fa-arrow-left"></i></div>
-      <div>Notification(s)</div>
+      <div class="absolute text-start w-full p-2" @click="back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+      <div>Notifications</div>
     </div>
-    <div v-for="pendingRelation in pendingRelations" :key="pendingRelation.id" class="p-5">
+
+
+
+    <div v-for="pendingRelation in pendingRelations" :key="pendingRelation.id" class="px-5">
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-row items-center">
           <img :src="pendingRelation.user.profilePicture" class="w-10 h-10 rounded-full" />

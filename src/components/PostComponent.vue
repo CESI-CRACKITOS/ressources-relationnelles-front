@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-white p-3 border-b border-gray-200 gap-2">
+  <div class="flex bg-slate-100 p-3 border-b border-gray-200 gap-2"  @click="navigateToResourceDetails(resource.id)">
     <a :href="`/profile/${resource.user?.id}`" class="h-fit w-fit">
       <div class="w-12 h-fit">
         <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
@@ -61,7 +61,7 @@
           </ul>
         </div>
       </div>
-      <div @click="navigateToResourceDetails(resource.id)">
+      <div>
         <div class="flex flex-col gap-2">
           <p>
             <span class="bg-gray-200 p-2 rounded-md">{{ resource.title }}</span>
