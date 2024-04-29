@@ -16,32 +16,46 @@
             <p class="text-gray-600">
               <span class="text-black">{{ user.relationNumber }}</span> Relation
             </p>
-            <div class="flex">
-              <div @click="userDropDown()">
-                <i class="fas fa-ellipsis"></i>
-              </div>
-              <div v-if="user.id == sessionUser.id" @click="copyRegisterLink()" class="px-4">
-                <i v-if="copied" class="fa-solid fa-check"></i>
-                <i v-else class="fa-solid fa-share"></i>
-              </div>
+
+            <div @click="open()">
+              <i class="fas fa-ellipsis"></i>
             </div>
-            <div id="userDropDown" class="z-50 hidden absolute right-0 top-20">
+            <div :id="'postDropDown' + user.id" v-if="showListBtn" class="absolute right-0 top-5">
               <ul class="bg-white border rounded-md shadow-md">
-                <li v-if="user.id == sessionUser.id" @click="Update()" class="py-2 px-4 hover:bg-gray-100">
+                <li
+                  v-if="sessionUser.id == user.id"
+                  @click="OpenUpdateModal()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
                   Modifier
                 </li>
-                <li v-if="user.id == sessionUser.id" @click="Delete()" class="py-2 px-4 hover:bg-gray-100">
-                  Supprimer
+                <li
+                  v-if="sessionUser.id == user.id"
+                  @click="OpenDeleteModal()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
+                  Suprimer
                 </li>
-                <li v-if="user.id != sessionUser.id" @click="Report()" class="py-2 px-4 hover:bg-gray-100">
+                <li
+                  v-if="sessionUser.id != user.id"
+                  @click="OpenReportModal()"
+                  class="py-2 px-4 hover:bg-gray-100"
+                >
                   Signaler
                 </li>
               </ul>
             </div>
           </div>
-          <ButtonComponent :hidden="ShowEditButton" class="w-full">Editer le profil</ButtonComponent>
-          <ButtonComponent @click="AddRelationShip()" :hidden="!ShowEditButton" class="w-full"
-            :v-if="res.message == 'OK'">Ajouter une relation</ButtonComponent>
+          <ButtonComponent :hidden="ShowEditButton" class="w-full"
+            >Editer le profil</ButtonComponent
+          >
+          <ButtonComponent
+            @click="AddRelationShip()"
+            :hidden="!ShowEditButton"
+            class="w-full"
+            :v-if="res.message == 'OK'"
+            >Ajouter une relation</ButtonComponent
+          >
         </div>
       </div>
     </div>
@@ -49,12 +63,17 @@
     <div class="w-full flex">
       <div
         class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
-        @click="Display('post')" id="post">
+        @click="Display('post')"
+        id="post"
+      >
         <span class="p-2">Resource</span>
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
-      <div class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
-        @click="Display('like')" id="like">
+      <div
+        class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
+        @click="Display('like')"
+        id="like"
+      >
         <span class="p-2">J'aime</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
@@ -62,10 +81,13 @@
     <div class="w-full flex flex-col overflow-scroll">
       <PostComponent v-for="resource in resources" :key="resource.id" :resource="resource" />
     </div>
-    <ReportModalComponent report="User" :id="parseInt(idRouter)" v-if="show" />
+    <ListActionModalComponent
+      -modal-type="user"
+      :target-id="user.id"
+      :modal-to-open="modalToOpen"
+      v-if="showModal"
+    ></ListActionModalComponent>
   </div>
-
-
 </template>
 
 <script setup lang="ts">
@@ -75,18 +97,22 @@ import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
 
-import ReportModalComponent from '@/components/ReportModalComponent.vue'
+import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
+
+import { onBeforeRouteUpdate } from 'vue-router'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
 let idRouter = router.currentRoute.value.params.id
-import { onBeforeRouteUpdate } from 'vue-router'
+let showModal = ref(false)
+let showListBtn = ref(false)
+let modalToOpen = ref('')
 
 let res = ref<any>('')
 onMounted(async () => {
@@ -145,24 +171,40 @@ function userDropDown() {
   }
 }
 
-function Update() {
-  router.push({ name: 'UpdateProfile', params: { id: user.id } })
+function open() {
+  showListBtn.value = !showListBtn.value
+
+  showModal.value = true
 }
 
-function Delete() { }
-let show = ref(false)
-async function Report(id: number) {
-  show.value = true
+function OpenReportModal() {
+  if (modalToOpen.value == 'report') {
+    modalToOpen.value = ''
+  }
+  modalToOpen.value = 'report'
+}
+async function OpenDeleteModal() {
+  console.log('delete', showModal.value)
+  modalToOpen.value = modalToOpen.value == 'delete' ? '' : 'delete'
+}
+function OpenUpdateModal() {
+  if (modalToOpen.value == 'update') {
+    modalToOpen.value = ''
+  }
+  modalToOpen.value = 'update'
 }
 
 let copied = ref(false)
 
 function copyRegisterLink() {
-  const registerUrl = `${window.location.origin}/home`;
-  navigator.clipboard.writeText(registerUrl).then(() => {
-    copied.value = true
-  }).catch(err => {
-    console.error('Could not copy text: ', err);
-  });
+  const registerUrl = `${window.location.origin}/home`
+  navigator.clipboard
+    .writeText(registerUrl)
+    .then(() => {
+      copied.value = true
+    })
+    .catch((err) => {
+      console.error('Could not copy text: ', err)
+    })
 }
 </script>
