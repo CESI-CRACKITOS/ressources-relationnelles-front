@@ -46,21 +46,16 @@
       </div>
     </div>
     <hr />
-    <div class="w-full flex ">
+    <div class="w-full flex">
       <div
-        class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
+        class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
         @click="Display('post')" id="post">
         <span class="p-2">Resource</span>
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
-      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
+      <div class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
         @click="Display('like')" id="like">
         <span class="p-2">J'aime</span>
-        <div class="h-1 w-10/12 rounded-full"></div>
-      </div>
-      <div class="w-1/3 flex flex-col justify-center items-center hover:bg-slate-300 text-center cursor-pointer"
-        @click="Display('retweet')" id="retweet">
-        <span class="p-2">Repartagé</span>
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
     </div>
@@ -84,17 +79,26 @@ import ReportModalComponent from '@/components/ReportModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
-import { reportUser } from '@/composable/Utils/ReportUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
-let idRouter = router.currentRoute.value.params.id.toString()
+let idRouter = router.currentRoute.value.params.id
+import { onBeforeRouteUpdate } from 'vue-router'
 
 let res = ref<any>('')
 onMounted(async () => {
+  if (idRouter != sessionUser.id) {
+    ShowEditButton = true
+  }
+  user = await getUserById(idRouter)
+
+  resources.value = await getResourcesByUserId(idRouter)
+})
+
+onBeforeRouteUpdate(async () => {
   if (idRouter != sessionUser.id) {
     ShowEditButton = true
   }
@@ -123,14 +127,6 @@ async function Display(type: string) {
       document.getElementById('retweet')?.classList.remove('text-blue-700')
       document.getElementById('retweet')?.children[1].classList.remove('bg-blue-700')
       resources.value = await getResourcesByUserId(idRouter)
-      break
-    case 'retweet':
-      document.getElementById('retweet')?.classList.add('text-blue-700')
-      document.getElementById('retweet')?.children[1].classList.add('bg-blue-700')
-      document.getElementById('like')?.classList.remove('text-blue-700')
-      document.getElementById('like')?.children[1].classList.remove('bg-blue-700')
-      document.getElementById('post')?.classList.remove('text-blue-700')
-      document.getElementById('post')?.children[1].classList.remove('bg-blue-700')
       break
     default:
       break

@@ -73,6 +73,7 @@ async function register() {
 
     if (registerData.password !== registerData.confirmPassword) {
         error.value = "Les mots de passe ne correspondent pas";
+        return false
     }
 
     const res = fetch(`${url}/users`, {

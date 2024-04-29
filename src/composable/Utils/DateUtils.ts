@@ -30,7 +30,7 @@ export async function calculateDates(date: Date) {
 
   let tempsDepuisCreation = timeUnits
     .filter((unit) => unit !== '')
-    .slice(0, 2)
+    .slice(0, 1)
     .join('')
   tempsDepuisCreation = tempsDepuisCreation.endsWith('')
     ? tempsDepuisCreation.slice(0, -2)
