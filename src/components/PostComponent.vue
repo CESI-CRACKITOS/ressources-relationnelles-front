@@ -10,41 +10,50 @@
         <div class="flex flex-row items-start">
           <div>
             <div>
-              <span class="me-1.5">{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</span>
+              <span class="me-1.5">{{
+                resource.user?.firstname + ' ' + resource.user?.lastname
+              }}</span>
               <span class="text-xs h-fit">{{ timeFromPublish }}</span>
             </div>
             <div class="flex gap-1 flex-wrap">
-              <span v-for="relationType in resource.relationTypes" class="bg-green-200 rounded-lg px-2">
+              <span
+                v-for="relationType in resource.relationTypes"
+                :key="relationType.id"
+                class="bg-green-200 rounded-lg px-2"
+              >
                 {{ relationType?.name }}
               </span>
-              <a :href="`/category/${resource.category?.id}`" class="flex items-center bg-blue-100 w-fit px-2 rounded-md text-sm">
+              <a
+                :href="`/category/${resource.category?.id}`"
+                class="flex items-center bg-blue-100 w-fit px-2 rounded-md text-sm"
+              >
                 Catégorie: {{ resource.category?.name }}
               </a>
             </div>
           </div>
         </div>
-        <div @click="postDropDown(resource.id)">
+        <div @click="open()">
           <i class="fas fa-ellipsis"></i>
         </div>
-        <div :id="'postDropDown' + resource.id" class="hidden absolute right-0 top-5">
+        <div :id="'postDropDown' + resource.id" v-if="showListBtn" class="absolute right-0 top-5">
           <ul class="bg-white border rounded-md shadow-md">
             <li
               v-if="resource.user?.id == user.id"
-              @click="Update()"
+              @click="OpenUpdateModal()"
               class="py-2 px-4 hover:bg-gray-100"
             >
               Modifier
             </li>
             <li
               v-if="resource.user?.id == user.id"
-              @click="Delete()"
+              @click="OpenDeleteModal()"
               class="py-2 px-4 hover:bg-gray-100"
             >
               Suprimer
             </li>
             <li
               v-if="resource.user?.id != user.id"
-              @click="Report(resource.id)"
+              @click="OpenReportModal()"
               class="py-2 px-4 hover:bg-gray-100"
             >
               Signaler
@@ -55,13 +64,31 @@
       <div @click="navigateToResourceDetails(resource.id)">
         <div class="flex flex-col gap-2">
           <p>
-           <span class="bg-gray-200 p-2 rounded-md">{{ resource.title }}</span>
+            <span class="bg-gray-200 p-2 rounded-md">{{ resource.title }}</span>
           </p>
-          <div v-for="content in resource.contents" :key="content.id" @click.stop class="flex flex-col gap-5">
+          <div
+            v-for="content in resource.contents"
+            :key="content.id"
+            @click.stop
+            class="flex flex-col gap-5"
+          >
             <p v-if="!content.base64">{{ content.text }}</p>
-            <img v-bind:src="`${content.base64}`" v-if="content.base64 && content.base64.startsWith('data:image/')" />
-            <a class="bg-blue-600 py-1.5 px-3 text-white w-fit rounded-md hover:bg-blue-800" :download="`${content.text}`" v-bind:href="`${content.base64}`" v-if="content.base64 && content.base64.startsWith('data:application/pdf')">{{ content?.text }}</a>
-            <iframe :src="content.base64" class="h-[500px] w-full hidden lg:block" v-if="content.base64 && content.base64.startsWith('data:application/pdf')"></iframe>
+            <img
+              v-bind:src="`${content.base64}`"
+              v-if="content.base64 && content.base64.startsWith('data:image/')"
+            />
+            <a
+              class="bg-blue-600 py-1.5 px-3 text-white w-fit rounded-md hover:bg-blue-800"
+              :download="`${content.text}`"
+              v-bind:href="`${content.base64}`"
+              v-if="content.base64 && content.base64.startsWith('data:application/pdf')"
+              >{{ content?.text }}</a
+            >
+            <iframe
+              :src="content.base64"
+              class="h-[500px] w-full hidden lg:block"
+              v-if="content.base64 && content.base64.startsWith('data:application/pdf')"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -87,12 +114,17 @@
       </div>
     </div>
   </div>
-  <ReportModalComponent report="Resource" :id="resource.id" v-if="show" />
+  <ListActionModalComponent
+    -modal-type="post"
+    :target-id="resource.id"
+    :modal-to-open="modalToOpen"
+    v-if="showModal"
+  ></ListActionModalComponent>
 </template>
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import ReportModalComponent from '@/components/ReportModalComponent.vue'
+import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import IconButtonComponentVue from '@/components/Shared/buttons/IconButtonComponent.vue'
 import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'
@@ -107,8 +139,11 @@ const props = defineProps({
     required: true
   }
 })
+let showModal = ref(false)
 
+let showListBtn = ref(false)
 let timeFromPublish = ref('')
+let modalToOpen = ref('')
 onMounted(async () => {
   timeFromPublish.value = await calculateDates(props.resource.created_at)
 })
@@ -116,18 +151,27 @@ onMounted(async () => {
 function navigateToResourceDetails(id: number) {
   router.push({ name: 'resource', params: { id: id } })
 }
-function postDropDown(id: number) {
-  const dropDown = document.getElementById('postDropDown' + id)
-  dropDown?.classList.toggle('hidden')
+
+function open() {
+  showListBtn.value = !showListBtn.value
+
+  showModal.value = true
 }
 
-function Update() {}
-
-function Delete() {}
-let show = ref(false)
-async function Report(id: number) {
-  show.value = true
+function OpenReportModal() {
+  if (modalToOpen.value == 'report') {
+    modalToOpen.value = ''
+  }
+  modalToOpen.value = 'report'
 }
-
-
+async function OpenDeleteModal() {
+  console.log('delete', showModal.value)
+  modalToOpen.value = modalToOpen.value == 'delete' ? '' : 'delete'
+}
+function OpenUpdateModal() {
+  if (modalToOpen.value == 'update') {
+    modalToOpen.value = ''
+  }
+  modalToOpen.value = 'update'
+}
 </script>
