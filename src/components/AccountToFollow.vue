@@ -13,7 +13,7 @@
     <div>
       <button
         @click="follow"
-        class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-black"
+        class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-black"
       >
         Ajouter
       </button>
