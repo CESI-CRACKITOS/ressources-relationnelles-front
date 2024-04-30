@@ -1,12 +1,8 @@
 <template>
 
-  <a :href="url" class="w-full">
-    <div class="p-5 flex items-center justify-between border-b-4 border-violet-950 bg-neutral-100 w-full">
-      <img :src="icon" alt="" class="h-16">
-      <h3 class="text-xl text-center">
-        {{ name }}
-      </h3>
-    </div>
+  <a :href="url" class="flex items-center justify-center border border-indigo-600 px-4 py-2
+    text-indigo-600 w-full hover:bg-indigo-600 hover:text-white hover:cursor-pointer text-2xl">
+      {{ name }}
   </a>
 
 </template>

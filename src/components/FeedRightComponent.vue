@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col gap-4 items-start h-screen px-4 min-w-72 bg-slate-100 p-5">
+  <div class="flex-col gap-4 items-start h-screen px-4 min-w-72 bg-slate-50 p-5">
 
     <!-- Ici mettre une icône loupe -->
     <input type="text" class="border w-full p-2" placeholder="Recherche">

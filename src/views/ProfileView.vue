@@ -1,26 +1,19 @@
 <template>
-  <div class="h-full w-full flex flex-col px-2 gap-5">
-    <div class="flex flex-col w-full gap-5">
-      <div class="flex flex-col pt-2 gap-5 md:flex-row">
-        <div class="flex justify-center">
-          <img :src="user.profilePicture" class="rounded-full w-6/12" alt="" />
-        </div>
-        <div class="flex relative flex-col gap-1.5 md:justify-center">
-          <div>
-            <h3 class="text-lg max-w-80 truncate">{{ user.firstname + ' ' + user.lastname }}</h3>
-            <p class="text-gray-600 text-xs">
-              <i class="fa-solid fa-calendar"></i> A rejoint le {{ formatDate(user.created_at) }}
-            </p>
+  <div class="flex flex-col h-full w-full overflow-auto">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full p-5">
+      <img :src="user.profilePicture" class="rounded-full w-36" alt="" />
+      <div class="relative">
+        <p>{{ user.firstname + ' ' + user.lastname }}</p>
+        <span class="flex justify-between items-center w-full">
+          <i class="fa-solid fa-calendar"></i>
+          A rejoint le {{ formatDate(user.created_at) }}
+        </span>
+        <span class="flex justify-between items-center w-full">
+          {{ user.relationNumber }} relations
+          <div @click="open()">
+            <i class="fas fa-ellipsis"></i>
           </div>
-          <div class="w-full flex justify-between">
-            <p class="text-gray-600">
-              <span class="text-black">{{ user.relationNumber }}</span> Relation
-            </p>
-
-            <div @click="open()">
-              <i class="fas fa-ellipsis"></i>
-            </div>
-            <div :id="'postDropDown' + user.id" v-if="showListBtn" class="absolute right-0 top-5">
+          <div :id="'postDropDown' + user.id" v-if="showListBtn" class="absolute right-0 top-5">
               <ul class="bg-white border rounded-md shadow-md">
                 <li
                   v-if="sessionUser.id == user.id"
@@ -45,21 +38,21 @@
                 </li>
               </ul>
             </div>
-          </div>
-          <ButtonComponent :hidden="ShowEditButton" class="w-full"
-            >Editer le profil</ButtonComponent
-          >
-          <ButtonComponent
-            @click="AddRelationShip()"
-            :hidden="!ShowEditButton"
-            class="w-full"
-            :v-if="res.message == 'OK'"
-            >Ajouter une relation</ButtonComponent
-          >
-        </div>
+        </span>
+        <button :hidden="ShowEditButton" class="flex items-center justify-center border border-indigo-600 px-4 py-2 text-indigo-600
+        w-full hover:bg-indigo-600 hover:text-white hover:cursor-pointer">
+          Editer le profil
+        </button>
+        <ButtonComponent
+          @click="AddRelationShip()"
+          :hidden="!ShowEditButton"
+          class="w-full"
+          :v-if="res.message == 'OK'"
+        >Ajouter une relation</ButtonComponent
+        >
       </div>
     </div>
-    <hr />
+
     <div class="w-full flex">
       <div
         class="w-1/2 flex flex-col justify-center items-center hover:bg-slate-300 text-center text-blue-700 cursor-pointer"
@@ -78,7 +71,7 @@
         <div class="h-1 w-10/12 rounded-full"></div>
       </div>
     </div>
-    <div class="w-full flex flex-col overflow-scroll">
+    <div class="">
       <PostComponent v-for="resource in resources" :key="resource.id" :resource="resource" />
     </div>
     <ListActionModalComponent
@@ -86,7 +79,7 @@
       :target-id="user.id"
       :modal-to-open="modalToOpen"
       v-if="showModal"
-    ></ListActionModalComponent>
+    />
   </div>
 </template>
 
