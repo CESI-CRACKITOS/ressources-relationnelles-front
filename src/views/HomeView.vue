@@ -1,14 +1,22 @@
 <template>
 
-	<div class="flex flex-col justify-between items-center w-screen h-screen p-5">
-		<div class=" flex flex-col gap-16 justify-center items-center">
-			<h1 class="text-2xl">(RE)Sources Relationnelles</h1>
+	<div class="flex flex-col justify-between items-center w-screen h-screen p-5 bg-slate-50">
+		<div class="flex flex-col gap-16 justify-center items-center py-5">
+			<h1 class="text-2xl font-mono">(RE)Sources Relationnelles</h1>
 		</div>
 
-		<div class="flex flex-col w-full gap-5">
+		<div class="flex flex-col w-full gap-5 py-5">
 
-      <TileComponent url="/login" name="Se connecter" icon="/img/pictograms/leisure/culture.svg"/>
-      <TileComponent url="/register" name="S'inscrire" icon="/img/pictograms/environment/human-cooperation.svg"/>
+      <a href="/login" class="flex items-center justify-center border border-indigo-600 px-4 py-2
+    text-indigo-600 w-full hover:bg-indigo-600 hover:text-white hover:cursor-pointer text-2xl">
+        Se connecter
+      </a>
+
+      <a href="/register" class="flex items-center justify-center px-4 py-2 text-white w-full
+        bg-indigo-600 hover:bg-indigo-700 hover:cursor-pointer text-2xl">
+        S'inscrire
+      </a>
+
 
 		</div>
 	</div>

@@ -8,10 +8,8 @@
       <div>Notifications</div>
     </div>
 
-
-
     <div v-for="pendingRelation in pendingRelations" :key="pendingRelation.id" class="px-5">
-      <div class="flex flex-row items-center justify-between">
+      <div class="flex flex-col sm:flex-row gap-5 items-center justify-between">
         <div class="flex flex-row items-center">
           <img :src="pendingRelation.user.profilePicture" class="w-10 h-10 rounded-full" />
           <div class="flex flex-col ml-2">
@@ -24,16 +22,18 @@
             }}</span>
           </div>
         </div>
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row gap-2 items-center">
           <button
             @click="acceptRelation(pendingRelation.id)"
-            class="bg-blue-500 text-white px-2 py-1 rounded-lg"
+            class="flex items-center justify-center px-4 py-2 w-full bg-indigo-600
+            text-white hover:cursor-pointer hover:bg-indigo-700"
           >
             Accepter
           </button>
           <button
             @click="refuseRelation(pendingRelation.id)"
-            class="bg-red-500 text-white px-2 py-1 rounded-lg ml-2"
+            class="flex items-center justify-center px-4 py-2
+        w-full bg-red-600 text-white hover:cursor-pointer hover:bg-red-700"
           >
             Décliner
           </button>

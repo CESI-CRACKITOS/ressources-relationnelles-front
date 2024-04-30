@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex w-full items-center justify-evenly border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 xl:min-w-64 bg-slate-100"
+    class="flex w-full items-center justify-evenly h-fit border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 bg-slate-50"
   >
     <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-thumbs-up" />
     <ButtonLink linkTo="/notifications" buttonLabel="Notifications" icon="fa-solid fa-bell" />
@@ -12,11 +12,9 @@
       @click="logOut()"
     />
 
-    <button class="flex items-center justify-center border border-indigo-600 px-4 py-2 xl:w-full
-      rounded-full bg-indigo-600 text-white hover:cursor-pointer hover:bg-indigo-700
-      xl:rounded-none" @click="openModal">
-      <i class="fa-regular fa-paper-plane block  xl:hidden"></i>
-      <p class="hidden xl:inline">Poster</p>
+    <button class="flex items-center justify-center border border-indigo-600 px-4 py-2
+      rounded-full bg-indigo-600 text-white hover:cursor-pointer hover:bg-indigo-700" @click="openModal">
+      <i class="fa-regular fa-paper-plane"></i>
     </button>
     <PostModalComponent :openModal="openModal" class="" />
   </div>

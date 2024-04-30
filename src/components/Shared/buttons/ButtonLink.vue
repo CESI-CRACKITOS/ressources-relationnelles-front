@@ -2,7 +2,6 @@
   <a :href="linkTo" :class="`text-xl text-slate-700 p-4 ${isActive ? 'text-indigo-600' : ''}`">
     <div class="flex gap-5 items-center w-full">
       <i v-if="icon" :class="icon"></i>
-      <p class="hidden xl:block">{{ buttonLabel }}</p>
     </div>
   </a>
 </template>
