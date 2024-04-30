@@ -14,41 +14,34 @@
             <i class="fas fa-ellipsis"></i>
           </div>
           <div :id="'postDropDown' + user.id" v-if="showListBtn" class="absolute right-0 top-5">
-              <ul class="bg-white border rounded-md shadow-md">
-                <li
-                  v-if="sessionUser.id == user.id"
-                  @click="OpenUpdateModal()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
-                  Modifier
-                </li>
-                <li
-                  v-if="sessionUser.id == user.id"
-                  @click="OpenDeleteModal()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
-                  Suprimer
-                </li>
-                <li
-                  v-if="sessionUser.id != user.id"
-                  @click="OpenReportModal()"
-                  class="py-2 px-4 hover:bg-gray-100"
-                >
-                  Signaler
-                </li>
-              </ul>
-            </div>
+            <ul class="bg-white border rounded-md shadow-md">
+              <li
+                v-if="sessionUser.id == user.id"
+                @click="OpenUpdateModal()"
+                class="py-2 px-4 hover:bg-gray-100"
+              >
+                Modifier
+              </li>
+              <li
+                v-if="sessionUser.id == user.id"
+                @click="OpenDeleteModal()"
+                class="py-2 px-4 hover:bg-gray-100"
+              >
+                Suprimer
+              </li>
+              <li
+                v-if="sessionUser.id != user.id"
+                @click="OpenReportModal()"
+                class="py-2 px-4 hover:bg-gray-100"
+              >
+                Signaler
+              </li>
+            </ul>
+          </div>
         </span>
-        <button :hidden="ShowEditButton" class="flex items-center justify-center border border-indigo-600 px-4 py-2 text-indigo-600
-        w-full hover:bg-indigo-600 hover:text-white hover:cursor-pointer">
-          Editer le profil
-        </button>
-        <ButtonComponent
-          @click="AddRelationShip()"
-          :hidden="!ShowEditButton"
-          class="w-full"
-          :v-if="res.message == 'OK'"
-        >Ajouter une relation</ButtonComponent
+        <ButtonComponent v-if="ShowEditButton"> Editer le profil</ButtonComponent>
+        <ButtonComponent @click="AddRelationShip()" v-if="!ShowEditButton"
+          >Ajouter une relation</ButtonComponent
         >
       </div>
     </div>
