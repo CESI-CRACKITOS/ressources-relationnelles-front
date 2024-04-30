@@ -36,7 +36,7 @@
           ></iframe>
         </div>
     </div>
-    <div class="flex justify-between items-center px-5">
+    <div class="flex justify-between items-center px-5 relative">
       <div class="flex gap-2 py-2">
         <IconButtonComponentVue
           icon="far fa-heart"
@@ -54,8 +54,33 @@
           :numberToshow="resource.numberOfComments"
         />
       </div>
-      <div>
+      <div @click="open">
         <i class="fa-solid fa-ellipsis"></i>
+      </div>
+      <div :id="'postDropDown' + resource.id" v-if="showListBtn" class="absolute right-0 top-10">
+        <ul class="bg-white border rounded-md shadow-md">
+          <li
+            v-if="resource.user?.id == user.id"
+            @click="OpenUpdateModal()"
+            class="py-2 px-4 hover:bg-gray-100"
+          >
+            Modifier
+          </li>
+          <li
+            v-if="resource.user?.id == user.id"
+            @click="OpenDeleteModal()"
+            class="py-2 px-4 hover:bg-gray-100"
+          >
+            Suprimer
+          </li>
+          <li
+            v-if="resource.user?.id != user.id"
+            @click="OpenReportModal()"
+            class="py-2 px-4 hover:bg-gray-100"
+          >
+            Signaler
+          </li>
+        </ul>
       </div>
     </div>
   </div>

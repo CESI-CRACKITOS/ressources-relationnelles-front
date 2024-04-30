@@ -1,22 +1,18 @@
 <template>
   <Teleport to="body">
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="bg-white w-1/2 mx-auto mt-20 p-5 rounded-md">
+      <div class="bg-white w-fit mx-auto mt-20 p-5 rounded-md">
         <h1 class="text-2xl font-bold">Signaler</h1>
-        <p class="text-sm">Pourquoi voulez-vous signaler ce {{ report }} ?</p>
+        <p>Quelle est la raison du signalement ?</p>
         <div class="flex flex-col gap-2 mt-5">
-          <div class="flex justify-between w-full px-5">
-            <label v-for="reportType in reportTypeslist" :key="reportType.id">
-              <input
-                @click="checkedOne = reportType.id"
-                type="radio"
-                name="report"
-                :value="reportType.id"
-              />
-              {{ reportType.name }}
-            </label>
+          <div class="flex justify-between w-full">
+            <select class="border-indigo-600 border-2 text-indigo-600 rounded-md p-2" v-model="checkedOne" required>
+              <option disabled value="" >Veuillez choisir un motif</option>
+              <option v-for="reportType in reportTypeslist" :key="reportType.id" :value="reportType.id">
+                {{ reportType.name }}
+              </option>
+            </select>
           </div>
-
           <textarea
             class="border border-gray-200 p-3 w-full"
             v-model="reportText"
@@ -80,7 +76,7 @@ function Validate() {
       reportComment(user.id, checkedOne.value.toString(), props.id.toString(), reportText.value)
       break
     case 'User':
-      reportUser(user.id, checkedOne.value.toString(), props.id, reportText.value)
+      reportUser(user.id, checkedOne.value.toString(), props.id.toString(), reportText.value)
       break
   }
   const modal = document.getElementById('modal')

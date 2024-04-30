@@ -9,7 +9,7 @@
     <form class="d-flex" @submit.prevent>
       <textarea
         v-model="commentText"
-        class="w-full h-20 bg-white border-b border-gray-200 p-3"
+        class="w-full h-20 border-b border-gray-200 p-3 bg-slate-50"
         placeholder="Ajouter un commentaire"
       ></textarea>
       <ButtonComponent @click="addComment" class="w-full">Envoyer</ButtonComponent>
@@ -17,7 +17,7 @@
     <div
       v-for="comment in resource.comments"
       :key="comment.id"
-      class="flex bg-white p-3 border-b border-gray-200 gap-2"
+      class="flex p-3 border-b border-gray-200 gap-2"
     >
       <CommentComponent :comment="comment" />
     </div>
