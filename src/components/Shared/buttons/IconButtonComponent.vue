@@ -44,7 +44,7 @@ const props = defineProps({
 
 let number = ref(props.numberToshow)
 let showNumber = ref(true)
-let Class = ref('flex bg-gray-100 rounded-full gap-1 justify-center items-center py-1 px-2')
+let Class = ref('flex gap-1 justify-center items-center py-1 px-2 text-slate-700')
 
 onMounted(() => {
   if (props.active === 'true') {

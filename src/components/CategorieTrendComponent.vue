@@ -1,7 +1,7 @@
 <template>
   <RouterLink
     :to="{ name: 'categoryResourcesList', params: { id: id } }"
-    class="flex flex-col w-full hover:bg-gray-300 px-4 py-1"
+    class="flex flex-col w-full py-2 hover:font-bold"
   >
     <p class="text-sm text-gray-500">{{ TrendRanking }} - Tendance</p>
     <p class="font-semibold">{{ name }}</p>
