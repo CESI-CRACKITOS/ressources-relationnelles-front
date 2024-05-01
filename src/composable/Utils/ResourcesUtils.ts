@@ -21,6 +21,10 @@ export async function getResources() {
     resources.push(resourceEntity)
   }
 
+  resources.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
+
   return resources
 }
 
@@ -43,7 +47,9 @@ export async function getRestrictedResources() {
     })
     resources.push(resourceEntity)
   }
-
+  resources.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
   return resources
 }
 
@@ -94,6 +100,9 @@ export async function getResourcesByUserId(userId: number) {
     })
     resources.push(resourceEntity)
   }
+  resources.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
   return resources
 }
 
@@ -118,6 +127,9 @@ export async function getLikedResourcesByUserId(userId: number) {
     })
     resources.push(resourceEntity)
   }
+  resources.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
   return resources
 }
 
@@ -158,6 +170,8 @@ export async function getResourcesFromCategoryId(id: string) {
     })
     resources.push(resourceEntity)
   }
-
+  resources.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
   return resources
 }
