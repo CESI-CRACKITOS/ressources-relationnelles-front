@@ -79,7 +79,7 @@ import {
   reportUser
 } from '@/composable/Utils/ReportUtils'
 
-import type ResourceEntity from '@/composable/Entities/Resource'
+import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceCommentEntity from '@/composable/Entities/ResourceComment'
 import UserEntity from '@/composable/Entities/User'
 
@@ -113,7 +113,7 @@ let checkedOne = ref('')
 let reportTypeslist = ref()
 onMounted(async () => {
   reportTypeslist.value = await reportTypes()
-
+})
 watch(
   () => props.modalToOpen,
   (newVal) => {
@@ -151,7 +151,7 @@ function updateModal() {
       break
   }
 
-  updateModalState.value = !updateModalState.value
+  closeModal()
 }
 
 function deleteModal() {
