@@ -1,7 +1,7 @@
 import CategoryEntity from '@/composable/Entities/Category'
 
 export async function index() {
-  const res = fetch('http://localhost/api/admin/categories', {
+  const res = fetch('http://localhost/api/categories', {
     credentials: 'include'
   })
 

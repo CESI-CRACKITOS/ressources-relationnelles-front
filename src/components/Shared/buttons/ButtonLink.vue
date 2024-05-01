@@ -18,7 +18,6 @@ const props = defineProps({
   icon: String
 })
 
-console.log(router.currentRoute.value.fullPath, props.linkTo);
 const isActive = router.currentRoute.value.fullPath === props.linkTo;
 
 </script>

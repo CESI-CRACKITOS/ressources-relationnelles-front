@@ -13,7 +13,7 @@
         type="text"
         name="email"
         id="login"
-        class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+        class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
         v-model="email"
       />
       <label for="password" class="text-lg font-bold">Mot de passe</label>
@@ -21,12 +21,10 @@
         type="password"
         name="password"
         id="password"
-        class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+        class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
         v-model="password"
       />
-      <button type="button" @click="login" class="px-5 py-2 bg-gouv-blue-500 text-white">
-        Valider
-      </button>
+      <button-component @click="login">Valider</button-component>
     </div>
   </div>
 </template>

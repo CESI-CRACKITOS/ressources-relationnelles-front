@@ -8,31 +8,31 @@
             <div class="flex flex-col gap-3">
                 <label for="lastname" class="text-lg font-bold">Nom</label>
                 <input type="text" name="lastname" id="lastname"
-                    class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+                    class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
                     v-model="registerData.lastname">
             </div>
             <div class="flex flex-col gap-3">
                 <label for="firstName" class="text-lg font-bold">Prénom</label>
                 <input type="text" name="firstName" id="firstName"
-                    class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+                    class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
                     v-model="registerData.firstname">
             </div>
             <div class="flex flex-col gap-3">
                 <label for="email" class="text-lg font-bold">Courriel</label>
                 <input type="email" name="email" id="email"
-                    class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+                    class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
                     v-model="registerData.email">
             </div>
             <div class="flex flex-col gap-3">
                 <label for="password" class="text-lg font-bold">Mot de passe</label>
                 <input type="password" name="password" id="password"
-                    class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+                    class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
                     v-model="registerData.password">
             </div>
             <div class="flex flex-col gap-3">
                 <label for="confirmPassword" class="text-lg font-bold">Confirmer votre mot de passe</label>
                 <input  type="password" name="confirmPassword" id="confirmPassword"
-                    class="bg-gouv-gray-300 border-b-2 border-black w-full p-3 rounded-t-md"
+                    class="bg-gray-100 border-b-2 border-indigo-600 w-full p-3 rounded-md"
                     v-model="registerData.confirmPassword">
             </div>
             <p class="text-red-400"> {{ error }} </p>

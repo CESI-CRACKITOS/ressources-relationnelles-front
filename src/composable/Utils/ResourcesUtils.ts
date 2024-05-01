@@ -1,6 +1,7 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '../Entities/ResourceContent'
 import ResourceCommentEntity from '../Entities/ResourceComment'
+
 export async function getResources() {
   const res = fetch('http://localhost/api/resources', {
     headers: {

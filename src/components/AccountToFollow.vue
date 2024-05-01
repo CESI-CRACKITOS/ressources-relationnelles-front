@@ -23,9 +23,9 @@
 
 <script setup lang="ts">
 import UserEntity from '@/composable/Entities/User'
-import { AddRelation } from '@/composable/Utils/RelationUtils'
+import { AddRelation, removeRelation } from '@/composable/Utils/UserUtils'
 import { useUserStore } from '@/stores/user'
-import { defineEmits } from 'vue'
+import { defineEmits } from "vue";
 
 const emit = defineEmits(['deleted'])
 
@@ -33,18 +33,19 @@ const userState = useUserStore()
 const user = userState.user
 
 const props = defineProps<{
-  user: UserEntity
+  user: UserEntity,
 }>()
 
 const follow = async () => {
   const id = props.user.id
 
-  await AddRelation(user.id.toString(), id, 1)
+  await AddRelation(user.id.toString(), id, 1);
 
   const node = document.getElementById(`suggestion-${id}`)
 
-  node?.remove()
+  node?.remove();
 
   emit('deleted', props.user.id)
+
 }
 </script>

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
+import HomeView from '@/views/Onboarding/HomeView.vue'
+import LoginView from '@/views/Onboarding/LoginView.vue'
 import FeedView from '@/views/FeedView.vue'
 import { getUserFromToken } from '@/composable/Utils/UserUtils'
 import getCookieFromValue from '@/composable/Utils/CookiesUtils'
-import RegisterView from '@/views/RegisterView.vue'
+import RegisterView from '@/views/Onboarding/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import { useUserStore } from '@/stores/user'
 import ResourceDetailsView from '@/views/ResourceDetailsView.vue'
@@ -18,7 +18,7 @@ import CategoryListView from '@/views/CategoryListView.vue'
 import CategorieResourcesListeView from '@/views/CategorieResourcesListeView.vue'
 import ResourceView from '@/views/Admin/ResourceView.vue'
 import ResourceCategoryView from '@/views/Admin/ResourceCategoryView.vue'
-import UserSearchView from '@/views/User/UserSearchView.vue'
+import UserSearchView from '@/views/App/User/UserSearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

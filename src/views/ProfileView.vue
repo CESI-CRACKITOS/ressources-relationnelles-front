@@ -45,7 +45,7 @@
         >
         <ModalComponent
           modal-name="RelationType"
-          :tabindex="1"
+          :tabIndex="1"
           :libelle-modal="'Ajouter en Relation ' + user.firstname + ' ' + user.lastname"
           :is-hidden="RelationModal"
         >
@@ -131,12 +131,13 @@ const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
-let idRouter = router.currentRoute.value.params.id
+let idRouter = Number(router.currentRoute.value.params.id[0])
 let RelationModal = ref(false)
 let show = ref(false)
 let modalToOpen = ref('')
 let typeRelation: RelationEntity[]
 let res = ref<any>('')
+
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
     ShowEditButton = true
@@ -145,7 +146,6 @@ onMounted(async () => {
 
   resources.value = await getResourcesByUserId(idRouter)
   typeRelation = await getRelations()
-  console.log(typeRelation)
 })
 
 onBeforeRouteUpdate(async () => {
