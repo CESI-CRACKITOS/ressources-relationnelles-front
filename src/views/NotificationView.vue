@@ -47,7 +47,8 @@ import {
   getPendingRelation,
   acceptPendingRelation,
   refusePendingRelation
-} from '@/composable/Utils/UserUtils'
+} from '@/composable/Utils/RelationUtils'
+
 import { onMounted, ref } from 'vue'
 import { formatDate } from '@/composable/Utils/DateUtils'
 import router from '@/router'

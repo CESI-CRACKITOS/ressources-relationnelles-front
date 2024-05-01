@@ -1,7 +1,4 @@
 import UserEntity from '@/composable/Entities/User'
-import PendingRelationEntity from '@/composable/Entities/PendingRelation'
-import ResourceEntity from '@/composable/Entities/Resource'
-import ResourceContentEntity from '@/composable/Entities/ResourceContent'
 
 export async function getUserFromToken(tokenValue: string) {
   const res = fetch('http://localhost/api/users/getByToken', {
@@ -29,7 +26,7 @@ export async function searchUsers(query: string): Promise<UserEntity[]> {
     const userEntity = new UserEntity(data.data[i])
     users.push(userEntity)
   }
-  return users;
+  return users
 }
 
 export async function getSuggestedUsers() {
@@ -37,20 +34,19 @@ export async function getSuggestedUsers() {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
+    credentials: 'include'
   })
 
-  const users :UserEntity[] = [];
+  const users: UserEntity[] = []
   const data = await res.json()
 
   if (data.data.length > 0) {
     data.data.forEach((user: UserEntity) => {
-      users.push(new UserEntity(user));
+      users.push(new UserEntity(user))
     })
   }
 
-  return users;
-
+  return users
 }
 
 export async function getUserById(IdUser: string) {
@@ -64,71 +60,4 @@ export async function getUserById(IdUser: string) {
   const user = new UserEntity(data.data)
 
   return user
-}
-
-export async function AddRelation(userId: number, receiverId: number, relationTypeId: number) {
-  const res = fetch('http://localhost/api/relations', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    method: 'POST',
-    body: JSON.stringify({
-      userId: userId.toString(),
-      receiverId: receiverId.toString(),
-      relationTypeId: relationTypeId.toString()
-    })
-  })
-
-  const data = await res.then((response) => response.json())
-  return data
-}
-export async function removeRelation(relationsId: string) {
-  const res = fetch('http://localhost/api/relations' + relationsId, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    method: 'DELETE'
-  })
-
-  const data = await res.then((response) => response.json())
-  return data
-}
-
-export async function getPendingRelation() {
-  const res = fetch('http://localhost/api/relations/requested', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    method: 'GET'
-  })
-
-  const data = await res.then((response) => response.json())
-
-  const users: PendingRelationEntity[] = data.data.map(
-    (user: any) => new PendingRelationEntity(user)
-  )
-  return users
-}
-
-export async function acceptPendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/accept', {
-    credentials: 'include'
-  })
-
-  const data = await res.then((response) => response.json())
-
-  return data
-}
-
-export async function refusePendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/refuse', {
-    credentials: 'include'
-  })
-
-  const data = await res.then((response) => response.json())
-
-  return data
 }

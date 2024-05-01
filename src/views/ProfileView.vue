@@ -39,10 +39,44 @@
             </ul>
           </div>
         </span>
-        <ButtonComponent v-if="ShowEditButton"> Editer le profil</ButtonComponent>
-        <ButtonComponent @click="AddRelationShip()" v-if="!ShowEditButton"
+        <ButtonComponent v-if="!ShowEditButton"> Editer le profil</ButtonComponent>
+        <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowEditButton"
           >Ajouter une relation</ButtonComponent
         >
+        <ModalComponent
+          modal-name="RelationType"
+          :tabindex="1"
+          :libelle-modal="'Ajouter en Relation ' + user.firstname + ' ' + user.lastname"
+          :is-hidden="RelationModal"
+        >
+          <div class="flex justify-between w-full gap-10">
+            <select
+              class="border-indigo-600 border-2 text-indigo-600 rounded-md p-2"
+              v-model="checkedOne"
+              required
+            >
+              <option disabled selected value="">Veuillez choisir un type de relation</option>
+              <option v-for="relation in typeRelation" :key="relation.id" :value="relation.id">
+                {{ relation.name }}
+              </option>
+            </select>
+            <div class="flex gap-2">
+              <button
+                class="px-4 py-2 bg-green-500 text-white rounded-md"
+                @click="AddRelationShip()"
+              >
+                Valider
+              </button>
+
+              <button
+                class="px-4 py-2 bg-red-500 text-white rounded-md"
+                @click="RelationModal = false"
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        </ModalComponent>
       </div>
     </div>
 
@@ -82,12 +116,14 @@ import { formatDate } from '@/composable/Utils/DateUtils'
 import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 import PostComponent from '@/components/PostComponent.vue'
 import router from '@/router'
-
+import ModalComponent from '@/components/Shared/ModalComponent.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { onMounted, ref } from 'vue'
-import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
+import { getUserById } from '@/composable/Utils/UserUtils'
+import { AddRelation, getRelations } from '@/composable/Utils/RelationUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
+import RelationEntity from '@/composable/Entities/Relation'
 
 import { onBeforeRouteUpdate } from 'vue-router'
 const userState = useUserStore()
@@ -96,11 +132,10 @@ let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
 let idRouter = router.currentRoute.value.params.id
-let showModal = ref(false)
-
+let RelationModal = ref(false)
 let show = ref(false)
 let modalToOpen = ref('')
-
+let typeRelation: RelationEntity[]
 let res = ref<any>('')
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
@@ -109,6 +144,8 @@ onMounted(async () => {
   user = await getUserById(idRouter)
 
   resources.value = await getResourcesByUserId(idRouter)
+  typeRelation = await getRelations()
+  console.log(typeRelation)
 })
 
 onBeforeRouteUpdate(async () => {
@@ -145,8 +182,11 @@ async function Display(type: string) {
       break
   }
 }
+let checkedOne = ref('')
 async function AddRelationShip() {
-  res.value = await AddRelation(sessionUser.id, user.id, 1)
+  console.log(checkedOne.value, user.id, sessionUser.id)
+  res.value = await AddRelation(sessionUser.id, user.id, checkedOne.value)
+  RelationModal.value = false
 }
 function userDropDown(id: number) {
   show.value = true
