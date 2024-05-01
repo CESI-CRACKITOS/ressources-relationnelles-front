@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col h-full w-full">
-    <div
-      class="w-full flex flex-row justify-center items-center text-center relative text-xl p-4">
+    <div class="w-full flex flex-row justify-center items-center text-center relative text-xl p-4">
       <div class="absolute text-start w-full p-2" @click="back()">
         <i class="fa-solid fa-arrow-left"></i>
       </div>
@@ -25,15 +24,13 @@
         <div class="flex flex-row gap-2 items-center">
           <button
             @click="acceptRelation(pendingRelation.id)"
-            class="flex items-center justify-center px-4 py-2 w-full bg-indigo-600
-            text-white hover:cursor-pointer hover:bg-indigo-700"
+            class="flex items-center justify-center px-4 py-2 w-full bg-indigo-600 text-white hover:cursor-pointer hover:bg-indigo-700"
           >
             Accepter
           </button>
           <button
             @click="refuseRelation(pendingRelation.id)"
-            class="flex items-center justify-center px-4 py-2
-        w-full bg-red-600 text-white hover:cursor-pointer hover:bg-red-700"
+            class="flex items-center justify-center px-4 py-2 w-full bg-red-600 text-white hover:cursor-pointer hover:bg-red-700"
           >
             Décliner
           </button>
@@ -45,7 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { PendingRelationEntity } from '@/types/Entities/PendingRelation'
+import PendingRelationEntity from '@/composable/Entities/PendingRelation'
+
 import {
   getPendingRelation,
   acceptPendingRelation,
@@ -75,7 +73,7 @@ function refuseRelation(id: number) {
     (pendingRelation) => pendingRelation.id !== id
   )
 }
-function back(){
+function back() {
   router.go(-1)
 }
 </script>
