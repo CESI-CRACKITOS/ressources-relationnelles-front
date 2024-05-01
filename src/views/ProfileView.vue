@@ -10,28 +10,28 @@
         </span>
         <span class="flex justify-between items-center w-full">
           {{ user.relationNumber }} relations
-          <div @click="open()">
+          <div @click="userDropDown(user.id)">
             <i class="fas fa-ellipsis"></i>
           </div>
-          <div :id="'postDropDown' + user.id" v-if="showListBtn" class="absolute right-0 top-5">
+          <div :id="'userDropDown' + user.id" class="absolute hidden right-0 top-5">
             <ul class="bg-white border rounded-md shadow-md">
               <li
                 v-if="sessionUser.id == user.id"
-                @click="OpenUpdateModal()"
+                @click="openModal('update')"
                 class="py-2 px-4 hover:bg-gray-100"
               >
                 Modifier
               </li>
               <li
                 v-if="sessionUser.id == user.id"
-                @click="OpenDeleteModal()"
+                @click="openModal('delete')"
                 class="py-2 px-4 hover:bg-gray-100"
               >
                 Suprimer
               </li>
               <li
                 v-if="sessionUser.id != user.id"
-                @click="OpenReportModal()"
+                @click="openModal('report')"
                 class="py-2 px-4 hover:bg-gray-100"
               >
                 Signaler
@@ -71,8 +71,8 @@
       -modal-type="user"
       :target-id="user.id"
       :modal-to-open="modalToOpen"
-      v-if="showModal"
-    />
+      v-if="show"
+    ></ListActionModalComponent>
   </div>
 </template>
 
@@ -97,7 +97,8 @@ let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
 let idRouter = router.currentRoute.value.params.id
 let showModal = ref(false)
-let showListBtn = ref(false)
+
+let show = ref(false)
 let modalToOpen = ref('')
 
 let res = ref<any>('')
@@ -147,37 +148,14 @@ async function Display(type: string) {
 async function AddRelationShip() {
   res.value = await AddRelation(sessionUser.id, user.id, 1)
 }
-
-function userDropDown() {
-  let dropDown = document.getElementById('userDropDown')
-  if (dropDown?.classList.contains('hidden')) {
-    dropDown?.classList.remove('hidden')
-  } else {
-    dropDown?.classList.add('hidden')
-  }
+function userDropDown(id: number) {
+  show.value = true
+  const dropDown = document.getElementById('userDropDown' + id)
+  dropDown?.classList.toggle('hidden')
 }
 
-function open() {
-  showListBtn.value = !showListBtn.value
-
-  showModal.value = true
-}
-
-function OpenReportModal() {
-  if (modalToOpen.value == 'report') {
-    modalToOpen.value = ''
-  }
-  modalToOpen.value = 'report'
-}
-async function OpenDeleteModal() {
-  console.log('delete', showModal.value)
-  modalToOpen.value = modalToOpen.value == 'delete' ? '' : 'delete'
-}
-function OpenUpdateModal() {
-  if (modalToOpen.value == 'update') {
-    modalToOpen.value = ''
-  }
-  modalToOpen.value = 'update'
+function openModal(type: string) {
+  modalToOpen.value = type
 }
 
 let copied = ref(false)

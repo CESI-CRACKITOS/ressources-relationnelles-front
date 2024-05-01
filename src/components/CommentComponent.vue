@@ -21,21 +21,21 @@
         <ul class="bg-white border rounded-md shadow-md">
           <li
             v-if="comment.user?.id == user.id"
-            @click="Update()"
+            @click="openModal('update')"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Modifier
           </li>
           <li
             v-if="comment.user?.id == user.id"
-            @click="Delete()"
+            @click="openModal('delete')"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Suprimer
           </li>
           <li
             v-if="comment.user?.id != user.id"
-            @click="Report(comment.id)"
+            @click="openModal('report')"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Signaler
@@ -45,21 +45,27 @@
     </div>
     <p>{{ comment.content }}</p>
   </div>
-
-  <ReportModalComponent report="Comment" :id="comment.id" v-if="show" />
+  <ListActionModalComponent
+    :targetId="comment.id"
+    ModalType="comment"
+    :modalToOpen="modalToOpen"
+    v-if="show"
+  >
+  </ListActionModalComponent>
 </template>
 
 <script setup lang="ts">
 import ResourceCommentEntity from '@/composable/Entities/ResourceComment'
-
-import ReportModalComponent from '@/components/ReportModalComponent.vue'
+import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { defineProps, onMounted, ref } from 'vue'
 import { calculateDates } from '@/composable/Utils/DateUtils'
-import { reportComment } from '@/composable/Utils/ReportUtils'
 import { useUserStore } from '@/stores/user'
 
 const userState = useUserStore()
 const user = userState.user
+
+let show = ref(false)
+let modalToOpen = ref('')
 
 const props = defineProps({
   comment: {
@@ -74,16 +80,12 @@ onMounted(async () => {
 })
 
 function commentDropDown(id: number) {
+  show.value = true
   const dropDown = document.getElementById('commentDropDown' + id)
   dropDown?.classList.toggle('hidden')
 }
 
-function Update() {}
-
-function Delete() {}
-
-let show = ref(false)
-async function Report(id: number) {
-  show.value = true
+function openModal(type: string) {
+  modalToOpen.value = type
 }
 </script>
