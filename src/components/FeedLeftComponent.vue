@@ -16,21 +16,26 @@
       rounded-full bg-indigo-600 text-white hover:cursor-pointer hover:bg-indigo-700" @click="openModal">
       <i class="fa-regular fa-paper-plane"></i>
     </button>
-    <PostModalComponent :openModal="openModal" class="" />
+    <ModalComponent :is-hidden="modalShown" libelle-modal="Créer une ressource" :tab-index="1" modal-name="create-resource">
+      <ResourceModalContent @closeModal="modalShown = false" />
+    </ModalComponent>
   </div>
 </template>
 
 <script setup lang="ts">
 import ButtonLink from '@/components/Shared/buttons/ButtonLink.vue'
 import { useUserStore } from '@/stores/user'
+import ModalComponent from '@/components/Shared/ModalComponent.vue'
+import { ref } from 'vue'
 import PostModalComponent from '@/components/PostModalComponent.vue'
+import ResourceModalContent from '@/components/Resource/ResourceModalContent.vue'
 
 const userState = useUserStore()
 const user = userState.user
+const modalShown = ref(false);
 
 const openModal = () => {
-  const modal = document.getElementById('postModal')
-  modal?.classList.toggle('hidden')
+  modalShown.value = !modalShown.value
 }
 
 function logOut() {

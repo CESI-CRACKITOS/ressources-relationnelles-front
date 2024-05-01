@@ -5,7 +5,7 @@
       :tabindex="tabIndex"
       aria-hidden="true"
       :class="
-        '  h-screen w-screen   overflow-y-auto overflow-x-hidden  top-0 right-0 left-0 z-50 justify-center items-center  md:inset-0  max-h-full bg-black bg-opacity-55 ' +
+        ' h-screen w-screen   overflow-y-auto overflow-x-hidden  top-0 right-0 left-0 z-50 justify-center items-center  md:inset-0  max-h-full bg-black bg-opacity-55 ' +
         Hidden
       "
     >
@@ -60,21 +60,17 @@ const props = defineProps({
 
 let Hidden = ref('hidden')
 let modalTestState = ref(false)
-console.log(Hidden.value)
 
 watch(
   () => props.isHidden,
   (newVal) => {
-    console.log(newVal, Hidden.value)
     modalTestState.value = newVal as boolean
     Hidden.value = newVal ? 'fixed' : 'hidden'
-    console.log(modalTestState.value)
   }
 )
 
 function changeState() {
   modalTestState.value = !modalTestState.value
   Hidden.value = modalTestState.value ? 'fixed' : 'hidden'
-  console.log(modalTestState.value)
 }
 </script>
