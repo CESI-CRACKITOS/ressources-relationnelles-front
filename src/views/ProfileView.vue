@@ -39,8 +39,8 @@
             </ul>
           </div>
         </span>
-        <ButtonComponent v-if="ShowEditButton"> Editer le profil</ButtonComponent>
-        <ButtonComponent @click="AddRelationShip()" v-if="!ShowEditButton"
+        <ButtonComponent v-if="!ShowEditButton"> Editer le profil</ButtonComponent>
+        <ButtonComponent @click="AddRelationShip()" v-if="ShowEditButton"
           >Ajouter une relation</ButtonComponent
         >
       </div>
