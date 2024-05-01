@@ -85,7 +85,8 @@ import router from '@/router'
 
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { onMounted, ref } from 'vue'
-import { getUserById, AddRelation } from '@/composable/Utils/UserUtils'
+import { getUserById } from '@/composable/Utils/UserUtils'
+import { AddRelation } from '@/composable/Utils/RelationUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
 
