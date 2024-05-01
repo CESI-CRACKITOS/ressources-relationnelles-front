@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import PendingRelationEntity from '@/composable/Entities/PendingRelation'
-
 import {
   getPendingRelation,
   acceptPendingRelation,
