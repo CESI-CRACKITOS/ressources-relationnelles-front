@@ -1,8 +1,14 @@
 <template>
   <div class="flex-col gap-4 items-start h-screen px-4 min-w-72 bg-slate-50 p-5">
 
-    <!-- Ici mettre une icône loupe -->
-    <input type="text" class="border w-full p-2" placeholder="Recherche">
+    <div class="flex flex-col items-center justify-center w-full gap-2">
+      <input type="text" class="border w-full p-2" placeholder="Recherche" v-model="searchQuery">
+      <a :href="`/users/search/${searchQuery}`" class="flex items-center justify-center border border-indigo-600 px-4 py-2 text-indigo-600
+        w-full hover:bg-indigo-600 hover:text-white hover:cursor-pointer">
+        Rechercher
+      </a>
+    </div>
+
 
     <div class="border-b w-full p-5" id="suggestions" v-if="users.length > 0">
       <h2 class="text-xl text-slate-700 font-bold pb-4">Suggestions</h2>
@@ -50,6 +56,7 @@ import CategoryEntity from '@/composable/Entities/Category'
 import router from '@/router'
 import { getSuggestedUsers } from '@/composable/Utils/UserUtils'
 
+const searchQuery = ref("");
 let users = ref<UserEntity[]>([])
 let Trend = ref<CategoryEntity[]>([])
 onMounted(async () => {

@@ -18,6 +18,7 @@ import CategoryListView from '@/views/CategoryListView.vue'
 import CategorieResourcesListeView from '@/views/CategorieResourcesListeView.vue'
 import ResourceView from '@/views/Admin/ResourceView.vue'
 import ResourceCategoryView from '@/views/Admin/ResourceCategoryView.vue'
+import UserSearchView from '@/views/User/UserSearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,6 +136,15 @@ const router = createRouter({
             requireRole: 'U'
           }
         },
+        {
+          path: "/users/search/:query",
+          name: 'users-search',
+          component: UserSearchView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'U'
+          }
+        }
       ]
     },
     {

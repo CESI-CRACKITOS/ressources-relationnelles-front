@@ -1,5 +1,7 @@
 import UserEntity from '@/composable/Entities/User'
 import PendingRelationEntity from '@/composable/Entities/PendingRelation'
+import ResourceEntity from '@/composable/Entities/Resource'
+import ResourceContentEntity from '@/composable/Entities/ResourceContent'
 
 export async function getUserFromToken(tokenValue: string) {
   const res = fetch('http://localhost/api/users/getByToken', {
@@ -17,6 +19,17 @@ export async function getUserFromToken(tokenValue: string) {
   const user = new UserEntity(data.data)
 
   return user
+}
+
+export async function searchUsers(query: string): Promise<UserEntity[]> {
+  const res = fetch('http://localhost/api/users/search/' + query, {})
+  const data = await res.then((response) => response.json())
+  const users: UserEntity[] = []
+  for (let i = 0; i < data.data.length; i++) {
+    const userEntity = new UserEntity(data.data[i])
+    users.push(userEntity)
+  }
+  return users;
 }
 
 export async function getSuggestedUsers() {

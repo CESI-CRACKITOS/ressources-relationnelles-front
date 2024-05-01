@@ -27,7 +27,6 @@ import ButtonLink from '@/components/Shared/buttons/ButtonLink.vue'
 import { useUserStore } from '@/stores/user'
 import ModalComponent from '@/components/Shared/ModalComponent.vue'
 import { ref } from 'vue'
-import PostModalComponent from '@/components/PostModalComponent.vue'
 import ResourceModalContent from '@/components/Resource/ResourceModalContent.vue'
 
 const userState = useUserStore()
