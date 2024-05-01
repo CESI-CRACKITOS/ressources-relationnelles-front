@@ -21,7 +21,7 @@ export async function getRelations() {
   return relations
 }
 
-export async function AddRelation(userId: number, receiverId: number, relationTypeId: number) {
+export async function AddRelation(userId: number, receiverId: number, relationTypeId: string) {
   const res = fetch('http://localhost/api/relations', {
     headers: {
       'Content-Type': 'application/json'
