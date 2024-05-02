@@ -69,7 +69,7 @@ export async function getPendingRelation() {
 }
 
 export async function acceptPendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/accept', {
+  const res = fetch('http://localhost/api/relations/' + id + '/accept', {
     credentials: 'include'
   })
 
@@ -79,7 +79,7 @@ export async function acceptPendingRelation(id: number) {
 }
 
 export async function refusePendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/refuse', {
+  const res = fetch('http://localhost/api/relations/' + id + '/refuse', {
     credentials: 'include'
   })
 

@@ -131,7 +131,7 @@ const sessionUser = userState.user
 let user = sessionUser
 let ShowEditButton = false
 let resources = ref<ResourceEntity[]>([])
-let idRouter = Number(router.currentRoute.value.params.id[0])
+let idRouter = Number(router.currentRoute.value.params.id)
 let RelationModal = ref(false)
 let show = ref(false)
 let modalToOpen = ref('')
@@ -142,6 +142,7 @@ onMounted(async () => {
   if (idRouter != sessionUser.id) {
     ShowEditButton = true
   }
+
   user = await getUserById(idRouter)
 
   resources.value = await getResourcesByUserId(idRouter)
@@ -184,7 +185,6 @@ async function Display(type: string) {
 }
 let checkedOne = ref('')
 async function AddRelationShip() {
-  console.log(checkedOne.value, user.id, sessionUser.id)
   res.value = await AddRelation(sessionUser.id, user.id, checkedOne.value)
   RelationModal.value = false
 }

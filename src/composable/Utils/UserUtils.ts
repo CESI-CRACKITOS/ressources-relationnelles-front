@@ -22,7 +22,9 @@ export async function getUserFromToken(tokenValue: string) {
 }
 
 export async function searchUsers(query: string): Promise<UserEntity[]> {
-  const res = fetch('http://localhost/api/users/search/' + query, {})
+  const res = fetch('http://localhost/api/users/search/' + query, {
+    credentials: 'include'
+  })
   const data = await res.then((response) => response.json())
   const users: UserEntity[] = []
   for (let i = 0; i < data.data.length; i++) {
