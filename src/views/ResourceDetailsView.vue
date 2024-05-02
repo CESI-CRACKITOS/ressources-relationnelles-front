@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import PostComponent from '@/components/PostComponent.vue'
+import PostComponent from '@/components/Resource/ResourceComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import PostComponent from '@/components/PostComponent.vue'
+import PostComponent from '@/components/Resource/ResourceComponent.vue'
 import ResourceEntity from '@/composable/Entities/Resource'
 import { getResources } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'

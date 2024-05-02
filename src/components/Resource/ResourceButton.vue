@@ -39,7 +39,12 @@ const props = defineProps({
     type: String,
     required: false,
     default: "cursor-default"
-  }
+  },
+  isLiked: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
 })
 
 let number = ref(props.numberToshow)
@@ -52,6 +57,11 @@ onMounted(() => {
   } else {
     showNumber.value = false
   }
+
+  if (props.isLiked) {
+    Class.value = 'flex text-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+  }
+
 })
 
 async function cta(action: string) {
@@ -60,7 +70,7 @@ async function cta(action: string) {
       let res = await likeAResource(props.contextId, sessionUser.id)
       if (res === 2) {
         number.value++
-        Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+        Class.value = 'flex text-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
       }
       if (res === 1) {
         number.value--
@@ -68,13 +78,8 @@ async function cta(action: string) {
       }
       if (res === 0) {
         number.value = 999
-        Class.value = 'flex bg-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
+        Class.value = 'flex text-red-500 rounded-full gap-1 justify-center items-center py-1 px-2'
       }
-
-      break
-    case 'comment':
-      break
-    case 'retweet':
       break
     default:
       break

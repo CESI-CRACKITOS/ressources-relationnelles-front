@@ -21,6 +21,7 @@ class ResourceEntity {
   numberOfComments: number
   category: CategoryEntity | null = null
   relationTypes = []
+  isLiked: boolean
 
   constructor(resource: any) {
     this.id = resource.id
@@ -37,6 +38,7 @@ class ResourceEntity {
     this.numberOfComments = resource.numberOfComments
     this.category = resource.category
     this.relationTypes = resource.relation_types
+    this.isLiked = resource.isLiked
   }
 
   addContents(content: ResourceContentEntity) {

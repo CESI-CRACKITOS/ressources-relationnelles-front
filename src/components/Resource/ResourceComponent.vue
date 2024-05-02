@@ -4,7 +4,7 @@
     @click="navigateToResourceDetails(resource.id)"
   >
     <div class="flex justify-between p-5">
-      <a :href="`/profile/${resource.user?.id}`" class="h-fit w-fit">
+      <a :href="`/profile/${resource.user?.id}`" class="h-fit w-fit" @click.stop>
         <div class="flex gap-2">
           <div class="w-12 h-fit">
             <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
@@ -54,7 +54,7 @@
         ></iframe>
       </div>
     </div>
-    <div class="flex justify-between items-center px-5 relative">
+    <div class="flex justify-between items-center px-5 relative" @click.stop>
       <div class="flex gap-2 py-2">
         <IconButtonComponentVue
           icon="far fa-heart"
@@ -63,19 +63,13 @@
           active="true"
           :numberToshow="resource.numberOfLikes"
           cursor="cursor-pointer"
-        />
-        <IconButtonComponentVue
-          icon="far fa-comment"
-          action="comment"
-          :context-id="resource.id"
-          active="true"
-          :numberToshow="resource.numberOfComments"
+          :is-liked="resource.isLiked"
         />
       </div>
-      <div @click="resourceDropDown(resource.id)">
+      <div @click="resourceDropDown(resource.id)" @click.stop class="hover:cursor-pointer">
         <i class="fa-solid fa-ellipsis"></i>
       </div>
-      <div :id="'postDropDown' + resource.id" class="absolute hidden right-0 top-10">
+      <div :id="'postDropDown' + resource.id" class="absolute hidden right-0 top-10 hover:cursor-pointer" @click.stop>
         <ul class="bg-white border rounded-md shadow-md">
           <li
             v-if="resource.user?.id == user.id"
@@ -113,7 +107,7 @@
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import IconButtonComponentVue from '@/components/Shared/buttons/IconButtonComponent.vue'
+import IconButtonComponentVue from '@/components/Resource/ResourceButton.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'
