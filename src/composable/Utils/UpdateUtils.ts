@@ -19,8 +19,8 @@ export async function updateResource(resource: ResourceEntity) {
 
 // update a user
 
-export async function updateUser(user: UserEntity) {
-  const res = await fetch(`http://localhost/api/users/${user.id}`, {
+export async function updateUser(user: object, id: number) {
+  const res = await fetch(`http://localhost/api/users/${id}`, {
     headers: {
       'Content-Type': 'application/json'
     },

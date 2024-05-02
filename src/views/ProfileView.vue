@@ -39,7 +39,7 @@
             </ul>
           </div>
         </span>
-        <ButtonComponent v-if="!ShowEditButton"> Editer le profil</ButtonComponent>
+        <ButtonComponent v-if="!ShowEditButton" @click="showEditModal = true"> Editer le profil</ButtonComponent>
         <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowEditButton"
           >Ajouter une relation</ButtonComponent
         >
@@ -76,6 +76,9 @@
               </button>
             </div>
           </div>
+        </ModalComponent>
+        <ModalComponent :is-hidden="showEditModal" libelle-modal="Modifier votre profile" tab-index="2" modal-name="edit-profile-modal">
+          <UserEditModalContentComponent />
         </ModalComponent>
       </div>
     </div>
@@ -126,6 +129,7 @@ import type ResourceEntity from '@/composable/Entities/Resource'
 import RelationEntity from '@/composable/Entities/Relation'
 
 import { onBeforeRouteUpdate } from 'vue-router'
+import UserEditModalContentComponent from '@/components/User/UserEditModalContentComponent.vue'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
@@ -137,6 +141,7 @@ let show = ref(false)
 let modalToOpen = ref('')
 let typeRelation: RelationEntity[]
 let res = ref<any>('')
+const showEditModal = ref(false);
 
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
