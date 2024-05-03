@@ -1,5 +1,11 @@
 <template>
   <div class="flex flex-col h-full w-full overflow-auto">
+    <div class="w-full flex flex-row justify-center items-center text-center relative text-xl p-4">
+      <div class="absolute text-start w-full p-2" @click="back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+      <div>Profil</div>
+    </div>
     <div class="flex flex-col md:flex-row items-center justify-center gap-5 w-full p-5">
       <img :src="user.profilePicture" class="rounded-full w-36" alt="" />
       <div class="relative">
@@ -10,25 +16,11 @@
         </span>
         <span class="flex justify-between items-center w-full">
           {{ user.relationNumber }} relations
-          <div @click="userDropDown(user.id)">
+          <div  v-if="sessionUser.id != user.id" @click="userDropDown(user.id)">
             <i class="fas fa-ellipsis"></i>
           </div>
           <div :id="'userDropDown' + user.id" class="absolute hidden right-0 top-5">
             <ul class="bg-white border rounded-md shadow-md">
-              <li
-                v-if="sessionUser.id == user.id"
-                @click="openModal('update')"
-                class="py-2 px-4 hover:bg-gray-100"
-              >
-                Modifier
-              </li>
-              <li
-                v-if="sessionUser.id == user.id"
-                @click="openModal('delete')"
-                class="py-2 px-4 hover:bg-gray-100"
-              >
-                Suprimer
-              </li>
               <li
                 v-if="sessionUser.id != user.id"
                 @click="openModal('report')"
@@ -38,6 +30,7 @@
               </li>
             </ul>
           </div>
+
         </span>
         <ButtonComponent v-if="!ShowEditButton" @click="showEditModal = true"> Editer le profil</ButtonComponent>
         <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowEditButton"
@@ -215,5 +208,8 @@ function copyRegisterLink() {
     .catch((err) => {
       console.error('Could not copy text: ', err)
     })
+}
+function back() {
+  router.go(-1)
 }
 </script>
