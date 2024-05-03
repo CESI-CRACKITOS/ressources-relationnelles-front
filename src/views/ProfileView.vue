@@ -39,7 +39,9 @@
             </ul>
           </div>
         </span>
-        <ButtonComponent v-if="!ShowEditButton" @click="showEditModal = true"> Editer le profil</ButtonComponent>
+        <ButtonComponent v-if="!ShowEditButton" @click="showEditModal = true">
+          Editer le profil</ButtonComponent
+        >
         <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowEditButton"
           >Ajouter une relation</ButtonComponent
         >
@@ -49,7 +51,7 @@
           :libelle-modal="'Ajouter en Relation ' + user.firstname + ' ' + user.lastname"
           :is-hidden="RelationModal"
         >
-          <div class="flex justify-between w-full gap-10">
+          <div class="flex justify-between w-full gap-10 max-sm:flex-col">
             <select
               class="border-indigo-600 border-2 text-indigo-600 rounded-md p-2"
               v-model="checkedOne"
@@ -60,24 +62,21 @@
                 {{ relation.name }}
               </option>
             </select>
-            <div class="flex gap-2">
-              <button
-                class="px-4 py-2 bg-green-500 text-white rounded-md"
-                @click="AddRelationShip()"
-              >
+            <div class="flex justify-between gap-2 w-full">
+              <ButtonComponent :-remplis="true" @click="AddRelationShip()">
                 Valider
-              </button>
+              </ButtonComponent>
 
-              <button
-                class="px-4 py-2 bg-red-500 text-white rounded-md"
-                @click="RelationModal = false"
-              >
-                Annuler
-              </button>
+              <ButtonComponent @click="RelationModal = false"> Annuler </ButtonComponent>
             </div>
           </div>
         </ModalComponent>
-        <ModalComponent :is-hidden="showEditModal" libelle-modal="Modifier votre profile" tab-index="2" modal-name="edit-profile-modal">
+        <ModalComponent
+          :is-hidden="showEditModal"
+          libelle-modal="Modifier votre profile"
+          tab-index="2"
+          modal-name="edit-profile-modal"
+        >
           <UserEditModalContentComponent />
         </ModalComponent>
       </div>
@@ -141,7 +140,7 @@ let show = ref(false)
 let modalToOpen = ref('')
 let typeRelation: RelationEntity[]
 let res = ref<any>('')
-const showEditModal = ref(false);
+const showEditModal = ref(false)
 
 onMounted(async () => {
   if (idRouter != sessionUser.id) {
