@@ -87,7 +87,7 @@
   </div>
 </template>
 <script setup>
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import { computed, onMounted, ref, defineEmits, defineProps } from 'vue'
 import ContentButton from '@/components/ContentButton.vue'
 import { getCategories } from '@/composable/Utils/CategoryUtils.ts'
@@ -128,7 +128,8 @@ const handleRelation = (relationTypeId) => {
   if (!inputData.value.relationTypeIds.includes(relationTypeId)) {
     inputData.value.relationTypeIds.push(relationTypeId)
   } else {
-    delete inputData.value.relationTypeIds[relationTypeId];
+    const index = inputData.value.relationTypeIds.indexOf(relationTypeId);
+    inputData.value.relationTypeIds.splice(index, 1);
   }
 }
 
@@ -179,8 +180,7 @@ const publish = async () => {
     })
       .then((response) => response.json())
       .then(() => {
-        setModal();
-        contentOptionsShown.value = false;
+        window.location.reload()
       })
     return
   }
@@ -195,8 +195,7 @@ const publish = async () => {
   })
     .then((response) => response.json())
     .then(() => {
-      setModal();
-      contentOptionsShown.value = false;
+      window.location.reload()
     })
 }
 
@@ -211,6 +210,7 @@ const setModal = () => {
     relationTypeIds: props.resource ? props.resource.relationTypes.map((relationType) => relationType.id) : [],
     toDelete: []
   }
+  console.log(inputData.value)
 }
 
 </script>

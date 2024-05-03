@@ -33,7 +33,7 @@
 <script setup>
 import { index, destroy } from '@/composable/Utils/Admin/CategoryUtils.ts'
 import { onMounted, ref } from 'vue'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import CategoryModalComponent from '@/components/Admin/Category/CategoryModalComponent.vue'
 
 const categories = ref([]);

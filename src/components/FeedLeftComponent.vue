@@ -24,11 +24,11 @@
 </template>
 
 <script setup lang="ts">
-import ButtonLink from '@/components/Shared/buttons/ButtonLink.vue'
+import ButtonLink from '@/components/App/Shared/buttons/ButtonLink.vue'
 import { useUserStore } from '@/stores/user'
-import ModalComponent from '@/components/Shared/ModalComponent.vue'
+import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import { ref } from 'vue'
-import ResourceModalContent from '@/components/Resource/ResourceModalContent.vue'
+import ResourceModalContent from '@/components/App/Resource/ResourceModalContent.vue'
 
 const userState = useUserStore()
 const user = userState.user

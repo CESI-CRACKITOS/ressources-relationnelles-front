@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from '@/components/Shared/HeaderComponent.vue'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import HeaderComponent from '@/components/App/Shared/HeaderComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import instanceDev from '@/config/axios.js'
 import { ref } from 'vue'
 import router from '@/router'

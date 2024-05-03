@@ -108,10 +108,10 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { formatDate } from '@/composable/Utils/DateUtils'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
-import PostComponent from '@/components/Resource/ResourceComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
+import PostComponent from '@/components/App/Resource/ResourceComponent.vue'
 import router from '@/router'
-import ModalComponent from '@/components/Shared/ModalComponent.vue'
+import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById } from '@/composable/Utils/UserUtils'
@@ -121,7 +121,7 @@ import type ResourceEntity from '@/composable/Entities/Resource'
 import RelationEntity from '@/composable/Entities/Relation'
 
 import { onBeforeRouteUpdate } from 'vue-router'
-import UserEditModalContentComponent from '@/components/User/UserEditModalContentComponent.vue'
+import UserEditModalContentComponent from '@/components/App/User/UserEditModalContentComponent.vue'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser

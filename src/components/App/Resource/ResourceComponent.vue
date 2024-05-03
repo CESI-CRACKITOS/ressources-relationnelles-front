@@ -109,14 +109,14 @@
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import IconButtonComponentVue from '@/components/Resource/ResourceButton.vue'
+import IconButtonComponentVue from '@/components/App/Resource/ResourceButton.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
-import ModalComponent from '@/components/Shared/ModalComponent.vue'
-import ResourceModalContent from '@/components/Resource/ResourceModalContent.vue'
+import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
+import ResourceModalContent from '@/components/App/Resource/ResourceModalContent.vue'
 
 const showEditModal = ref(false);
 const userState = useUserStore()
