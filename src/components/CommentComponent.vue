@@ -1,11 +1,11 @@
 <template>
-  <div class="w-12">
+  <a :href="`/profile/${comment.user?.id}`" class="w-12">
     <img
       class="rounded-lg"
       :src="props.comment.user?.profilePicture ? comment.user?.profilePicture : '/img'"
       alt=""
     />
-  </div>
+  </a>
   <div class="w-full">
     <div class="flex flex-row gap-2 items-center justify-between relative">
       <div class="flex flex-row gap-2 items-center">
@@ -18,14 +18,7 @@
         <i class="fas fa-ellipsis"></i>
       </div>
       <div :id="'commentDropDown' + comment.id" class="z-50 hidden absolute right-0 top-5">
-        <ul class="bg-white border rounded-md shadow-md">
-          <li
-            v-if="comment.user?.id == user.id"
-            @click="openModal('update')"
-            class="py-2 px-4 hover:bg-gray-100"
-          >
-            Modifier
-          </li>
+        <ul class="bg-white border rounded-md shadow-md cursor-pointer">
           <li
             v-if="comment.user?.id == user.id"
             @click="openModal('delete')"
