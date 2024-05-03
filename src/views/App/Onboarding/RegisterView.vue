@@ -44,8 +44,8 @@
 
 <script setup lang="ts">
 
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue';
-import HeaderComponent from '@/components/Shared/HeaderComponent.vue';
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue';
+import HeaderComponent from '@/components/App/Shared/HeaderComponent.vue';
 import {url} from '@/config/api';
 import router from '@/router';
 

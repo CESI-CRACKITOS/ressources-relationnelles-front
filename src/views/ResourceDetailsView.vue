@@ -26,12 +26,12 @@
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import PostComponent from '@/components/Resource/ResourceComponent.vue'
+import PostComponent from '@/components/App/Resource/ResourceComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 import CommentComponent from '@/components/CommentComponent.vue'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 
 let resource = ref<ResourceEntity[]>([])
 let commentText = ref('')

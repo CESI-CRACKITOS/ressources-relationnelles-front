@@ -19,7 +19,7 @@
 import { onMounted, ref } from 'vue';
 import { getUserById } from '@/composable/Utils/UserUtils.ts'
 import router from '@/router/index.ts'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import { updateUser } from '@/composable/Utils/UpdateUtils.ts'
 import { getBase64 } from '@/composable/Utils/Base64Utils.js'
 

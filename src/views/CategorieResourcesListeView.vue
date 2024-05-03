@@ -13,7 +13,7 @@
 import type ResourceEntity from '@/composable/Entities/Resource'
 import { getResourcesFromCategoryId } from '@/composable/Utils/ResourcesUtils'
 import router from '@/router'
-import PostComponent from '@/components/Resource/ResourceComponent.vue'
+import PostComponent from '@/components/App/Resource/ResourceComponent.vue'
 import { onMounted, ref } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
 

@@ -11,7 +11,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import ResourceEntity from '@/composable/Entities/Resource'
-import LinkComponent from '@/components/Shared/Links/LinkComponent.vue'
+import LinkComponent from '@/components/App/Shared/Links/LinkComponent.vue'
 const props = defineProps({
   resource: {
     type: ResourceEntity,
