@@ -49,19 +49,33 @@
       <ContentButton icon="fa-file-pdf" class="py-2 px-4 text-lg rounded-full" @add="addContent('application/pdf')" />
       <ContentButton icon="fa-image" class="py-2 px-4 text-lg rounded-full" @add="addContent('image/*')" />
     </div>
-    <div v-for="(content, index) in inputData.contents" :key="index" class="flex gap-2 items-center pt-5">
-      <div class="input-wrapper">
-        <input :id="'fileInput' + index" type="file" :accept="content.acceptType" @change="handleUpload($event.target.files[0], content)" class="hidden-input" />
-        <label :for="'fileInput' + index" class="visible-label">
-          {{ content.value ? content.value.name : 'Choisissez un fichier' }}
-        </label>
+
+    <div>
+      <div v-for="(content, index) in inputData.contents" :key="index" class="flex  items-center pt-5">
+
+        <div class="input-wrapper" v-if="!content.id">
+          <input :id="'fileInput' + index" type="file" :accept="content.acceptType" @change="handleUpload($event.target.files[0], content)" class="hidden-input" />
+          <label :for="'fileInput' + index" class="visible-label">
+            {{ content.value ? content.value.name : 'Choisissez un fichier' }}
+          </label>
+          <button @click="deleteContent(content, false)">
+            <i class="fa-solid fa-delete-left fa-xl"></i>
+          </button>
+        </div>
+
+        <div class="flex justify-between w-full" v-if="content.id">
+          <label>{{ content.text }}</label>
+          <button @click="deleteContent(content, true)">
+            <i class="fa-solid fa-delete-left fa-xl"></i>
+          </button>
+        </div>
+
       </div>
-      <button>
-        <i class="fa-solid fa-delete-left fa-xl"></i>
-      </button>
     </div>
 
-    <div class="flex justify-between">
+
+
+    <div class="flex flex-col gap-1">
       <div class="flex gap-2 items-center">
         <label for="">Brouillon</label>
         <input type="checkbox" v-model="inputData.isDraft">
@@ -69,7 +83,7 @@
       <button-component @click="contentOptionsShown = true" v-show="allInputsFilled && !contentOptionsShown">Ajouter un contenu</button-component>
     </div>
 
-    <button-component @click="publish">Poster</button-component>
+    <button-component @click="publish">Envoyer</button-component>
   </div>
 </template>
 <script setup>
@@ -107,7 +121,7 @@ onMounted(async () => {
 })
 
 const allInputsFilled = computed(
-  () => inputData.value.title && inputData.value.contents.every((content) => content?.value)
+  () => inputData.value.title && (inputData.value.contents.every((content) => content?.value || content.id))
 )
 
 const handleRelation = (relationTypeId) => {
@@ -138,6 +152,14 @@ const addContent = (acceptType) => {
   contentOptionsShown.value = false
 }
 
+const deleteContent = (eventContent, isInDb) => {
+  inputData.value.contents = inputData.value.contents.filter((content) => content.id !== eventContent.id);
+  if (isInDb) {
+    inputData.value.toDelete.push(eventContent.id);
+  }
+  console.log(inputData.value.contents);
+}
+
 const handleUpload = async (file, content) => {
   content.value = await getBase64(file)
   content.text = file.name
@@ -145,6 +167,23 @@ const handleUpload = async (file, content) => {
 
 const publish = async () => {
   emit("closeModal");
+
+  if (props.resource) {
+    fetch('http://localhost/api/resources/' + props.resource.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(inputData.value)
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setModal();
+        contentOptionsShown.value = false;
+      })
+    return
+  }
 
   fetch('http://localhost/api/resources', {
     method: 'POST',
@@ -169,7 +208,8 @@ const setModal = () => {
     text: props.resource ? props.resource.text : "",
     contents: props.resource ? props.resource.contents : [],
     isDraft: false,
-    relationTypeIds: props.resource ? props.resource.relationTypes.map((relationType) => relationType.id) : []
+    relationTypeIds: props.resource ? props.resource.relationTypes.map((relationType) => relationType.id) : [],
+    toDelete: []
   }
 }
 
