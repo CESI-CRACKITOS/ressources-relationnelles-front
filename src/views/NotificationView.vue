@@ -4,7 +4,7 @@
       <div class="absolute text-start w-full p-2" @click="back()">
         <i class="fa-solid fa-arrow-left"></i>
       </div>
-      <div>Notifications</div>
+      <div>Notification(s)</div>
     </div>
 
     <div v-for="pendingRelation in pendingRelations" :key="pendingRelation.id" class="px-5">

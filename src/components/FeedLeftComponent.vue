@@ -2,9 +2,10 @@
   <div
     class="flex w-full items-center justify-evenly h-fit border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 bg-slate-50"
   >
-    <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-thumbs-up" />
+    <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-house-chimney" />
     <ButtonLink linkTo="/notifications" buttonLabel="Notifications" icon="fa-solid fa-bell" />
     <ButtonLink :linkTo="'/profile/' + user.id" buttonLabel="Profile" icon="fa-solid fa-user" />
+    <ButtonLink linkTo="/category" buttonLabel="Category" icon="fa-solid fa-list" />
     <ButtonLink
       linkTo="/logout"
       buttonLabel="Déconnexion"
