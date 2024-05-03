@@ -8,6 +8,7 @@ class ResourceEntity {
   categoryId: number
   slug: string
   title: string
+  text: string
   resourceTypeId: number
   userId: number
   isPublished: number
@@ -28,6 +29,7 @@ class ResourceEntity {
     this.categoryId = resource.categoryId
     this.slug = resource.slug
     this.title = resource.title
+    this.text = resource.text
     this.resourceTypeId = resource.resourceTypeId
     this.userId = resource.userId
     this.isPublished = resource.isPublished

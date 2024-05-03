@@ -21,14 +21,7 @@
     </div>
     <div class="flex flex-col gap-1 px-5">
       <p class="text-lg font-bold">{{ resource.title }}</p>
-      <div
-        v-for="content in resource.contents"
-        :key="content.id"
-        @click.stop
-        class="flex flex-col gap-5"
-      >
-        <p v-if="!content.base64">{{ content.text }}</p>
-      </div>
+      <p>{{ resource.text }}</p>
       <div
         v-for="content in resource.contents"
         :key="content.id"
@@ -73,7 +66,7 @@
         <ul class="bg-white border rounded-md shadow-md">
           <li
             v-if="resource.user?.id == user.id"
-            @click="openModal('update')"
+            @click="showEditModal = true"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Modifier
@@ -95,6 +88,15 @@
         </ul>
       </div>
     </div>
+
+    <ModalComponent
+      :modal-name="`update-resource-${resource.id}`"
+      tab-index="2"
+      libelle-modal="Modifier la ressource"
+      :isHidden="showEditModal">
+      <ResourceModalContent :resource="resource" />
+    </ModalComponent>
+
     <ListActionModalComponent
       :targetId="resource.id"
       ModalType="resource"
@@ -113,7 +115,10 @@ import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
+import ModalComponent from '@/components/Shared/ModalComponent.vue'
+import ResourceModalContent from '@/components/Resource/ResourceModalContent.vue'
 
+const showEditModal = ref(false);
 const userState = useUserStore()
 const user = userState.user
 const props = defineProps({
@@ -126,9 +131,11 @@ let show = ref(false)
 let modalToOpen = ref('')
 
 let timeFromPublish = ref('')
+
 onMounted(async () => {
   timeFromPublish.value = await calculateDates(props.resource.created_at)
 })
+
 function resourceDropDown(id: number) {
   show.value = true
   const dropDown = document.getElementById('postDropDown' + id)

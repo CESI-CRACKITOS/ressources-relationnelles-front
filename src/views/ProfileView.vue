@@ -6,7 +6,7 @@
         <p>{{ user.firstname + ' ' + user.lastname }}</p>
         <span class="flex justify-between items-center w-full">
           <i class="fa-solid fa-calendar"></i>
-          A rejoint le {{ formatDate(user.created_at) }}
+          {{ formatDate(user.created_at) }}
         </span>
         <span class="flex justify-between items-center w-full">
           {{ user.relationNumber }} relations

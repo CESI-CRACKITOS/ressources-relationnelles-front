@@ -15,22 +15,13 @@
       </div>
     </div>
   </ModalComponent>
-  <ModalComponent
-    :modal-name="'updatePost' + targetId"
-    tab-index="2"
-    :libelle-modal="'Modifier le ' + ModalType + ' n°' + targetId"
-    :isHidden="updateModalState"
-  >
-    <div class="flex flex-col gap-2">
-      <p>Modifier le poste</p>
-      <div class="flex gap-2">
-        <button @click="updateModal" class="bg-red-500 text-white rounded-md px-2 py-1">Oui</button>
-        <button @click="closeModal" class="bg-green-500 text-white rounded-md px-2 py-1">
-          Non
-        </button>
-      </div>
-    </div>
-  </ModalComponent>
+
+
+
+
+
+
+
   <ModalComponent
     :modal-name="'reportPost' + targetId"
     tab-index="3"
