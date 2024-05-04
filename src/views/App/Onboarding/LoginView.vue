@@ -1,5 +1,8 @@
 <template>
   <div v-if="isRegister" class="bg-green-700 p-2 text-center text-white">Inscription réussie</div>
+  <div v-if="IsError" class="bg-red-700 p-2 text-center text-white">
+    Identifiant ou mot de passe incorrect
+  </div>
   <HeaderComponent />
   <div class="px-5">
     <RouterLink to="/">
@@ -40,7 +43,7 @@ const isRegister = ref(router.currentRoute.value.query.register)
 
 let email = ref('')
 let password = ref('')
-
+let IsError = ref(false)
 function login() {
   instanceDev
     .post('/tokens', {
@@ -51,9 +54,16 @@ function login() {
       if (res.status === 200) {
         const token = res.data.data
         const expirationTime = new Date(Date.now() + 60 * 60 * 744 * 1000) // Expire every month
-        document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; path=/`
-        router.push('/feed')
+        if (res.data.message == 'ERROR') {
+          IsError.value = true
+        } else {
+          document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; path=/`
+          router.push('/feed')
+        }
       }
+    })
+    .catch((err) => {
+      console.log(err)
     })
 }
 </script>
