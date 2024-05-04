@@ -10,7 +10,11 @@
             <img :src="props.resource.user?.profilePicture" class="rounded-lg" alt="" />
           </div>
           <div>
-            <p>{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</p>
+            <div class="flex items-center gap-2">
+              <p>{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</p>
+              <span v-if="resource.isDraft" class="bg-slate-200 p-2 rounded-full text-xs w-fit">Brouillon</span>
+              <span v-if="!resource.isPublished" class="bg-slate-200 p-2 rounded-full text-xs w-fit">Non Publié</span>
+            </div>
             <p class="text-xs text-gray-700">{{ resource.category?.name }}</p>
           </div>
         </div>
