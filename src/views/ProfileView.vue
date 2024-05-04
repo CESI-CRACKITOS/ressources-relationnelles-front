@@ -138,7 +138,7 @@
 import { useUserStore } from '@/stores/user'
 import { formatDate } from '@/composable/Utils/DateUtils'
 import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
-import PostComponent from '@/components/Shared/ResourceComponent.vue'
+import PostComponent from '@/components/Shared/Resource/ResourceComponent.vue'
 import router from '@/router'
 import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'

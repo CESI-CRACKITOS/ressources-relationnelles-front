@@ -9,3 +9,17 @@ export async function index() {
 
   return commentReports;
 }
+
+export async function refuse(commentReportId: number) {
+  await fetch(`http://localhost/api/admin/commentReports/${commentReportId}/refuse`, {
+    credentials: 'include',
+    method: 'PUT',
+  })
+}
+
+export async function accept(commentReportId: number) {
+  await fetch(`http://localhost/api/admin/commentReports/${commentReportId}/accept`, {
+    credentials: 'include',
+    method: 'PUT',
+  })
+}

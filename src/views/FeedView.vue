@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import PostComponent from '@/components/Shared/ResourceComponent.vue'
+import PostComponent from '@/components/Shared/Resource/ResourceComponent.vue'
 import ResourceEntity from '@/composable/Entities/Resource'
 import { getResources } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'

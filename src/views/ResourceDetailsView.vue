@@ -25,11 +25,11 @@
 </template>
 
 <script setup>
-import PostComponent from '@/components/Shared/ResourceComponent.vue'
+import PostComponent from '@/components/Shared/Resource/ResourceComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
-import CommentComponent from '@/components/CommentComponent.vue'
+import CommentComponent from '@/components/Shared/Comment/CommentComponent.vue'
 import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 
 let resource = ref("")

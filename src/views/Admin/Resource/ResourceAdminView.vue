@@ -11,7 +11,7 @@
 <script setup>
 import { index } from '@/composable/Utils/Admin/ResourceAdminUtils.ts'
 import { onMounted, ref } from 'vue'
-import ResourceComponent from '@/components/Shared/ResourceComponent.vue'
+import ResourceComponent from '@/components/Shared/Resource/ResourceComponent.vue'
 
 let resources = ref([])
 
