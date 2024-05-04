@@ -1,3 +1,5 @@
+import RelationEntity from './Relation'
+
 class UserEntity {
   id: number
   lastname: string
@@ -7,6 +9,7 @@ class UserEntity {
   email: number
   role: string
   relationNumber: number
+  relation: RelationEntity = new RelationEntity({})
 
   isActive: boolean
   acceptedCGU: boolean
@@ -33,6 +36,9 @@ class UserEntity {
     this.updated_at = user.updated_at
 
     this.relationNumber = user.numberOfRelation
+    if (user.relation) {
+      this.relation = new RelationEntity(user.relation)
+    }
 
     this.isSuperAdmin = this.role === 'S'
     this.isAdmin = this.role === 'A' || this.isSuperAdmin

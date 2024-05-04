@@ -16,7 +16,7 @@
         </span>
         <span class="flex justify-between items-center w-full">
           {{ user.relationNumber }} relations
-          <div  v-if="sessionUser.id != user.id" @click="userDropDown(user.id)">
+          <div v-if="sessionUser.id != user.id" @click="userDropDown(user.id)">
             <i class="fas fa-ellipsis"></i>
           </div>
           <div :id="'userDropDown' + user.id" class="absolute hidden right-0 top-5">
@@ -30,14 +30,14 @@
               </li>
             </ul>
           </div>
-
         </span>
-        <ButtonComponent v-if="!ShowEditButton" @click="showEditModal = true">
+        <ButtonComponent v-if="ShowEditButton" @click="showEditModal = true">
           Editer le profil</ButtonComponent
         >
-        <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowEditButton"
+        <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowAddButton"
           >Ajouter une relation</ButtonComponent
         >
+        <ButtonComponent v-if="ShowdeleteButton">Supprimer une relation</ButtonComponent>
         <ModalComponent
           modal-name="RelationType"
           :tabIndex="1"
@@ -122,34 +122,38 @@ import RelationEntity from '@/composable/Entities/Relation'
 
 import { onBeforeRouteUpdate } from 'vue-router'
 import UserEditModalContentComponent from '@/components/App/User/UserEditModalContentComponent.vue'
+import type UserEntity from '@/composable/Entities/User'
 const userState = useUserStore()
 const sessionUser = userState.user
 let user = sessionUser
-let ShowEditButton = false
+let ShowEditButton = ref(false)
+let ShowAddButton = ref(false)
+let ShowdeleteButton = ref(false)
 let resources = ref<ResourceEntity[]>([])
 let idRouter = Number(router.currentRoute.value.params.id)
 let RelationModal = ref(false)
 let show = ref(false)
 let modalToOpen = ref('')
 let typeRelation: RelationEntity[]
-let res = ref<any>('')
+let res = ref<UserEntity>()
 const showEditModal = ref(false)
 
 onMounted(async () => {
-  if (idRouter != sessionUser.id) {
-    ShowEditButton = true
-  }
-
   user = await getUserById(idRouter)
 
   resources.value = await getResourcesByUserId(idRouter)
   typeRelation = await getRelations()
+
+  if (idRouter == sessionUser.id) {
+    ShowEditButton.value = true
+  } else if (user.relation.id) {
+    ShowdeleteButton.value = true
+  } else {
+    ShowAddButton.value = true
+  }
 })
 
 onBeforeRouteUpdate(async () => {
-  if (idRouter != sessionUser.id) {
-    ShowEditButton = true
-  }
   user = await getUserById(idRouter)
 
   resources.value = await getResourcesByUserId(idRouter)
