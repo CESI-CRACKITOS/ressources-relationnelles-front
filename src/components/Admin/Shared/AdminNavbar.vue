@@ -6,6 +6,7 @@
     <ButtonLink linkTo="/admin/resources" buttonLabel="Resources" icon="fa-solid fa-list" />
     <ButtonLink linkTo="/admin/categories" buttonLabel="Accueil" icon="fa-solid fa-layer-group" />
     <ButtonLink linkTo="/admin/relationTypes" buttonLabel="Accueil" icon="fa-solid fa-users" />
+    <ButtonLink linkTo="/admin/commentReports" buttonLabel="Accueil" icon="fa-solid fa-comment" />
   </div>
 </template>
 
