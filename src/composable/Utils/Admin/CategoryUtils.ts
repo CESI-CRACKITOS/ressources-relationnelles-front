@@ -23,7 +23,6 @@ export async function destroy(id: number) {
 }
 
 export async function insert(category: CategoryEntity) {
-
   await fetch(`http://localhost/api/admin/categories/`, {
     credentials: 'include',
     method: 'POST',
@@ -35,14 +34,11 @@ export async function insert(category: CategoryEntity) {
 }
 
 export async function update(category: CategoryEntity) {
-
-  console.log(JSON.stringify(category))
-
   await fetch(`http://localhost/api/admin/categories/${category.id}`, {
     credentials: 'include',
     method: 'PUT',
     body: JSON.stringify(category),
-    headers:{
+    headers: {
       'Content-Type': 'application/json'
     }
   })

@@ -37,7 +37,15 @@
         <ButtonComponent @click="RelationModal = !RelationModal" v-if="ShowAddButton"
           >Ajouter une relation</ButtonComponent
         >
-        <ButtonComponent v-if="ShowdeleteButton">Supprimer une relation</ButtonComponent>
+        <ButtonComponent @click="DeleteModal = !DeleteModal" v-if="ShowdeleteButton"
+          >Supprimer une relation</ButtonComponent
+        >
+        <div
+          v-if="ShowPendingButton"
+          class="flex items-center cursor-not-allowed justify-center border border-indigo-600 px-4 py-2 text-indigo-600 w-full hover:bg-indigo-600 hover:text-white"
+        >
+          En atente
+        </div>
         <ModalComponent
           modal-name="RelationType"
           :tabIndex="1"
@@ -71,6 +79,27 @@
           modal-name="edit-profile-modal"
         >
           <UserEditModalContentComponent />
+        </ModalComponent>
+        <ModalComponent
+          :is-hidden="DeleteModal"
+          :libelle-modal="'Supprimer votre relation avec ' + user.firstname + ' ' + user.lastname"
+          tab-index="2"
+          modal-name="edit-profile-modal"
+        >
+          <div class="flex flex-col gap-5">
+            <p>
+              Êtes-vous sûr de vouloir supprimer
+              <span class="font-bold">{{ user.firstname }} </span> de vos
+              <span class="font-bold">{{ user.relation.typeName }} </span>?
+            </p>
+            <div class="flex justify-between w-full gap-10 max-sm:flex-col">
+              <div class="flex justify-between gap-2 w-full">
+                <ButtonComponent @click="removeRelationShip()"> Valider </ButtonComponent>
+
+                <ButtonComponent @click="DeleteModal = false"> Annuler </ButtonComponent>
+              </div>
+            </div>
+          </div>
         </ModalComponent>
       </div>
     </div>
@@ -115,7 +144,7 @@ import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import { onMounted, ref } from 'vue'
 import { getUserById } from '@/composable/Utils/UserUtils'
-import { AddRelation, getRelations } from '@/composable/Utils/RelationUtils'
+import { AddRelation, getRelations, removeRelation } from '@/composable/Utils/RelationUtils'
 import { getResourcesByUserId, getLikedResourcesByUserId } from '@/composable/Utils/ResourcesUtils'
 import type ResourceEntity from '@/composable/Entities/Resource'
 import RelationEntity from '@/composable/Entities/Relation'
@@ -129,9 +158,11 @@ let user = sessionUser
 let ShowEditButton = ref(false)
 let ShowAddButton = ref(false)
 let ShowdeleteButton = ref(false)
+let ShowPendingButton = ref(false)
 let resources = ref<ResourceEntity[]>([])
 let idRouter = Number(router.currentRoute.value.params.id)
 let RelationModal = ref(false)
+let DeleteModal = ref(false)
 let show = ref(false)
 let modalToOpen = ref('')
 let typeRelation: RelationEntity[]
@@ -147,7 +178,11 @@ onMounted(async () => {
   if (idRouter == sessionUser.id) {
     ShowEditButton.value = true
   } else if (user.relation.id) {
-    ShowdeleteButton.value = true
+    if (user.relation.isPending) {
+      ShowPendingButton.value = true
+    } else {
+      ShowdeleteButton.value = true
+    }
   } else {
     ShowAddButton.value = true
   }
@@ -214,5 +249,10 @@ function copyRegisterLink() {
 }
 function back() {
   router.go(-1)
+}
+
+async function removeRelationShip() {
+  await removeRelation(user.relation.id)
+  DeleteModal.value = false
 }
 </script>
