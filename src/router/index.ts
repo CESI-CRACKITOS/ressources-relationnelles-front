@@ -21,6 +21,7 @@ import UserSearchView from '@/views/App/User/UserSearchView.vue'
 import AdminView from '@/views/Admin/AdminView.vue'
 import ResourceAdminView from '@/views/Admin/Resource/ResourceAdminView.vue'
 import RelationTypeView from '@/views/Admin/RelationType/RelationTypeAdminView.vue'
+import StatisticsAdminView from '@/views/Admin/Statistics/StatisticsAdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -140,6 +141,15 @@ const router = createRouter({
           path: 'resources',
           name: 'admin-resources',
           component: ResourceAdminView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'A'
+          }
+        },
+        {
+          path: '/admin/stats',
+          name: 'admin-stats',
+          component: StatisticsAdminView,
           meta: {
             requiresAuth: true,
             requireRole: 'A'
