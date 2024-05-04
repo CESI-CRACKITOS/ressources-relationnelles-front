@@ -19,4 +19,5 @@ onMounted(async () => {
   resources.value = await index()
 })
 
+
 </script>

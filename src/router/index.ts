@@ -23,6 +23,7 @@ import ResourceAdminView from '@/views/Admin/Resource/ResourceAdminView.vue'
 import RelationTypeView from '@/views/Admin/RelationType/RelationTypeAdminView.vue'
 import CommentReportAdminView from '@/views/Admin/CommentReport/CommentReportAdminView.vue'
 import StatisticsAdminView from '@/views/Admin/Statistics/StatisticsAdminView.vue'
+import UserReportAdminView from '@/views/Admin/UserReports/UserReportAdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -178,6 +179,15 @@ const router = createRouter({
           path: '/admin/commentReports',
           name: 'admin-comment-reports',
           component: CommentReportAdminView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'A'
+          }
+        },
+        {
+          path: '/admin/userReports',
+          name: 'admin-user-reports',
+          component: UserReportAdminView,
           meta: {
             requiresAuth: true,
             requireRole: 'A'
