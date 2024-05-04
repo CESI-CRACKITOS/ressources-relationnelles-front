@@ -11,7 +11,7 @@
 import { defineProps } from 'vue'
 import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import CategoryEntity from '@/composable/Entities/Category.ts'
-import { insert, update } from '@/composable/Utils/Admin/CategoryUtils.ts'
+import { insert, update } from '@/composable/Utils/Admin/CategoryAdminUtils.ts'
 
 const props = defineProps({
   category: {}

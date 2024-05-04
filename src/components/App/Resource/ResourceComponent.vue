@@ -69,25 +69,31 @@
       <div :id="'postDropDown' + resource.id" class="absolute hidden right-0 top-10 hover:cursor-pointer" @click.stop>
         <ul class="bg-white border rounded-md shadow-md">
           <li
-            v-if="resource.user?.id == user.id"
+            v-if="resource.user?.id == user.id && !isAdmin"
             @click="showEditModal = true"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Modifier
           </li>
           <li
-            v-if="resource.user?.id == user.id"
+            v-if="resource.user?.id == user.id && !isAdmin"
             @click="openModal('delete')"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Suprimer
           </li>
           <li
-            v-if="resource.user?.id != user.id"
+            v-if="resource.user?.id != user.id && !isAdmin"
             @click="openModal('report')"
             class="py-2 px-4 hover:bg-gray-100"
           >
             Signaler
+          </li>
+          <li v-if="isAdmin" class="py-2 px-4 hover:bg-gray-100" @click="acceptResource">
+            Accepter
+          </li>
+          <li v-if="isAdmin" class="py-2 px-4 hover:bg-gray-100" @click="refuseResource">
+            Refuser
           </li>
         </ul>
       </div>
@@ -121,6 +127,7 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import ResourceModalContent from '@/components/App/Resource/ResourceModalContent.vue'
+import { accept, refuse } from '@/composable/Utils/Admin/ResourceAdminUtils'
 
 const showEditModal = ref(false);
 const userState = useUserStore()
@@ -135,6 +142,8 @@ let show = ref(false)
 let modalToOpen = ref('')
 
 let timeFromPublish = ref('')
+
+const isAdmin = router.currentRoute.value.fullPath === "/admin/resources";
 
 onMounted(async () => {
   timeFromPublish.value = await calculateDates(props.resource.created_at)
@@ -153,4 +162,15 @@ function navigateToResourceDetails(id: number) {
 function openModal(type: string) {
   modalToOpen.value = type
 }
+
+const acceptResource = async () => {
+  await accept(props.resource.id)
+  window.location.reload()
+}
+
+const refuseResource = async () => {
+  await refuse(props.resource.id)
+  window.location.reload()
+}
+
 </script>
