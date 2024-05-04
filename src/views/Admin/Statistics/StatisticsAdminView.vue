@@ -37,7 +37,7 @@ onMounted(async () => {
       data: {
         datasets: [
           {
-            label: 'Nombre de ressources crée par jours',
+            label: 'Nombre de ressources créées par jour',
             data: tableauResources
           }
         ]
@@ -58,7 +58,7 @@ onMounted(async () => {
       data: {
         datasets: [
           {
-            label: 'Nombre de commentaires crée par jours',
+            label: 'Nombre de commentaires créés par jour',
             data: tableauCommentaires
           }
         ]
@@ -79,7 +79,7 @@ onMounted(async () => {
       data: {
         datasets: [
           {
-            label: 'Nombre de compte crée par jours',
+            label: 'Nombre de comptes créés par jour',
             data: tableauUsers
           }
         ]
