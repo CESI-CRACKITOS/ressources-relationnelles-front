@@ -16,12 +16,6 @@
     </div>
   </ModalComponent>
 
-
-
-
-
-
-
   <ModalComponent
     :modal-name="'reportPost' + targetId"
     tab-index="3"
@@ -31,7 +25,7 @@
     <div class="flex flex-col gap-2 mt-5">
       <div class="flex justify-between w-full">
         <select
-          class="border-indigo-600 border-2 text-indigo-600 rounded-md p-2"
+          class="border-indigo-600 border-2 text-indigo-600 rounded-md p-2 w-full"
           v-model="checkedOne"
           required
         >
@@ -48,17 +42,17 @@
         placeholder="Expliquez nous pourquoi vous voulez le signaler"
       ></textarea>
     </div>
-    <div class="flex justify-end gap-2 mt-5">
-      <button @click="ValidateReport()" class="bg-blue-500 text-white px-3 py-1 rounded-md">
-        Envoyer
-      </button>
-      <button @click="closeModal()" class="bg-gray-200 px-3 py-1 rounded-md">Annuler</button>
+    <div class="flex justify-between gap-2 w-full pt-5">
+      <ButtonComponent :-remplis="true" @click="ValidateReport()"> Valider </ButtonComponent>
+
+      <ButtonComponent @click="closeModal()"> Annuler </ButtonComponent>
     </div>
   </ModalComponent>
 </template>
 
 <script setup lang="ts">
-import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
+import ModalComponent from '@/components/Shared/ModalComponent.vue'
+import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
 import { ref, watch, onMounted } from 'vue'
 import { deleteComment, deleteResource } from '@/composable/Utils/DeleteUtils'
 import { updateComment, updateResource, updateUser } from '@/composable/Utils/UpdateUtils'
