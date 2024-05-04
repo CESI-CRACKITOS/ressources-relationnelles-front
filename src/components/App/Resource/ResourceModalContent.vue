@@ -73,12 +73,10 @@
       </div>
     </div>
 
-
-
     <div class="flex flex-col gap-1">
       <div class="flex gap-2 items-center">
         <label for="">Brouillon</label>
-        <input type="checkbox" v-model="inputData.isDraft">
+        <input type="checkbox" v-model="inputData.isDraft" :checked="inputData.isDraft">
       </div>
       <button-component @click="contentOptionsShown = true" v-show="allInputsFilled && !contentOptionsShown">Ajouter un contenu</button-component>
     </div>
@@ -109,8 +107,6 @@ const emit = defineEmits(["closeModal"]);
 const props = defineProps({
   resource: ResourceEntity
 })
-
-
 
 onMounted(async () => {
   setModal();
@@ -158,7 +154,6 @@ const deleteContent = (eventContent, isInDb) => {
   if (isInDb) {
     inputData.value.toDelete.push(eventContent.id);
   }
-  console.log(inputData.value.contents);
 }
 
 const handleUpload = async (file, content) => {
@@ -206,11 +201,10 @@ const setModal = () => {
     title: props.resource ? props.resource.title : "",
     text: props.resource ? props.resource.text : "",
     contents: props.resource ? props.resource.contents : [],
-    isDraft: false,
+    isDraft: props.resource ? props.resource.isDraft : false,
     relationTypeIds: props.resource ? props.resource.relationTypes.map((relationType) => relationType.id) : [],
     toDelete: []
   }
-  console.log(inputData.value)
 }
 
 </script>
