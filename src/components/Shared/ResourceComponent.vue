@@ -61,6 +61,7 @@
           :numberToshow="resource.numberOfLikes"
           cursor="cursor-pointer"
           :is-liked="resource.isLiked"
+          v-if="!isAdmin"
         />
       </div>
       <div @click="resourceDropDown(resource.id)" @click.stop class="hover:cursor-pointer">
