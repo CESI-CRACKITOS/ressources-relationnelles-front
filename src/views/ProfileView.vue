@@ -10,8 +10,8 @@
       <img :src="user.profilePicture" class="rounded-full w-36" alt="" />
       <div class="relative">
         <p>{{ user.firstname + ' ' + user.lastname }}</p>
-        <span class="flex justify-between items-center w-full">
-          <i class="fa-solid fa-calendar"></i>
+        <span class="flex items-center w-full">
+          <i class="fa-solid fa-calendar me-2"></i>
           {{ formatDate(user.created_at) }}
         </span>
         <span class="flex justify-between items-center w-full">
