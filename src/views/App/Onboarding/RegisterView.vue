@@ -87,20 +87,13 @@ async function register() {
     const response = await res;
     const json = await response.json();
     const data = json.data;
-
-    if (json.message === 'ERROR') {
-        if (data.lastname) {
-            error.value = "Le nom est obligatoire"
-        } else if (data.firstname) {
-            error.value = "Le prénom est obligatoire";
-        } else if (data.email) {
-            error.value = "L'email est obligatoire et doit être valide et unique";
-        } else if (data.password) {
-            error.value = "Le mot de passe est obligatoire et doit faire au moins 8 caractères";
-        }
+    if (json.message != "OK") {
+      error.value = json.message
     } else {
-        router.push('/login?register=true');
+      router.push('/login?register=true');
     }
+
+
 
 }
 
