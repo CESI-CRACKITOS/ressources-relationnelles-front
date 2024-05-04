@@ -29,31 +29,6 @@ export async function getResources() {
   return resources
 }
 
-export async function getRestrictedResources() {
-  const res = fetch('http://localhost/api/resources/restricted', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    method: 'GET'
-  })
-
-  const data = await res.then((response) => response.json())
-  const resources: ResourceEntity[] = []
-  for (let i = 0; i < data.data.length; i++) {
-    const resourceEntity = new ResourceEntity(data.data[i])
-    resourceEntity.setUser(data.data[i].user)
-    data.data[i].contents.forEach((content: any) => {
-      resourceEntity.addContents(new ResourceContentEntity(content))
-    })
-    resources.push(resourceEntity)
-  }
-  resources.sort((a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  })
-  return resources
-}
-
 export async function getResourceById(id: number) {
   const res = fetch(`http://localhost/api/resources/${id}`, {
     headers: {

@@ -1,6 +1,5 @@
 <template>
-
-  <div class="flex flex-col bg-white max-h-[700px] max-w-[900px] overflow-y-auto rounded-md" :class="[border]">
+  <div>
     <div class="flex items-center justify-between p-5 bg-white sticky top-0">
       <div class="flex gap-1">
         <h1 class="text-xl">
@@ -32,6 +31,8 @@
     </div>
   </div>
 
+
+
 </template>
 <script setup>
 import { defineProps } from 'vue'
@@ -45,6 +46,7 @@ const props = defineProps({
     required: true
   }
 })
+
 const acceptResource = async (id) => {
   await accept(id)
   window.location.reload()

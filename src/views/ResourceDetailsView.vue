@@ -24,8 +24,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import ResourceEntity from '@/composable/Entities/Resource'
+<script setup>
 import PostComponent from '@/components/App/Resource/ResourceComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
@@ -33,7 +32,7 @@ import router from '@/router'
 import CommentComponent from '@/components/CommentComponent.vue'
 import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 
-let resource = ref<ResourceEntity[]>([])
+let resource = ref("")
 let commentText = ref('')
 let idResource = router.currentRoute.value.params.id
 
@@ -43,21 +42,13 @@ onMounted(async () => {
 
 
 
-async function addComment() {
+async function addComment()
+{
   try {
-    // Vérifiez d'abord si le texte du commentaire n'est pas vide
     if (!commentText.value.trim()) {
       return
     }
-
-    // Préparez les données du commentaire
-    const newComment = {
-      text: commentText.value
-      // Vous pouvez ajouter d'autres champs du commentaire ici si nécessaire
-    }
-
-    // Appelez l'API pour ajouter le commentaire
-    const response = fetch('http://localhost/api/comments', {
+    await fetch('http://localhost/api/comments', {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -68,11 +59,11 @@ async function addComment() {
 
     resource.value = await getResourceById(idResource)
     commentText = ref('')
-    // Assurez-vous que la réponse de l'API indique que le commentaire a été ajouté avec succès
   } catch (error) {
-    // Gérez les erreurs ici
+    console.log(error)
   }
 }
+
 
 function back(){
   router.go(-1)
