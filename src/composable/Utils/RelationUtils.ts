@@ -39,7 +39,7 @@ export async function AddRelation(userId: number, receiverId: number, relationTy
   return data
 }
 export async function removeRelation(relationsId: string) {
-  const res = fetch('http://localhost/api/relations' + relationsId, {
+  const res = fetch('http://localhost/api/relations/' + relationsId, {
     headers: {
       'Content-Type': 'application/json'
     },
