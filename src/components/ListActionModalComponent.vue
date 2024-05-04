@@ -51,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import ModalComponent from '@/components/Shared/ModalComponent.vue'
-import ButtonComponent from '@/components/Shared/buttons/ButtonComponent.vue'
+import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
+import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
 import { ref, watch, onMounted } from 'vue'
 import { deleteComment, deleteResource } from '@/composable/Utils/DeleteUtils'
 import { updateComment, updateResource, updateUser } from '@/composable/Utils/UpdateUtils'
