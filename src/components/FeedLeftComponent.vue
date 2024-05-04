@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex w-full items-center justify-evenly h-fit border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 bg-slate-50 overflow-x-auto overflow-y-hidden"
+    class="flex w-full items-center justify-evenly h-fit border-t md:flex-col md:h-full md:w-fit md:items-start md:justify-start p-4 gap-1 bg-slate-50"
   >
     <ButtonLink linkTo="/feed" buttonLabel="Accueil" icon="fa-solid fa-house-chimney" />
     <ButtonLink linkTo="/notifications" buttonLabel="Notifications" icon="fa-solid fa-bell" />
