@@ -119,7 +119,7 @@
 
 <script setup lang="ts">
 import ResourceEntity from '@/composable/Entities/Resource'
-import IconButtonComponentVue from '@/components/App/Resource/ResourceButton.vue'
+import IconButtonComponentVue from '@/components/Shared/ResourceButton.vue'
 import ListActionModalComponent from '@/components/ListActionModalComponent.vue'
 import router from '@/router'
 import { calculateDates } from '@/composable/Utils/DateUtils'

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import PostComponent from '@/components/App/Resource/ResourceComponent.vue'
+import PostComponent from '@/components/Shared/ResourceComponent.vue'
 import { getResourceById } from '@/composable/Utils/ResourcesUtils'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
