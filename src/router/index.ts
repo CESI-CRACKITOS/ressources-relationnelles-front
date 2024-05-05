@@ -24,6 +24,7 @@ import RelationTypeView from '@/views/Admin/RelationType/RelationTypeAdminView.v
 import CommentReportAdminView from '@/views/Admin/CommentReport/CommentReportAdminView.vue'
 import StatisticsAdminView from '@/views/Admin/Statistics/StatisticsAdminView.vue'
 import UserReportAdminView from '@/views/Admin/UserReports/UserReportAdminView.vue'
+import ReportTypeView from '@/views/Admin/ReportType/ReportTypeAdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -149,7 +150,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/admin/stats',
+          path: 'stats',
           name: 'admin-stats',
           component: StatisticsAdminView,
           meta: {
@@ -158,7 +159,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/admin/categories',
+          path: 'categories',
           name: 'admin-categories',
           component: CategoryAdminView,
           meta: {
@@ -167,7 +168,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/admin/relationTypes',
+          path: 'relationTypes',
           name: 'admin-relation-types',
           component: RelationTypeView,
           meta: {
@@ -176,7 +177,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/admin/commentReports',
+          path: 'commentReports',
           name: 'admin-comment-reports',
           component: CommentReportAdminView,
           meta: {
@@ -185,9 +186,18 @@ const router = createRouter({
           }
         },
         {
-          path: '/admin/userReports',
+          path: 'userReports',
           name: 'admin-user-reports',
           component: UserReportAdminView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'A'
+          }
+        },
+        {
+          path: 'reportTypes',
+          name: 'admin-report-types',
+          component: ReportTypeView,
           meta: {
             requiresAuth: true,
             requireRole: 'A'

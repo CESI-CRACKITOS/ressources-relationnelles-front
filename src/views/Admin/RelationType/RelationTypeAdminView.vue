@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-y-auto">
     <div class="p-5">
       <div class="flex justify-end py-4">
         <button-component @click="openModal()">Ajouter</button-component>
@@ -14,8 +14,8 @@
         <tbody>
         <tr v-for="relationType in relationTypes" :key="relationType.id" class="border-b-gray-200 border-b" @click="openModal(relationType)" :id="`relationType-${relationType.id}`">
           <td class="px-6 py-1.5 lg:py-3 text-black">{{ relationType.name }}</td>
-          <td class="px-6 py-1.5 lg:py-3 text-black text-end">
-            <ButtonComponent btnStyle="danger" @click="deleteRelationType(relationType.id)" @click.stop>
+          <td class="flex justify-end px-6 py-1.5 lg:py-3 text-black">
+            <ButtonComponent @click="deleteRelationType(relationType.id)" @click.stop>
               Supprimer
             </ButtonComponent>
           </td>
