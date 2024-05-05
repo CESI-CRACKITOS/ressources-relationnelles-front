@@ -16,7 +16,7 @@
       linkTo="/admin/resources"
       buttonLabel="Admin mode"
       icon="fa-solid fa-user-tie"
-      v-if="user.isAdmin"
+      v-if="user.isModerator"
     />
 
     <button class="flex items-center justify-center border border-indigo-600 px-4 py-2

@@ -9,7 +9,7 @@
         Hidden
       "
     >
-      <div class="h-full w-full max-h-full relative">
+      <div class="h-full w-full max-h-full relative" @click="changeStatus">
         <div
           class="absolute -translate-y-2/4 -translate-x-2/4 top-2/4 left-2/4 p-4 max-w-full flex items-center justify-center"
         >
@@ -60,4 +60,12 @@ watch(
     Hidden.value = newVal ? 'fixed' : 'hidden'
   }
 )
+
+function changeStatus(){
+  if (Hidden.value == 'hidden'){
+    Hidden.value = "fixed"
+  } else {
+    Hidden.value = 'hidden'
+  }
+}
 </script>

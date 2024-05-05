@@ -143,16 +143,16 @@ const router = createRouter({
       component: AdminView,
       children: [
         {
-          path: 'resources',
+          path: '/admin/resources',
           name: 'admin-resources',
           component: ResourceAdminView,
           meta: {
             requiresAuth: true,
-            requireRole: 'A'
+            requireRole: 'M'
           }
         },
         {
-          path: 'stats',
+          path: '/admin/stats',
           name: 'admin-stats',
           component: StatisticsAdminView,
           meta: {
@@ -161,7 +161,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'categories',
+          path: '/admin/categories',
           name: 'admin-categories',
           component: CategoryAdminView,
           meta: {
@@ -170,7 +170,7 @@ const router = createRouter({
           }
         },
         {
-          path: 'relationTypes',
+          path: '/admin/relationTypes',
           name: 'admin-relation-types',
           component: RelationTypeView,
           meta: {
@@ -179,25 +179,25 @@ const router = createRouter({
           }
         },
         {
-          path: 'commentReports',
+          path: '/admin/commentReports',
           name: 'admin-comment-reports',
           component: CommentReportAdminView,
           meta: {
             requiresAuth: true,
-            requireRole: 'A'
+            requireRole: 'M'
           }
         },
         {
-          path: 'userReports',
+          path: '/admin/userReports',
           name: 'admin-user-reports',
           component: UserReportAdminView,
           meta: {
             requiresAuth: true,
-            requireRole: 'A'
+            requireRole: 'M'
           }
         },
         {
-          path: 'reportTypes',
+          path: '/admin/reportTypes',
           name: 'admin-report-types',
           component: ReportTypeView,
           meta: {
@@ -211,7 +211,7 @@ const router = createRouter({
           component: UsersAdminView,
           meta: {
             requiresAuth: true,
-            requireRole: 'A'
+            requireRole: 'S'
           }
         },
         {
@@ -220,7 +220,7 @@ const router = createRouter({
           component: UserAdminSearchView,
           meta: {
             requiresAuth: true,
-            requireRole: 'A'
+            requireRole: 'S'
           }
         }
       ]
@@ -271,7 +271,7 @@ router.beforeEach(async (to, from, next) => {
         const roleMap: { [key: string]: boolean } = {
           A: user.isAdmin,
           U: user.isUser,
-          SA: user.isSuperAdmin,
+          S: user.isSuperAdmin,
           M: user.isModerator
         }
 

@@ -3,7 +3,7 @@
     <table class="w-full border border-gray-200 rounded-md">
       <thead class="text-xs text-gray-700 uppercase bg-gray-100">
       <tr class="text-xs text-gray-700 uppercase bg-gray-100 py-4">
-        <td class="px-6 py-1.5 lg:py-3 text-black">Usuer</td>
+        <td class="px-6 py-1.5 lg:py-3 text-black">Utilisateur</td>
         <td class="px-6 py-1.5 lg:py-3 text-black">Role actuel</td>
         <td class="px-6 py-1.5 lg:py-3 text-black items-end"></td>
       </tr>
