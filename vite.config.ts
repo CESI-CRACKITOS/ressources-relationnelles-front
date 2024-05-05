@@ -12,22 +12,22 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Vue 3 Vite PWA',
-        short_name: 'V3VPWA',
+        name: 'Ressources Relationnelles',
+        short_name: 'RR',
         theme_color: '#ffffff',
         icons: [
           {
-            src: '/pwa-192x192.png',
+            src: '/logo-192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
-            src: '/pwa-512x512.png',
+            src: '/logo-512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      }
+            type: 'image/png',
+          },
+        ],
+      },
     })
   ],
   resolve: {
