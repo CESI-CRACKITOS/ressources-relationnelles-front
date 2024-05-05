@@ -10,7 +10,6 @@
       "
     >
       <div class="h-full w-full max-h-full relative">
-        <div class="absolute top-0 left-0 h-full w-full" @click="changeState"></div>
         <div
           class="absolute -translate-y-2/4 -translate-x-2/4 top-2/4 left-2/4 p-4 max-w-full flex items-center justify-center"
         >
@@ -19,13 +18,6 @@
               class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 print:hidden"
             >
               <h3 class="text-lg font-semibold text-gray-900">{{ libelleModal }}</h3>
-              <button
-                @click="changeState"
-                type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-              >
-                <i class="fa-solid fa-xmark"></i>
-              </button>
             </div>
             <div class="">
               <slot />
@@ -68,9 +60,4 @@ watch(
     Hidden.value = newVal ? 'fixed' : 'hidden'
   }
 )
-
-function changeState() {
-  modalTestState.value = !modalTestState.value
-  Hidden.value = modalTestState.value ? 'fixed' : 'hidden'
-}
 </script>

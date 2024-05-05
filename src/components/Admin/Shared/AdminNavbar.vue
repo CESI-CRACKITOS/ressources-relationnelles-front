@@ -9,6 +9,7 @@
     <ButtonLink linkTo="/admin/stats" buttonLabel="Accueil" icon="fa-solid fa-chart-simple" />
     <ButtonLink linkTo="/admin/commentReports" buttonLabel="Accueil" icon="fa-solid fa-comment" />
     <ButtonLink linkTo="/admin/userReports" buttonLabel="Accueil" icon="fa-solid fa-user-ninja" />
+    <ButtonLink linkTo="/admin/users" buttonLabel="Accueil" icon="fa-solid fa-users" />
     <ButtonLink linkTo="/admin/reportTypes" buttonLabel="Report types" icon="fa-solid fa-triangle-exclamation" />
   </div>
 </template>

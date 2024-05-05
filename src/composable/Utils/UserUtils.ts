@@ -131,3 +131,16 @@ export async function refusePendingRelation(id: number) {
 
   return data
 }
+
+export async function updateRole(id:string,role :string) {
+  console.log(id,role)
+  const res = fetch(`http://localhost/api/admin/users/${id}`, {
+    credentials: 'include',
+    method: 'PUT',
+    body: JSON.stringify({role:role}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+}

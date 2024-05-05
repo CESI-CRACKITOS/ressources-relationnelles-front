@@ -24,6 +24,8 @@ import RelationTypeView from '@/views/Admin/RelationType/RelationTypeAdminView.v
 import CommentReportAdminView from '@/views/Admin/CommentReport/CommentReportAdminView.vue'
 import StatisticsAdminView from '@/views/Admin/Statistics/StatisticsAdminView.vue'
 import UserReportAdminView from '@/views/Admin/UserReports/UserReportAdminView.vue'
+import UsersAdminView from '@/views/Admin/Users/UsersAdminView.vue'
+import UserAdminSearchView from '@/views/Admin/Users/UserAdminSearchView.vue'
 import ReportTypeView from '@/views/Admin/ReportType/ReportTypeAdminView.vue'
 
 const router = createRouter({
@@ -203,6 +205,24 @@ const router = createRouter({
             requireRole: 'A'
           }
         },
+        {
+          path: '/admin/users',
+          name: 'admin-users',
+          component: UsersAdminView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'A'
+          }
+        },
+        {
+          path: "/admin/users/search/:query",
+          name: 'users-admin-search',
+          component: UserAdminSearchView,
+          meta: {
+            requiresAuth: true,
+            requireRole: 'A'
+          }
+        }
       ]
     },
     {
