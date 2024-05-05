@@ -64,7 +64,7 @@
           v-if="!isAdmin"
         />
       </div>
-      <div @click="resourceDropDown(resource.id)" @click.stop class="hover:cursor-pointer">
+      <div v-if="resource.user?.id == user.id || isAdmin" @click="resourceDropDown(resource.id)" @click.stop class="hover:cursor-pointer">
         <i class="fa-solid fa-ellipsis"></i>
       </div>
       <div :id="'postDropDown' + resource.id" class="absolute hidden right-0 top-10 hover:cursor-pointer" @click.stop>
@@ -82,13 +82,6 @@
             class="py-2 px-4 hover:bg-gray-100"
           >
             Suprimer
-          </li>
-          <li
-            v-if="resource.user?.id != user.id && !isAdmin"
-            @click="openModal('report')"
-            class="py-2 px-4 hover:bg-gray-100"
-          >
-            Signaler
           </li>
           <li v-if="isAdmin" class="py-2 px-4 hover:bg-gray-100" @click="acceptResource">
             Accepter
