@@ -10,24 +10,24 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', '512.png', 'icons/*'],
       manifest: {
-        name: 'Ressources Relationnelles',
-        short_name: 'RR',
+        name: 'Re(Source) relationelles ',
+        short_name: 'Re(Source)',
         theme_color: '#ffffff',
+        background_color: '#000000',
+        display: 'standalone',
+        scope: '/',
+        orientation: 'portrait',
         icons: [
           {
-            src: '/logo-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/logo-512.png',
+            src: '/icons/512.png',
             sizes: '512x512',
-            type: 'image/png',
-          },
+            type: 'image/png'
+          }
         ],
-      },
+        start_url: '/home',
+      }
     })
   ],
   resolve: {
