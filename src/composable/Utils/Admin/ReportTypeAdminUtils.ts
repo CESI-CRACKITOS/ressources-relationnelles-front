@@ -1,12 +1,13 @@
+import api from '@/config/api'
 export async function destroy(reportTypeId: any) {
-  const res = fetch('http://localhost/api/admin/reportTypes/' + reportTypeId, {
+  const res = fetch('/admin/reportTypes/' + reportTypeId, {
     credentials: 'include',
     method: 'DELETE'
   })
 }
 
 export async function insert(name: string) {
-  await fetch('http://localhost/api/admin/reportTypes/', {
+  await fetch(api + '/admin/reportTypes/', {
     credentials: 'include',
     method: 'POST',
     headers: {
@@ -19,7 +20,7 @@ export async function insert(name: string) {
 }
 
 export async function update(id: any, name: string) {
-  await fetch(`http://localhost/api/admin/reportTypes/` + id, {
+  await fetch(api + `/admin/reportTypes/` + id, {
     credentials: 'include',
     method: 'PUT',
     body: JSON.stringify({

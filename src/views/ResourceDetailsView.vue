@@ -1,8 +1,9 @@
 <template>
   <div class="h-screen rounded w-full overflow-scroll">
-    <div
-      class="w-full flex flex-row justify-center items-center text-center relative text-xl py-4">
-      <div class="absolute text-start w-full p-2" @click="back()"><i class="fa-solid fa-arrow-left"></i></div>
+    <div class="w-full flex flex-row justify-center items-center text-center relative text-xl py-4">
+      <div class="absolute text-start w-full p-2" @click="back()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
       <div>Détail</div>
     </div>
     <PostComponent :key="resource.id" :resource="resource" />
@@ -31,8 +32,9 @@ import { onMounted, ref } from 'vue'
 import router from '@/router'
 import CommentComponent from '@/components/Shared/Comment/CommentComponent.vue'
 import ButtonComponent from '@/components/App/Shared/buttons/ButtonComponent.vue'
+import api from '@/config/api'
 
-let resource = ref("")
+let resource = ref('')
 let commentText = ref('')
 let idResource = router.currentRoute.value.params.id
 
@@ -40,15 +42,12 @@ onMounted(async () => {
   resource.value = await getResourceById(idResource)
 })
 
-
-
-async function addComment()
-{
+async function addComment() {
   try {
     if (!commentText.value.trim()) {
       return
     }
-    await fetch('http://localhost/api/comments', {
+    await fetch(api + '/comments', {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -64,8 +63,7 @@ async function addComment()
   }
 }
 
-
-function back(){
+function back() {
   router.go(-1)
 }
 </script>

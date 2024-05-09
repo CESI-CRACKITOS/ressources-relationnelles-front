@@ -1,3 +1,3 @@
-const url : string = 'http://localhost/api'; // Changeme
+const url: string = 'http://localhost/api'
 
-export  {url};
+export default url

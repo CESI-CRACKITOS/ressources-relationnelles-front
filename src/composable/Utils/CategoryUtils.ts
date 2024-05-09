@@ -1,7 +1,8 @@
 import CategoryEntity from '@/composable/Entities/Category'
+import api from '@/config/api'
 
 export async function getTendencies() {
-  const res = fetch('http://localhost/api/categories/tendency', {
+  const res = fetch(api + '/categories/tendency', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -21,7 +22,7 @@ export async function getTendencies() {
 }
 
 export async function getCategories() {
-  const res = fetch('http://localhost/api/categories', {
+  const res = fetch(api + '/categories', {
     headers: {
       'Content-Type': 'application/json'
     },

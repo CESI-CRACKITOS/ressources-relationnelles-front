@@ -1,17 +1,18 @@
+import api from '@/config/api'
 export async function index() {
-  const res = fetch("http://localhost/api/admin/userReports", {
+  const res = fetch(api + '/admin/userReports', {
     credentials: 'include'
-  });
+  })
 
   const data = await res.then((response) => response.json())
 
   const userReports: any[] = data.data
 
-  return userReports;
+  return userReports
 }
 
 export async function accept(id: number) {
-  const res = fetch(`http://localhost/api/admin/userReport/${id}/accept`, {
+  const res = fetch(api + `/admin/userReport/${id}/accept`, {
     credentials: 'include',
     method: 'PUT'
   })
@@ -20,7 +21,7 @@ export async function accept(id: number) {
 }
 
 export async function refuse(id: number) {
-  const res = fetch(`http://localhost/api/admin/userReport/${id}/refuse`, {
+  const res = fetch(api + `/admin/userReport/${id}/refuse`, {
     credentials: 'include',
     method: 'PUT'
   })

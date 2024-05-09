@@ -1,7 +1,8 @@
 import CategoryEntity from '@/composable/Entities/Category'
+import api from '@/config/api'
 
 export async function index() {
-  const res = fetch('http://localhost/api/categories', {
+  const res = fetch(api + '/categories', {
     credentials: 'include'
   })
 
@@ -16,14 +17,14 @@ export async function index() {
 }
 
 export async function destroy(id: number) {
-  const res = fetch(`http://localhost/api/admin/categories/${id}`, {
+  const res = fetch(api + `/admin/categories/${id}`, {
     credentials: 'include',
     method: 'DELETE'
   })
 }
 
 export async function insert(category: CategoryEntity) {
-  await fetch(`http://localhost/api/admin/categories/`, {
+  await fetch(api + `/admin/categories/`, {
     credentials: 'include',
     method: 'POST',
     body: JSON.stringify(category),
@@ -34,7 +35,7 @@ export async function insert(category: CategoryEntity) {
 }
 
 export async function update(category: CategoryEntity) {
-  await fetch(`http://localhost/api/admin/categories/${category.id}`, {
+  await fetch(api + `/admin/categories/${category.id}`, {
     credentials: 'include',
     method: 'PUT',
     body: JSON.stringify(category),

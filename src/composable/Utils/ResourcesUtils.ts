@@ -1,9 +1,9 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '../Entities/ResourceContent'
 import ResourceCommentEntity from '../Entities/ResourceComment'
-
+import api from '@/config/api'
 export async function getResources() {
-  const res = fetch('http://localhost/api/resources', {
+  const res = fetch(api + '/resources', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -30,7 +30,7 @@ export async function getResources() {
 }
 
 export async function getResourceById(id: number) {
-  const res = fetch(`http://localhost/api/resources/${id}`, {
+  const res = fetch(api + `/resources/${id}`, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -56,7 +56,7 @@ export async function getResourceById(id: number) {
 }
 
 export async function getResourcesByUserId(userId: number) {
-  const res = fetch('http://localhost/api/users/' + userId + '/resources', {
+  const res = fetch(api + '/users/' + userId + '/resources', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -83,7 +83,7 @@ export async function getResourcesByUserId(userId: number) {
 }
 
 export async function getLikedResourcesByUserId(userId: number) {
-  const res = fetch('http://localhost/api/users/' + userId + '/likedResources', {
+  const res = fetch(api + '/users/' + userId + '/likedResources', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -110,7 +110,7 @@ export async function getLikedResourcesByUserId(userId: number) {
 }
 
 export async function likeAResource(resourceId: number, userId: number) {
-  const res = fetch('http://localhost/api/like/' + resourceId + '/' + userId, {
+  const res = fetch(api + '/like/' + resourceId + '/' + userId, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -128,7 +128,7 @@ export async function likeAResource(resourceId: number, userId: number) {
 }
 
 export async function getResourcesFromCategoryId(id: string) {
-  const res = fetch(`http://localhost/api/categories/${id}/resources`, {
+  const res = fetch(api + `/categories/${id}/resources`, {
     headers: {
       'Content-Type': 'application/json'
     },

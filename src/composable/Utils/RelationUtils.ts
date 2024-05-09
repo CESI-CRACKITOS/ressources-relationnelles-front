@@ -1,8 +1,9 @@
 import RelationEntity from '@/composable/Entities/Relation'
 import PendingRelationEntity from '@/composable/Entities/PendingRelation'
+import api from '@/config/api'
 
 export async function getRelations() {
-  const res = fetch('http://localhost/api/relationTypes', {
+  const res = fetch(api + '/relationTypes', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -22,7 +23,7 @@ export async function getRelations() {
 }
 
 export async function AddRelation(userId: number, receiverId: number, relationTypeId: string) {
-  const res = fetch('http://localhost/api/relations', {
+  const res = fetch(api + '/relations', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -39,7 +40,7 @@ export async function AddRelation(userId: number, receiverId: number, relationTy
   return data
 }
 export async function removeRelation(relationsId: string) {
-  const res = fetch('http://localhost/api/relations/' + relationsId, {
+  const res = fetch(api + '/relations/' + relationsId, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -52,7 +53,7 @@ export async function removeRelation(relationsId: string) {
 }
 
 export async function getPendingRelation() {
-  const res = fetch('http://localhost/api/relations/requested', {
+  const res = fetch(api + '/relations/requested', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -69,7 +70,7 @@ export async function getPendingRelation() {
 }
 
 export async function acceptPendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relations/' + id + '/accept', {
+  const res = fetch(api + '/relations/' + id + '/accept', {
     credentials: 'include'
   })
 
@@ -79,7 +80,7 @@ export async function acceptPendingRelation(id: number) {
 }
 
 export async function refusePendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relations/' + id + '/refuse', {
+  const res = fetch(api + '/relations/' + id + '/refuse', {
     credentials: 'include'
   })
 

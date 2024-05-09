@@ -1,10 +1,11 @@
+import api from '@/config/api'
 export async function reportResource(
   userId: string,
   reportTypeId: string,
   resourceId: string,
   content: string
 ) {
-  const res = fetch(`http://localhost/api/resourceReports`, {
+  const res = fetch(api + `/resourceReports`, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -28,7 +29,7 @@ export async function reportComment(
   commentId: string,
   content: string
 ) {
-  const res = fetch('http://localhost/api/commentReport', {
+  const res = fetch(api + '/commentReport', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -52,7 +53,7 @@ export async function reportUser(
   reportedUserId: string,
   content: string
 ) {
-  const res = fetch('http://localhost/api/userReports', {
+  const res = fetch(api + '/userReports', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -72,7 +73,7 @@ export async function reportUser(
 }
 
 export async function reportTypes() {
-  const res = fetch('http://localhost/api/reportTypes', {
+  const res = fetch(api + '/reportTypes', {
     headers: {
       'Content-Type': 'application/json'
     },

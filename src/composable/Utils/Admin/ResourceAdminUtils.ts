@@ -1,8 +1,8 @@
 import ResourceEntity from '@/composable/Entities/Resource'
 import ResourceContentEntity from '@/composable/Entities/ResourceContent'
-
+import api from '@/config/api'
 export async function index() {
-  const res = fetch('http://localhost/api/admin/resources', {
+  const res = fetch(api + '/admin/resources', {
     credentials: 'include'
   })
 
@@ -21,7 +21,7 @@ export async function index() {
 }
 
 export async function accept(id: number) {
-  const res = fetch(`http://localhost/api/admin/resources/${id}/accept`, {
+  const res = fetch(api + `/admin/resources/${id}/accept`, {
     credentials: 'include',
     method: 'PUT'
   })
@@ -30,7 +30,7 @@ export async function accept(id: number) {
 }
 
 export async function refuse(id: number) {
-  const res = fetch(`http://localhost/api/admin/resources/${id}/refuse`, {
+  const res = fetch(api + `/admin/resources/${id}/refuse`, {
     credentials: 'include',
     method: 'PUT'
   })

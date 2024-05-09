@@ -1,11 +1,11 @@
 //update resource
 
 import type ResourceEntity from '../Entities/Resource'
-import type UserEntity from '../Entities/User'
+import api from '@/config/api'
 import type ResourceCommentEntity from '../Entities/ResourceComment'
 
 export async function updateResource(resource: ResourceEntity) {
-  const res = await fetch(`http://localhost/api/resources/${resource.id}`, {
+  const res = await fetch(api + `/resources/${resource.id}`, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -20,7 +20,7 @@ export async function updateResource(resource: ResourceEntity) {
 // update a user
 
 export async function updateUser(user: object, id: number) {
-  const res = await fetch(`http://localhost/api/users/${id}`, {
+  const res = await fetch(api + `/users/${id}`, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -34,7 +34,7 @@ export async function updateUser(user: object, id: number) {
 
 // update a comment
 export async function updateComment(comment: ResourceCommentEntity) {
-  const res = await fetch(`http://localhost/api/comments/${comment.id}`, {
+  const res = await fetch(api + `/comments/${comment.id}`, {
     headers: {
       'Content-Type': 'application/json'
     },

@@ -1,10 +1,9 @@
 import UserEntity from '@/composable/Entities/User'
 import PendingRelationEntity from '@/composable/Entities/PendingRelation'
-import ResourceEntity from '@/composable/Entities/Resource'
-import ResourceContentEntity from '@/composable/Entities/ResourceContent'
+import api from '@/config/api'
 
 export async function getUserFromToken(tokenValue: string) {
-  const res = fetch('http://localhost/api/users/getByToken', {
+  const res = fetch(api + '/users/getByToken', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -22,7 +21,7 @@ export async function getUserFromToken(tokenValue: string) {
 }
 
 export async function searchUsers(query: string): Promise<UserEntity[]> {
-  const res = fetch('http://localhost/api/users/search/' + query, {
+  const res = fetch(api + '/users/search/' + query, {
     credentials: 'include'
   })
   const data = await res.then((response) => response.json())
@@ -35,7 +34,7 @@ export async function searchUsers(query: string): Promise<UserEntity[]> {
 }
 
 export async function getSuggestedUsers() {
-  const res = await fetch('http://localhost/api/users/suggested', {
+  const res = await fetch(api + '/users/suggested', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -55,7 +54,7 @@ export async function getSuggestedUsers() {
 }
 
 export async function getUserById(IdUser: number) {
-  const res = fetch('http://localhost/api/users/' + IdUser, {
+  const res = fetch(api + '/users/' + IdUser, {
     method: 'GET',
     credentials: 'include'
   })
@@ -66,7 +65,7 @@ export async function getUserById(IdUser: number) {
 }
 
 export async function AddRelation(userId: number, receiverId: number, relationTypeId: number) {
-  const res = fetch('http://localhost/api/relations', {
+  const res = fetch(api + '/relations', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -83,7 +82,7 @@ export async function AddRelation(userId: number, receiverId: number, relationTy
   return data
 }
 export async function removeRelation(relationsId: string) {
-  const res = fetch('http://localhost/api/relations' + relationsId, {
+  const res = fetch(api + '/relations' + relationsId, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -96,7 +95,7 @@ export async function removeRelation(relationsId: string) {
 }
 
 export async function getPendingRelation() {
-  const res = fetch('http://localhost/api/relations/requested', {
+  const res = fetch(api + '/relations/requested', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -113,7 +112,7 @@ export async function getPendingRelation() {
 }
 
 export async function acceptPendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/accept', {
+  const res = fetch(api + '/relation/' + id + '/accept', {
     credentials: 'include'
   })
 
@@ -123,7 +122,7 @@ export async function acceptPendingRelation(id: number) {
 }
 
 export async function refusePendingRelation(id: number) {
-  const res = fetch('http://localhost/api/relation/' + id + '/refuse', {
+  const res = fetch(api + '/relation/' + id + '/refuse', {
     credentials: 'include'
   })
 
@@ -132,15 +131,13 @@ export async function refusePendingRelation(id: number) {
   return data
 }
 
-export async function updateRole(id:string,role :string) {
-  console.log(id,role)
-  const res = fetch(`http://localhost/api/admin/users/${id}`, {
+export async function updateRole(id: string, role: string) {
+  const res = fetch(api + `/admin/users/${id}`, {
     credentials: 'include',
     method: 'PUT',
-    body: JSON.stringify({role:role}),
+    body: JSON.stringify({ role: role }),
     headers: {
       'Content-Type': 'application/json'
     }
   })
-
 }
