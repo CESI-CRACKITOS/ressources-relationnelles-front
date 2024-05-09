@@ -57,7 +57,7 @@ function login() {
         if (res.data.message == 'ERROR') {
           IsError.value = true
         } else {
-          document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; path=/`
+          document.cookie = `token=${token}; expires=${expirationTime.toUTCString()}; Domain=.teo.one; `
           router.push('/feed')
         }
       }
