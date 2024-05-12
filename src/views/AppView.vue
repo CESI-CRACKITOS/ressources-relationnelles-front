@@ -1,7 +1,9 @@
 <template>
-  <div class="h-screen justify-between flex flex-col-reverse md:flex-row w-full items-center overflow-hidden bg-slate-50 xl:px-32 2xl:px-64">
+  <div
+    class="h-screen justify-between flex flex-col-reverse md:flex-row w-full items-center overflow-hidden bg-slate-50 xl:px-32 2xl:px-64"
+  >
     <FeedLeftComponent />
-    <router-view class="w-full md:border-x" />
+    <router-view class="w-full md:border-x pb-16" />
     <FeedRightComponent class="hidden lg:flex" />
   </div>
 </template>
