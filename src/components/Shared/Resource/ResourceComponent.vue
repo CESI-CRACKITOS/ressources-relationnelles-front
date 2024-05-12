@@ -94,7 +94,7 @@
             @click="openModal('delete')"
             class="py-2 px-4 hover:bg-gray-100"
           >
-            Suprimmer
+            supprimer
           </li>
           <li v-if="isAdmin" class="py-2 px-4 hover:bg-gray-100" @click="acceptResource">
             Accepter
