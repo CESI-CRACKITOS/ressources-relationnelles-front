@@ -44,7 +44,7 @@
           v-if="ShowPendingButton"
           class="flex items-center cursor-not-allowed justify-center border border-indigo-600 px-4 py-2 text-indigo-600 w-full hover:bg-indigo-600 hover:text-white"
         >
-          En atente
+          En attente
         </div>
         <ModalComponent
           modal-name="RelationType"
@@ -110,7 +110,7 @@
         @click="Display('post')"
         id="post"
       >
-        <span class="p-2">Resource</span>
+        <span class="p-2">Ressource</span>
         <div class="h-1 w-10/12 rounded-full bg-blue-700"></div>
       </div>
       <div
