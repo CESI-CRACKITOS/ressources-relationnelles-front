@@ -89,8 +89,7 @@ function closeModal() {
 let res = ref('')
 async function changeRole() {
   res.value = await updateRole(userModal.value.id, checkedOne.value)
-  console.log(res.value)
-  alert(res.value)
+  alert('Role modifié avec succès')
   RelationModal.value = false
   location.reload()
 }
