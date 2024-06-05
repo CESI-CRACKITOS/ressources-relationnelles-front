@@ -9,7 +9,7 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', '512.png', 'icons/*'],
+      includeAssets: ['favicon.ico', 'robots.txt', '512.png', 'icons/*'],
       manifest: {
         name: 'Re(Source) relationelles',
         short_name: 'Re(Source)',
@@ -25,11 +25,11 @@ export default defineConfig({
             type: 'image/png'
           }
         ],
-        start_url: '/home',
-        ios: {
-          'apple-mobile-web-app-title': 'Re(Source)',
-          'apple-mobile-web-app-status-bar-style': 'black-translucent'
-        }
+        start_url: './home',
+        id: 'com.ressource.relationelles',
+        description: 'Re(Source) relationelles is a relational database management system.',
+        lang: 'fr-FR',
+        dir: 'ltr'
       }
     })
   ],
