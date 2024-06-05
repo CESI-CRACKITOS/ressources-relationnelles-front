@@ -1,5 +1,4 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -12,7 +11,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', '512.png', 'icons/*'],
       manifest: {
-        name: 'Re(Source) relationelles ',
+        name: 'Re(Source) relationelles',
         short_name: 'Re(Source)',
         theme_color: '#ffffff',
         background_color: '#000000',
@@ -27,6 +26,10 @@ export default defineConfig({
           }
         ],
         start_url: '/home',
+        ios: {
+          'apple-mobile-web-app-title': 'Re(Source)',
+          'apple-mobile-web-app-status-bar-style': 'black-translucent'
+        }
       }
     })
   ],
