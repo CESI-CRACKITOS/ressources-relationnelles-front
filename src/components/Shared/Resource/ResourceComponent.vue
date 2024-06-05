@@ -12,8 +12,12 @@
           <div>
             <div class="flex items-center gap-2">
               <p>{{ resource.user?.firstname + ' ' + resource.user?.lastname }}</p>
-              <span v-if="resource.isDraft" class="bg-slate-200 p-2 rounded-full text-xs w-fit">Brouillon</span>
-              <span v-if="!resource.isPublished" class="bg-slate-200 p-2 rounded-full text-xs w-fit">Non Publié</span>
+              <span v-if="resource.isDraft" class="bg-slate-200 p-2 rounded-full text-xs w-fit"
+                >Brouillon</span
+              >
+              <span v-if="!resource.isPublished" class="bg-slate-200 p-2 rounded-full text-xs w-fit"
+                >Non Publié</span
+              >
             </div>
             <p class="text-xs text-gray-700">{{ resource.category?.name }}</p>
           </div>
@@ -64,10 +68,19 @@
           v-if="!isAdmin"
         />
       </div>
-      <div v-if="resource.user?.id == user.id || isAdmin" @click="resourceDropDown(resource.id)" @click.stop class="hover:cursor-pointer">
+      <div
+        v-if="resource.user?.id == user.id || isAdmin"
+        @click="resourceDropDown(resource.id)"
+        @click.stop
+        class="hover:cursor-pointer"
+      >
         <i class="fa-solid fa-ellipsis"></i>
       </div>
-      <div :id="'postDropDown' + resource.id" class="absolute hidden right-0 top-10 hover:cursor-pointer" @click.stop>
+      <div
+        :id="'postDropDown' + resource.id"
+        class="absolute hidden right-0 top-10 hover:cursor-pointer"
+        @click.stop
+      >
         <ul class="bg-white border rounded-md shadow-md">
           <li
             v-if="resource.user?.id == user.id && !isAdmin"
@@ -81,7 +94,7 @@
             @click="openModal('delete')"
             class="py-2 px-4 hover:bg-gray-100"
           >
-            Suprimer
+            supprimer
           </li>
           <li v-if="isAdmin" class="py-2 px-4 hover:bg-gray-100" @click="acceptResource">
             Accepter
@@ -97,7 +110,8 @@
       :modal-name="`update-resource-${resource.id}`"
       tab-index="2"
       libelle-modal="Modifier la ressource"
-      :isHidden="showEditModal">
+      :isHidden="showEditModal"
+    >
       <ResourceModalContent :resource="resource" />
     </ModalComponent>
 
@@ -123,7 +137,7 @@ import ModalComponent from '@/components/App/Shared/ModalComponent.vue'
 import ResourceModalContent from '@/components/App/Resource/ResourceModalContent.vue'
 import { accept, refuse } from '@/composable/Utils/Admin/ResourceAdminUtils'
 
-const showEditModal = ref(false);
+const showEditModal = ref(false)
 const userState = useUserStore()
 const user = userState.user
 const props = defineProps({
@@ -137,7 +151,7 @@ let modalToOpen = ref('')
 
 let timeFromPublish = ref('')
 
-const isAdmin = router.currentRoute.value.fullPath === "/admin/resources";
+const isAdmin = router.currentRoute.value.fullPath === '/admin/resources'
 
 onMounted(async () => {
   timeFromPublish.value = await calculateDates(props.resource.created_at)
@@ -166,5 +180,4 @@ const refuseResource = async () => {
   await refuse(props.resource.id)
   window.location.reload()
 }
-
 </script>

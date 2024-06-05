@@ -2,7 +2,7 @@
   <ModalComponent
     :modal-name="'deletePost' + targetId"
     tab-index="1"
-    :libelle-modal="'Suprimer le ' + ModalType + ' n°' + targetId"
+    :libelle-modal="'Suprimmer le ' + ModalType + ' n°' + targetId"
     :isHidden="deleteModalState"
   >
     <div class="flex flex-col gap-2">

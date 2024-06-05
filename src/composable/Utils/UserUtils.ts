@@ -132,7 +132,7 @@ export async function refusePendingRelation(id: number) {
 }
 
 export async function updateRole(id: string, role: string) {
-  const res = fetch(api + `/admin/users/${id}`, {
+  const res = await fetch(api + `/admin/users/${id}`, {
     credentials: 'include',
     method: 'PUT',
     body: JSON.stringify({ role: role }),
