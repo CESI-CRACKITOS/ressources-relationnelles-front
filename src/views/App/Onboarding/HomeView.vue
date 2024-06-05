@@ -18,7 +18,7 @@
       </a>
 
       <button
-        v-if="isComputer && !isPWA"
+        v-if="(isComputer && !isPWA) || isSafari"
         @click="openPrompt"
         class="flex gap-2 items-center justify-center px-4 py-2 w-full bg-indigo-600 text-white hover:cursor-pointer hover:bg-indigo-700 text-2xl"
       >
@@ -51,9 +51,29 @@ onbeforeinstallprompt = (event) => {
 }
 
 onMounted(() => {
+  if ('serviceWorker' in navigator) {
+    // Register a service worker hosted at the root of the
+    // site using the default scope.
+    navigator.serviceWorker.register('/sw.js').then(
+      (registration) => {
+        alert('Service worker registration succeeded:', registration)
+      },
+      (error) => {
+        alert(`Service worker registration failed: ${error}`)
+      }
+    )
+  } else {
+    alert('Service workers are not supported.')
+  }
+
   isComputer.value = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   )
   isPWA.value = window.matchMedia('(display-mode: standalone)').matches
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  if (isSafari) {
+    // Do something for Safari
+  }
 })
 </script>
